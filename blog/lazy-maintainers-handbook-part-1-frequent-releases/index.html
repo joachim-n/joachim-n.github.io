@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/lazy-maintainers-handbook-part-1-frequent-releases" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/37" />
+
+    <title>The Lazy Maintainer&#039;s Handbook, Part 1: Frequent Releases | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_vfIdNKgDtRvyJuw916Kx8ALuhmUSYHx-WEC-P_sCyfQ.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>The Lazy Maintainer&#039;s Handbook, Part 1: Frequent Releases</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Thu, 03/31/2016 - 00:59
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p><em>Every now and then I think about writing a series of posts called 'The Lazy Maintainer's Handbook', covering various aspects of how to maintain a project (or several) on drupal.org without it being a huge burden on your time (which a lot of people, and companies, think is the case). However, I never get much past the pondering stage. Since it's safe to say that I'm never going to manage to come up with the right order to write these in, I'm just going to start in the middle. Here goes.</em></p>
+<p>Like with all software, bugs are a problem in the world of Drupal. In Drupal contrib, like with any software that has releases, we can classify bugs into three types:</p>
+<ul>
+<li>bugs which are reported, but have no fix,</li>
+<li>bugs which have a fix, but the patch hasn't been committed,</li>
+<li>bugs which have been fixed, but are not part of a release yet.</li>
+</ul>
+<p>The first and second type can involve a fair amount of work, and I will cover in another post in the future how much a LM can or should do about them.</p>
+<p>The third type though is where the LM can really shine: all that needs to be done here is to make a release. What could be simpler? And let's be clear, making a release is a very quick job. I can do the whole thing in about a minute (though I've not timed it, yet).</p>
+<p>For one thing, if you're still writing the release notes by hand, then <em>stop</em>: <a href="https://www.drupal.org/project/grn">Git Release Notes for Drush</a> does that for you.</p>
+<p>Here's my process:</p>
+<ul>
+<li>
+<code>$ git tag</code> This lists all the existing tags, so I can see what the next release number should be.</li>
+<li>
+<code>$ git tag 7.x-1.2</code> This creates the tag for the new release.</li>
+<li>At this point, it's a good idea to check this in a graphical git client, to check for stupid mistakes like making the tag on a local development branch, or the wrong major branch. (I've done that at least once.)</li>
+<li>
+<code>$ git push origin 7.x-1.2</code> This creates the tag on the remote repository.</li>
+<li>
+<code>$ drush release-notes</code> This creates the release notes, using all the commit messages between the previous commit and the commit you just made. (Another reason to use the <a href="https://www.drupal.org/node/52287">standard format for commit messages</a>: it will turn the #12345 issue numbers into tags for d.org to then render as links.)</li>
+<li>Select the output from the command and copy it.</li>
+<li>Go to your project's page on d.org and click the 'Add new release' link.</li>
+<li>Select the new tag.</li>
+<li>Paste the release notes and save the node.</li>
+</ul>
+<p>I speed this up even more by having a bash alias for 'drush release-notes | pbcopy', which on OS X puts the text output by the Drush command onto the clipboard, so I can skip the selecting and copying step.</p>
+<p>It's quick, right? Fun, even! Why don't maintainers do it more often? The reasons I can think of are:</p>
+<ul>
+<li>the current branch HEAD (and thus -dev release) is unstable and badly broken</li>
+<li>maintainers are worried about making releases too frequent and making site builders update all the time</li>
+<li>maintainers have fallen prey to the 'just one more fix' syndrome, and are waiting for another issue (or issues) to be resolved.</li>
+</ul>
+<p>Let's address these shall we?</p>
+<h2>The branch is unstable</h2>
+<p>This can happen when you're still on alpha releases, and something's caused you to take a new direction in development. This is a tough case: there's no going back, and you're stuck going forward. The only thing I would advise here is to look at the git history since the last release and see if there's a commit between then and now that could be tagged as the next alpha: for instance if the first few commits after the alpha were simple bug fixes. To try to prevent this problem, I recommend making a release immediately before you take a new direction in development, and if it's a very large rewrite, starting a new major branch, even if that means abandoning the 1.x branch at the alpha stage.</p>
+<p>If a major rewrite happens and you're on beta releases or stable releases, then you're doing it wrong: a major rewrite should be cause to start a new major branch.</p>
+<h2>The last release was recent, and users may dislike frequent releases</h2>
+<p>Inspecting and testing new releases takes time. More importantly, perhaps, it has quite a high cognitive cost, as for each module you update, you need to review the release notes to look for any changes that might affect your site's functionality, and any parts of your site's codebase that make use of that module's code. It's also a bit stressful, because if something does break, it could be in a part of the site you don't think to check, so the first you'll hear of it is when your client or project manager calls in a panic two days later.</p>
+<p>Understandably then, a lot of developers and site builders put off module updates, or don't bother with them until there's a security release.</p>
+<p>This may be a time saving, but I don't believe it's an effort saving. Suppose you're on release 1.0 and releases 1.1 and then 1.2 come along. You can either upgrade to each one when it comes out, or you wait for 1.2 and then upgrade straight to that.</p>
+<p>Doing two upgrades seems like more work, because you're only having to check the site once.</p>
+<p>But I would counter that it's less overall cognitive load, because each single release has fewer changes. If releases are frequent, and include only up to a dozen or so commits, then it's easier to scan down the list of issues in the release notes, and maybe see that they're all very minor bug fixes, or clearly only affect functionality that your site doesn't use.</p>
+<p>Ultimately, I don't think postponing upgrades pays off, because eventually, you'll have to bite the bullet and upgrade past several version numbers. Worse, you may have your hand forced when a security update comes along, and you'll be in the situation of having to read the release notes for all the versions you skipped and assessing them, <em>while your site is on fire</em>.</p>
+<p>So I think small, frequent releases are actually a good thing, even from the point of view of existing users.</p>
+<p>From the point of view of new users, they're a great thing: new users get better code, with fixed bugs. And that applies to existing users as well of course.</p>
+<p>(A future episode in this series will cover an idea I've had for ages, of a metric for when you should do a release: after so many commits or weeks have passed.)</p>
+<h2>You're waiting for just one more fix</h2>
+<p>Don't. It might never come. In my experience, it probably won't. You'll think to yourself, 'just one more week and someone will review this patch', or 'I'll write a patch for this in the next week'. That week becomes two, and a month, and a year, and even more. I've seen comments on issues called 'Plan for a 1.0 release' where the maintainer says 'I'll make a release in the next two weeks' and that comment is over a year old. I saw one of those comments recently that was two years old. It was mine.</p>
+<p>Fight the urge to wait for more fixes. Yes, you want your module to be good, even maybe perfect. But tell yourself: if you release now, you're still making it <em>better</em>. So here's what you need to do:</p>
+<ul>
+<li>If you're still not on a stable release, release another alpha or beta. The real purpose of unstable releases should be to get people to test your code. You really want them to be testing something recent, not code that's six months old.</li>
+<li>If you're on stable releases, just release another one. Those issues you were waiting for can go in the next release (or the one after…)</li>
+</ul>
+<p>Hopefully that should assuage concerns regarding one's responsibility as a maintainer.</p>
+<p>But as a <em>lazy</em> maintainer, what's the benefit to you?</p>
+<ul>
+<li>Your recent fixes are out there and in use. A bug isn't truly eradicated until a release is made that includes the fix.</li>
+<li>Fewer duplicate issues filed. With fewer bugs that are fixed in dev but not in a release, there's less chance of people encountering them.</li>
+<li>More users, because the age of the most recent release is a metric people use when evaluating a module.</li>
+<li>Users are using a more recent version of the code, which means newer bugs are more likely to get caught. (Because seriously, how many people are actually trying out the dev release, unless they're forced to by unreleased fixes?)</li>
+</ul>
+<p>Get the code out. Dev code serves nobody. Releases are what matters.</p></div>
+      
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/37","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"37"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

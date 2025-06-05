@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/what-goes-drupal-code-builder" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/38" />
+
+    <title>What goes on in Drupal Code Builder? | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_vfIdNKgDtRvyJuw916Kx8ALuhmUSYHx-WEC-P_sCyfQ.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>What goes on in Drupal Code Builder?</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Sun, 05/15/2016 - 13:13
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p><a href="https://github.com/drupal-code-builder/drupal-code-builder">Drupal Code Builder library</a> is the new library which powers <a href="https://www.drupal.org/project/module_builder">Module Builder</a>. I <a href="http://www.noreiko.com/blog/module-builder-announces-split-due-functionality-differences">recently split Module Builder up</a>, so Drupal Code Builder (DCB) is the engine for generating Drupal code, while what remains in the Module Builder module is just the UI.</p>
+<p>DCB is an extensible framework, so if you wanted to have DCB create scaffold code for a particular Drupal component or system, you can.</p>
+<p>DCB's API is documented in the README. It's based on the idea of tasks: for example, list the hooks and plugin types that DCB has parsed from the site code, analyze the site code to update that list, or generate code for a module. There are Task classes, and you call public methods on these to do something.</p>
+<h2>The generators</h2>
+<p>Broadly, there are three things you want to do with DCB: collect and analyze data about a Drupal codebase to learn about hooks and plugin types, report on that data, and actually generate some code.</p>
+<p>The Generate task class is where the work of creating code begins. The other task classes are all pretty simple, or at least self-contained, but the Generate task is accompanied by a large number of classes in the DrupalCodeBuilder\Generate namespace. You can see from the file names that these represent all the different components that make up generated code.</p>
+<p>Furthermore, as well as all inheriting from BaseGenerator, there are hierarchies which can probably be deduced from the names alone, where more specialized generators inherit from generic ones. For example, we have:</p>
+<ul>
+<li>File
+<ul>
+<li>PHPFile
+<ul>
+<li>ModuleCodeFile</li>
+<li>PHPClassFile
+<ul>
+<li>Plugin</li>
+<li>Service</li>
+</ul>
+</li>
+<li>API (this one's for your mymodule.api.php file)</li>
+</ul>
+</li>
+<li>YMLFile</li>
+<li>Readme</li>
+</ul>
+</li>
+</ul>
+<p>and also:</p>
+<ul>
+<li>PHPFunction
+<ul>
+<li>HookImplementation
+<ul>
+<li>HookMenu</li>
+<li>HookPermission</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>However, these hierarchies are only about code re-use. In terms of PHP code, HookImplementation is only related to ModuleCodeFile by the common BaseGenerator base class. As the process of code generation takes place, there will be a tree of components that represents components containing each other, but it's important to remember that class inheritance doesn't come into it.</p>
+<p>Also, while the generators in the hierarchies above clearly represent some tangible part of the code we're going to generate, some are more abstract, such as Module and Hooks. These aren't abstract in the OO sense, as they will get instantiated, but I think of them as abstract in the sense that they're not concrete and are responsible for code across different files. (Suggestions for a better word to describe them please!)</p>
+<p>The process of generating code starts with a call to the Generate task's generateComponent() method. The host UI application (such as Module Builder module, or the Drush command) passes it an array of data that looks something like this:</p>
+<pre><code>[
+  'base' =&gt; 'module',
+  'root_name' =&gt; 'mymodule,
+  'readable_name' =&gt; 'My module',
+  'hooks' =&gt; [
+    'form_alter' =&gt; TRUE,
+    'install' =&gt; TRUE,
+  ],
+  'plugins =&gt; [
+    0 =&gt; [
+      'plugin_type' =&gt; 'block',
+      'plugin_name' =&gt; 'my_plugin',
+      'injected_services' =&gt; [
+        'current_user',
+      ],
+    ],
+  ],
+  'settings_form' =&gt; TRUE,
+  'readme' =&gt; TRUE,
+]
+</code></pre>
+<p>(How you get the specification for this array as a list of properties and their expected format is a detailed topic of its own, which will be covered later. For now, we're jumping in at the point where code is generated.)</p>
+<h2>Assembling components</h2>
+<p>The first job for the Generate task class is to turn this array of data into a list of generator classes for the necessary components.</p>
+<p>This list is built up in a cascade, where each component gets to request further components, and those get to request components too, and so on, until we reach components that don't request anything. We start with the root component that was initially requested, Module, let that request components, and then repeat the process.</p>
+<p>This is best illustrated with the AdminSettingsForm generator. This implements the requiredComponents() method to request:</p>
+<ul>
+<li>a permission</li>
+<li>a router item (on Drupal 7 that's a menu item, but in DCB we refer to these a router item whatever the core Drupal version)</li>
+<li>a form</li>
+</ul>
+<p>In turn, the Permission generator requests a permissions YAML file. You'll see that there are two Permission generators, each with a version suffix. The Permission7 generator requests a hook_permission() hook, which in turn requests a .module file. The Permission8 generator is somewhat simpler, and just requests a YMLFile component.</p>
+<p>Meanwhile, the router item requests a routing.yml file on D8, and a hook_menu() on D7.</p>
+<p>These two parts of the cascade end when we reach the various file generators: ModuleCodeFile and YMLFile don't request anything. The process that gathers all these generators works iteratively: every iteration it calls requiredComponents() on all the components the previous iteration gave it, and it only stops once an iteration produces no new components. It's safe to request the same component multiple times; in the D7 version of our example, both our hook_menu() and hook_permission() will request a ModuleCodeFile component that represents the .module file. The cascade system knows to either combine these two requests into one component, or ignore the second if it's identical to what's already been requested.</p>
+<p>We now have a list of about a dozen or so components, each of which is an instantiated Generator object. Some represent files, some represent functions, and some like Hooks represent a more vague concept of the module 'having some hooks'. There's also the Module generator which started the whole process, whose requiredComponents() did most of the work of interpreting the given array of data.</p>
+<h2>Assembling a tree of components</h2>
+<p>The second part of the process is to assemble this flat list of components into a tree. This is where the notion of which component contains others does come into play. This is a different concept from requested components: a component can request something that it won't end up containing, as we saw with the AdminSettingsForm, which requests a permission.</p>
+<p>The Generate task calls the containingComponent() method on each component, and this is used to assemble an array of parentage data. There's nothing fancy or recursive going on here; the tree is just an array whose keys are the identifiers of components, and whose values are arrays of the child component identifiers.</p>
+<p>This tree now represents a structure of components where child items will produce code to be included in their parents. One part of this structure could be represented like this:</p>
+<ul>
+<li>module
+<ul>
+<li>routing.yml
+<ul>
+<li>router item</li>
+</ul>
+</li>
+<li>permission.yml
+<ul>
+<li>permission</li>
+</ul>
+</li>
+<li>.install
+<ul>
+<li>hook_install()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Some components, such as the Hooks component, are no longer around now: their job was to be a sort of broker for other components in the requesting phase, and they're no longer involved. The root component, Module, is the root of the tree. All the files we'll be outputting are its immediate children. (This is not a file hierarchy, folders are not represented here.)</p>
+<h2>Assembling file contents</h2>
+<p>We now have everything we need to start actually generating some code. This is done in a way that's very similar to Drupal's Render API: we recurse into the tree, asking each component to return some content both from itself and its children.</p>
+<p>So for example, the router items contribute some lines to the routing.yml file, which then turns them into YAML. The .install component, which is an instance of ModuleCodeFile, produces a @file docblock, and then gets the docblock, function declaration, and function body from the hook_install component, and glues them all together.</p>
+<p>Finally, each file component (the immediate children of the module component in the tree) gets to say what its file name and path should be.</p>
+<p>So the Generate task has an array of data about files, where each item has a file name, file path, and file contents. This is returned to the caller to be output to the user, or written to the filesystem. Module Builder presents the files in a form, and allows the files to be written. The Drush command outputs them to terminal and optionally writes them too.</p>
+<h2>Extending it with new components</h2>
+<p>The best way to add new things for DCB to generate is to inherit from existing basic classes. If these don’t provide the flexibility, there’s always a case to be made to give them more configurable options: for example, the AdminSettingsForm class inherits from Form, but neither of those do very little for the actual generated form class, as the work for that is mostly done by the PHPClass class.</p>
+<p>The roadmap for DCB at the moment consists of the following:</p>
+<ul>
+<li>Generalize the injected services functionality that’s already in Plugins, so generated Form classes and Services can have them too.</li>
+<li>Add Forms as a basic component that you can request to generate. (It’s currently there only as a base for the AdminSettingsForm generator.)</li>
+</ul>
+<p>And as ever, keep adding tests, keep refactoring and improving the code. But I'm always interested in hearing new ideas (or you know, better yet, patches) in the issue queue.</p></div>
+      
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/38","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"38"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

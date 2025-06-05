@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/unnatural-file-changes-git" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/49" />
+
+    <title>Unnatural file changes with git | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_vfIdNKgDtRvyJuw916Kx8ALuhmUSYHx-WEC-P_sCyfQ.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>Unnatural file changes with git</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Sun, 01/27/2019 - 07:19
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>When you check out a branch or commit with git, two things happen: git changes the files in the repository folder, and changes the file that tells it what is currently checked out. In git terms, it changes what HEAD points to. In practical terms, it updates the .git/HEAD text file to contain a different reference.</p>
+<p>But these two operations can be done separate from one another, so that while the files correspond to one commit, git thinks that the HEAD commit is another one.</p>
+<p>This of course puts your git repository in an unstable, even unnatural state. But there are useful reasons for doing this, and one of these comes up in the operation of <a href="https://github.com/joachim-n/dorgflow">dorgflow, my tool for working with git and drupal.org patches</a>.</p>
+<p>Dorgflow creates a local branch for a drupal.org issue, and creates a commit for each patch, so you end up with a nice sequential representation of the work that's been done so far.</p>
+<p>But every patch that's uploaded to an issue is a patch against the master branch, so we can't just apply the patches one by one and make commits: the first patch will apply, and all the subsequent ones will fail.</p>
+<p>What we need is for the files be in the same state as the master branch, so that the patch applies, but when we make a commit, it needs to be a new commit on the feature branch:</p>
+<pre><code> * [Feature branch] Patch 1 &lt;- Make patch 2 commit on top of this commit.
+/
+* [master branch] Latest master commit. &lt;- Apply patch 2 to these files.
+</code></pre>
+<p>In git terms, we want the current files (the working tree, as git calls it) to be on the master branch, while git's HEAD is on the feature branch.</p>
+<p>For my first attempt at getting this to work, I did the following:</p>
+<ol>
+<li>Put git on the feature branch.</li>
+<li>Check out the master branch's files, with <code>git checkout master -- .</code>
+</li>
+</ol>
+<p>When you use <code>git checkout</code> command with a file or files specified, it doesn't move HEAD, but instead changes just those files to the given commit or branch. If you give '.' as the file to check out, then it does that for all of the repository's files. In effect, you get the files to look like the given commit, in our case the master branch.</p>
+<p>This is what we want, but it has one crucial flaw. Suppose patch 1 added a new file, foo.php. When we check out master's files, foo.php is not changed, because it's not on master. There's nothing on master to overwrite it. The <code>git checkout master -- .</code> command doesn't actually say 'make all the files look like master', it says 'check out all the files from master'. foo.php isn't on master, and so it's simply left alone.</p>
+<p>Suppose now that patch 2 also adds the foo.php file, which it most likely will, since in most cases, a newer patch incorporates all the work of the previous one.</p>
+<p>Applying patch 2 to the files in their current state will fail, because patch 2 tries to create the file foo.php, but it's already there.</p>
+<p>So this approach is no good. I was stuck with this problem with dorgflow for months, until I had a brainwave: instead of staying on the feature branch and changing the files to look like master, why not check out the master branch, but tell git that the HEAD is at the feature branch?</p>
+<p>That solves the problem of the foo.php file: when you check out master, the foo.php that's at the patch 1 commit vanishes, because it doesn't exist on master. So applying patch 2 will be fine.</p>
+<p>The only remaining question was how to you tell git it's on a different branch without doing a checkout of files? Turns out this is a simple plumbing command: <code>git symbolic-ref HEAD refs/heads/BRANCH</code>. This is just telling git to change the reference that HEAD points to, and that's how git stores the fact that a particular branch is the current one.</p>
+<p>This was a simple change to make in dorgflow (it was actually more work to update the tests so the mocks had the correct method call expectations!).</p>
+<p>This means that dorgflow accordingly now handles applying a sequence of issue patches that add files now works in the latest release.</p></div>
+      
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/49","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"49"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

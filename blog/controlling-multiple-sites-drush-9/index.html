@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/controlling-multiple-sites-drush-9" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/50" />
+
+    <title>Controlling multiple sites with Drush 9 | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxtylEOgCAIANAL6TySA2OoQbRga96-_uv37U2D1odWFOManZQKiyFI9lgyDk7zO0676aIt48qvtv3vBLAnXx6kBcHpAYkAKP4" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_FfI1KBxjzizfquKZc-UBRYzejEfzH7TlH2sPqJxC3Hk.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxtylEOgCAIANAL6TySA2OoQbRga96-_uv37U2D1odWFOManZQKiyFI9lgyDk7zO0676aIt48qvtv3vBLAnXx6kBcHpAYkAKP4" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>Controlling multiple sites with Drush 9</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Sat, 03/16/2019 - 20:44
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Drush 9 has removed dynamic site aliases. Site aliases are hardcoded in YAML files rather than declared in PHP. Sadly, that means that many tricks you could do with the declaration of the site aliases are no longer available.</p>
+<p>The only grouping possible is based on the YAML filename. So for example, with the Acquia Cloud Site Factory site aliases generated by the 'blt recipes:aliases:init:acquia' command, you can run a command on the same site across different environments.</p>
+<p>But what you can't do is run a command on all the sites in one environment.</p>
+<p>One use case for this is checking whether a module is enabled on any sites, so you know that it's safe to remove it from the codebase.</p>
+<p>Currently, this is quite a laborious process, as 'drush pm-list' needs to be run for each site.</p>
+<p>With environment aliases, this would be a one liner:</p>
+<pre><code>drush @hypothetical-env-alias pm-list | ag some_module
+</code></pre>
+<p>('ag' is the very useful <a href="https://github.com/ggreer/the_silver_searcher">silver searcher unix command</a>, which is almost the same as the also excellent 'ack' but faster, and both are much better than grep.)</p>
+<p>While site aliases are fixed, they can be altered with Drush hooks. I considered that these might allow something to dynamically declare aliases, or a command option. There's <a href="https://github.com/drush-ops/drush/commit/886354d4fd7516893eac12b2b6f4ca">an example of altering aliases with a hook in the Drush code</a>.</p>
+<p>In the meantime, a much simpler solution is to use xargs, which I have recently found is extremely useful in all sorts of situations. Because this allows you to run one command multiple times with a set of parameters, all you need to do is pass it a list of site aliases. Fortunately, the 'drush sa' command has lots of formatting options, and one of them gives us just what we need, a list of aliases with one on each line:</p>
+<pre><code>drush sa --format=list 
+</code></pre>
+<p>That gives us all the aliases, and we probably don't want that. So here's where ag first comes in to play, as we can filter the list, for example, to only run on live sites (I'm using my ACSF aliases here as an example):</p>
+<pre><code>drush sa --format=list| ag 01live
+</code></pre>
+<p>Now we have a filtered list of aliases, and we can feed that into xargs:</p>
+<pre><code>drush sa --format=list| ag 01live | xargs -I % drush % pm-list
+</code></pre>
+<p>Normally, xargs puts the input parameter at the end of its command, but here we want it inserted just after the 'drush' command. The -I parameter allows us to specify a placeholder where the input parameter goes, so:</p>
+<pre><code>xargs -I % drush % pm-list
+</code></pre>
+<p>says that we want the site name to go where the '%' is, and means that that xargs will run:</p>
+<pre><code>drush SITE-ALIAS pm-list
+</code></pre>
+<p>with each value it receives, in this case, each site alias.</p>
+<p>Another thing we will do with xargs is set the -t parameter, which outputs each actual command it executes on STDERR. That acts as a heading in the output, so we can clearly see which site is outputting what.</p>
+<p>Finally, we can use ag a second time to filter the module list down to just the module we want to find out about:</p>
+<pre><code>drush sa --format=list | ag live | xargs -t -I % drush % pml | ag some_module 
+</code></pre>
+<p>The nice thing about the -t parameter is that as it's STDERR, it's not affected by the final pipe to ag for filtering output. So the output will consist of the drush command for the site, followed by the filtered output.</p>
+<p>And hey presto.</p>
+<p>In conclusion: dynamic site aliases in Drush were nice, but the maintainers removed them (as far as I can gather) because they were a mess to implement, and removing them vastly simplified things. Doing the equivalent with xargs took a bit of figuring out, but once you know how to do it, it's actually a much more powerful way to work with multiple sites at once.</p></div>
+      
+
+<div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="/taxonomy/term/9" hreflang="en">drush</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+      </ul>
+</div>
+
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/50","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"50"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

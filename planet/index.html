@@ -7,7 +7,7 @@
 <meta name="HandheldFriendly" content="true" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
-<link rel="alternate" type="application/rss+xml" title="Joachim&amp;#039;s blog" href="https://joachim-n.github.io//planet/feed" />
+<link rel="alternate" type="application/rss+xml" title="Joachim&amp;#039;s blog" href="https://joachim-n.github.io/planet/feed" />
 
     <title>Drupal Planet Posts | Joachim&#039;s blog</title>
     <link rel="stylesheet" media="all" href="/sites/default/files/css/css_6pN0lBBBErbaoeWin5tdErkUyV-X6Hys294X41Zy_jg.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxtykEOgCAMBdELgRzJgHwBba2xKOH2Gre6mcXLLOKnXHgMJGmsGQw3A9EsX08kwZPV2qls6e_YpeFAtKHbR6f176k-qdGuFeyCV5iroKl7O7DEk3ADz2I5qA" />
@@ -19,7 +19,7 @@
 <link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sxcib3" />
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
 </noscript>
   </head>
   <body class="path-planet">
@@ -57,7 +57,7 @@
     <div class="site-branding__inner">
               <div class="site-branding__text">
         <div class="site-branding__name">
-          <a href="https://joachim-n.github.io//" title="Home" rel="home">Joachim&#039;s blog</a>
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
         </div>
       </div>
       </div>
@@ -74,7 +74,7 @@
         
         <li class="menu__item menu__item--link menu__item--level-1">
                     
-          <a href="https://joachim-n.github.io//" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
 
           
         </li>
@@ -84,7 +84,7 @@
         
         <li class="menu__item menu__item--link menu__item--level-1">
                     
-          <a href="https://joachim-n.github.io//about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
 
           
         </li>
@@ -129,7 +129,7 @@
     <div class="breadcrumb__content">
       <ol class="breadcrumb__list">
                   <li class="breadcrumb__item">
-                          <a href="https://joachim-n.github.io//" class="breadcrumb__link">Home</a>
+                          <a href="/" class="breadcrumb__link">Home</a>
                       </li>
               </ol>
     </div>
@@ -168,18 +168,85 @@
   
     
       <div class="block__content">
-      <div class="views-element-container"><div class="view view-planet view-id-planet view-display-id-page_1 js-view-dom-id-8b6039701c686a23db393bd38d530ecc2ade9b732f5e7e55d06c5fd350bf7266">
+      <div class="views-element-container"><div class="view view-planet view-id-planet view-display-id-page_1 js-view-dom-id-b62670965801b4824735b2fc2a4cdf43a715263924d95140ab719c2f40b6c98d">
   
     
       
       <div class="view-content">
           <div class="views-row">
 
+<article class="node node--type-article grid-full node--promoted node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+            <h2 class="node__title">
+        <a href="/blog/changing-your-mind-about-dependency-injection" rel="bookmark">
+<span>Changing your mind about dependency injection</span>
+</a>
+      </h2>
+        
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Thu, 10/24/2024 - 11:25
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>When I start writing a class that has a dependency injection, I have a clear idea about which services it needs. I generate it -- the plugin, form, controller, or service -- and specify those services.</p>
+<p>Then nearly always, unless it's something really very simple, I find that no matter how much I thought about it and planned it, I need to add more services. Maybe remove some too.</p>
+<p>Fortunately, because Module Builder saves the configuration of the module code you've generated, it's easy to go back to it and edit it to add more services:</p>
+<ol>
+<li>Edit your module in Module Builder</li>
+<li>Add to the injected services for your component</li>
+<li>Ensure your code file is committed to version control</li>
+<li>Generate the code, and write the updated version of the code file</li>
+<li>Add and commit the new DI code, while discarding the changes that remove your code. (I find it helps to use a git GUI for things like this, though <code>git add -p</code> works too.)</li>
+</ol>
+<p>But I tend to find that I make this mistake several times as the class develops, and so I adopt the approach of using the <code>\Drupal::service()</code> function to get my services, and only when I'm fairly confident I'm not going to need to make any more changes to DI, I update the injected services in one go, converting all the service calls to use the service properties.</p>
+<p>I was asked yesterday at Drupal Drinks about how to do that, and it occurred to me that there's a way of doing this so after you've updated the dependency injection with Module Builder, it's a simple find and replace to update your code.</p>
+<p>If you write your code like this whenever you need a service:</p>
+<pre><code>$service_entityTypeManager = \Drupal::service('entity_type.manager');
+$stuff = $service_entityTypeManager-&gt;doSomething();
+</code></pre>
+<p>Then you need to do only two find and replace operations to convert this to DI:</p>
+<ol>
+<li>Replace <code>'^.+Drupal::service.+\n'</code> with <code>''</code>. This removes all the lines where you get the service from the Drupal class.</li>
+<li>Replace <code>'\$service_(\w+)'</code> with <code>'$this-&gt;$1'</code>. This replaces all the service variables
+with the class property.</li>
+</ol>
+<p>Up until now I'd been calling the service variables something like <code>$entityTypeManager</code> so that I could easily change that to <code>$this-&gt;entityTypeManager</code> manually, but prefixing the variable name with a camel case <code>'service_'</code> gives you something to find with a regular expression.</p>
+<p>If you want to be really fancy, you can use a regular expression like <code>'(?&lt;=::service..)[\w.]+'</code> (using dots to avoid having to escape the open bracket and the quote mark) to find all the services that you need to add to the class's dependency injection.</p>
+<p>Something like this:</p>
+<pre><code>$ ag -G MyClass.php '(?&lt;=::service..)[\w.]+' -o --nonumbers --nofilename | sort | uniq | tr "\n" ", "
+</code></pre>
+<p>will give you a list of service names that you can copy-paste into the Module Builder form. This is probably overkill for something you can do pretty quickly with the search in a text editor or IDE, but it's a nice illustration of the power of unix tools: <code>ag</code> has options to output just the found text, then <code>sort</code> and <code>uniq</code> eliminate duplicates, and finally <code>tr</code> turns it into a comma-separated list.</p></div>
+      
+
+<div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="/taxonomy/term/68" hreflang="en">dependency injection</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/56" hreflang="en">drupal code builder</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/8" hreflang="en">module builder</a></li>
+      </ul>
+</div>
+
+  </div>
+  </article>
+</div>
+    <div class="views-row">
+
 <article class="node node--type-article grid-full node--view-mode-full">
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/refactoring-rector" rel="bookmark">
+        <a href="/blog/refactoring-rector" rel="bookmark">
 <span>Refactoring with Rector</span>
 </a>
       </h2>
@@ -281,10 +348,10 @@ use PhpParser\Node\Identifier;
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/65" hreflang="en">refactoring</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/66" hreflang="en">Rector</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/67" hreflang="en">PhpParser</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/56" hreflang="en">drupal code builder</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/65" hreflang="en">refactoring</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/66" hreflang="en">Rector</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/67" hreflang="en">PhpParser</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/56" hreflang="en">drupal code builder</a></li>
       </ul>
 </div>
 
@@ -297,7 +364,7 @@ use PhpParser\Node\Identifier;
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/defining-bundle-fields-code" rel="bookmark">
+        <a href="/blog/defining-bundle-fields-code" rel="bookmark">
 <span>Defining bundle fields in code</span>
 </a>
       </h2>
@@ -425,7 +492,7 @@ know that it's area of the code that may need maintainance when the API is updat
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/commit-your-composer-managed-files-version-control" rel="bookmark">
+        <a href="/blog/commit-your-composer-managed-files-version-control" rel="bookmark">
 <span>Commit your Composer-managed files to version control</span>
 </a>
       </h2>
@@ -495,7 +562,7 @@ that means the following folders are not in your git repository:</p>
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/better-way-work-drupal-core" rel="bookmark">
+        <a href="/blog/better-way-work-drupal-core" rel="bookmark">
 <span>A better way to work on Drupal core</span>
 </a>
       </h2>
@@ -551,8 +618,8 @@ that means the following folders are not in your git repository:</p>
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/59" hreflang="en">Composer</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/64" hreflang="en">Drupal core</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/59" hreflang="en">Composer</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/64" hreflang="en">Drupal core</a></li>
       </ul>
 </div>
 
@@ -565,7 +632,7 @@ that means the following folders are not in your git repository:</p>
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/different-ways-make-entity-bundles" rel="bookmark">
+        <a href="/blog/different-ways-make-entity-bundles" rel="bookmark">
 <span>Different ways to make entity bundles</span>
 </a>
       </h2>
@@ -670,7 +737,7 @@ function mymodule_entity_bundle_info() {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/using-lazy-builders-twig-templates" rel="bookmark">
+        <a href="/blog/using-lazy-builders-twig-templates" rel="bookmark">
 <span>Using lazy builders with Twig templates</span>
 </a>
       </h2>
@@ -735,7 +802,7 @@ $build['#attached']['placeholders'][$placeholder] = [
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/base-fields-versus-config-fields-and-how-handle-latter-tests" rel="bookmark">
+        <a href="/blog/base-fields-versus-config-fields-and-how-handle-latter-tests" rel="bookmark">
 <span>Base fields versus config fields, and how to handle the latter in tests</span>
 </a>
       </h2>
@@ -1025,7 +1092,7 @@ use Drupal\config\StorageReplaceDataWrapper;
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/debugging-and-logging-ajax-requests-tests-docksal" rel="bookmark">
+        <a href="/blog/debugging-and-logging-ajax-requests-tests-docksal" rel="bookmark">
 <span>Debugging and Logging AJAX requests tests in Docksal</span>
 </a>
       </h2>
@@ -1065,9 +1132,9 @@ use Drupal\config\StorageReplaceDataWrapper;
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/62" hreflang="en">debugging</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/63" hreflang="en">tests</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/62" hreflang="en">debugging</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/63" hreflang="en">tests</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 </div>
 
@@ -1080,7 +1147,7 @@ use Drupal\config\StorageReplaceDataWrapper;
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/multi-site-search-using-feeds-and-searchapi" rel="bookmark">
+        <a href="/blog/multi-site-search-using-feeds-and-searchapi" rel="bookmark">
 <span>Multi-site search using Feeds and SearchAPI</span>
 </a>
       </h2>
@@ -1119,80 +1186,9 @@ use Drupal\config\StorageReplaceDataWrapper;
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/60" hreflang="en">search</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/61" hreflang="en">Feeds</a></li>
-      </ul>
-</div>
-
-  </div>
-  </article>
-</div>
-    <div class="views-row">
-
-<article class="node node--type-article grid-full node--view-mode-full">
-  <header class="layout--content-narrow">
-    
-            <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/controlling-multiple-sites-drush-9" rel="bookmark">
-<span>Controlling multiple sites with Drush 9</span>
-</a>
-      </h2>
-        
-          <div class="node__meta">
-              <div class="node__author-image">
-          <div>
-  </div>
-
-        </div>
-              <span>
-          By <span><span>joachim</span></span>, Sat, 03/16/2019 - 20:44
-        </span>
-        
-      </div>
-      </header>
-  <div class="node__content layout--content-narrow">
-        
-            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Drush 9 has removed dynamic site aliases. Site aliases are hardcoded in YAML files rather than declared in PHP. Sadly, that means that many tricks you could do with the declaration of the site aliases are no longer available.</p>
-<p>The only grouping possible is based on the YAML filename. So for example, with the Acquia Cloud Site Factory site aliases generated by the 'blt recipes:aliases:init:acquia' command, you can run a command on the same site across different environments.</p>
-<p>But what you can't do is run a command on all the sites in one environment.</p>
-<p>One use case for this is checking whether a module is enabled on any sites, so you know that it's safe to remove it from the codebase.</p>
-<p>Currently, this is quite a laborious process, as 'drush pm-list' needs to be run for each site.</p>
-<p>With environment aliases, this would be a one liner:</p>
-<pre><code>drush @hypothetical-env-alias pm-list | ag some_module
-</code></pre>
-<p>('ag' is the very useful <a href="https://github.com/ggreer/the_silver_searcher">silver searcher unix command</a>, which is almost the same as the also excellent 'ack' but faster, and both are much better than grep.)</p>
-<p>While site aliases are fixed, they can be altered with Drush hooks. I considered that these might allow something to dynamically declare aliases, or a command option. There's <a href="https://github.com/drush-ops/drush/commit/886354d4fd7516893eac12b2b6f4ca">an example of altering aliases with a hook in the Drush code</a>.</p>
-<p>In the meantime, a much simpler solution is to use xargs, which I have recently found is extremely useful in all sorts of situations. Because this allows you to run one command multiple times with a set of parameters, all you need to do is pass it a list of site aliases. Fortunately, the 'drush sa' command has lots of formatting options, and one of them gives us just what we need, a list of aliases with one on each line:</p>
-<pre><code>drush sa --format=list 
-</code></pre>
-<p>That gives us all the aliases, and we probably don't want that. So here's where ag first comes in to play, as we can filter the list, for example, to only run on live sites (I'm using my ACSF aliases here as an example):</p>
-<pre><code>drush sa --format=list| ag 01live
-</code></pre>
-<p>Now we have a filtered list of aliases, and we can feed that into xargs:</p>
-<pre><code>drush sa --format=list| ag 01live | xargs -I % drush % pm-list
-</code></pre>
-<p>Normally, xargs puts the input parameter at the end of its command, but here we want it inserted just after the 'drush' command. The -I parameter allows us to specify a placeholder where the input parameter goes, so:</p>
-<pre><code>xargs -I % drush % pm-list
-</code></pre>
-<p>says that we want the site name to go where the '%' is, and means that that xargs will run:</p>
-<pre><code>drush SITE-ALIAS pm-list
-</code></pre>
-<p>with each value it receives, in this case, each site alias.</p>
-<p>Another thing we will do with xargs is set the -t parameter, which outputs each actual command it executes on STDERR. That acts as a heading in the output, so we can clearly see which site is outputting what.</p>
-<p>Finally, we can use ag a second time to filter the module list down to just the module we want to find out about:</p>
-<pre><code>drush sa --format=list | ag live | xargs -t -I % drush % pml | ag some_module 
-</code></pre>
-<p>The nice thing about the -t parameter is that as it's STDERR, it's not affected by the final pipe to ag for filtering output. So the output will consist of the drush command for the site, followed by the filtered output.</p>
-<p>And hey presto.</p>
-<p>In conclusion: dynamic site aliases in Drush were nice, but the maintainers removed them (as far as I can gather) because they were a mess to implement, and removing them vastly simplified things. Doing the equivalent with xargs took a bit of figuring out, but once you know how to do it, it's actually a much more powerful way to work with multiple sites at once.</p></div>
-      
-
-<div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
-      <h3 class="field__label field--tags__label">Tags</h3>
-    <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/9" hreflang="en">drush</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/60" hreflang="en">search</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/61" hreflang="en">Feeds</a></li>
       </ul>
 </div>
 
@@ -1242,7 +1238,7 @@ use Drupal\config\StorageReplaceDataWrapper;
       
 
 
-<a href="https://joachim-n.github.io//planet/feed" class="feed-icon">
+<a href="https://joachim-n.github.io/planet/feed" class="feed-icon">
   <span class="feed-icon__label">
     Joachim&amp;#039;s blog
   </span>
@@ -1309,7 +1305,7 @@ use Drupal\config\StorageReplaceDataWrapper;
   </div>
 
     
-    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"planet","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"planet","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en","currentQuery":{"page":"0"}},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
 <script src="/sites/default/files/js/js_to3MlzT0zacJEn6DCn7TBvEhDiQiZ5VxNxM_K58AE18.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEsHAN_bDSg"></script>
 
   </body>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/debugging-and-logging-ajax-requests-tests-docksal" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/52" />
+
+    <title>Debugging and Logging AJAX requests tests in Docksal | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxtylEOgCAIANAL6TySA2OoQbRga96-_uv37U2D1odWFOManZQKiyFI9lgyDk7zO0676aIt48qvtv3vBLAnXx6kBcHpAYkAKP4" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_FfI1KBxjzizfquKZc-UBRYzejEfzH7TlH2sPqJxC3Hk.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxtylEOgCAIANAL6TySA2OoQbRga96-_uv37U2D1odWFOManZQKiyFI9lgyDk7zO0676aIt48qvtv3vBLAnXx6kBcHpAYkAKP4" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>Debugging and Logging AJAX requests tests in Docksal</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Wed, 11/06/2019 - 14:30
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>The hardest thing I find with tests is understanding errors. Every time I think I've got debugging output sorted, I find a new layer where it doesn't work, I've got nothing, and I'm in the dark with something that's crashing and I don't know why.</p>
+<p>The first layer is simple: errors in your test code itself. For example, make a typo in your tests/src/Functional/MyTest.php and PHPUnit crashes and you see the error in the terminal.</p>
+<p>But when it's site code that's crashing, you're dealing with a system that is being driven by code, and therefore, you can't see it. And that's a major obstacle to figuring out a problem.</p>
+<p>The HTML output that Drupal's Functional and Functional Javascript tests produce is a huge help: every time your test code makes a request to the test site, an HTML file is written to the test files directory. If your site crashes when your test makes a request, you'll see the error and the backtrace there.</p>
+<p>However, there's no such output when in a Functional Javascript test you cause an AJAX request. And while you can create a screenshot of what the page looks like after the request, our another HTML file of the page (see <a href="https://www.drupal.org/project/drupal/issues/3090498">https://www.drupal.org/project/drupal/issues/3090498</a> for instructions how; the issue is about how to make that automatic but I have no idea how that might be possible), you can't see the actual error, because AJAX requests that fail just sit there doing nothing. There's nothing useful to see in the browser.</p>
+<p>So we need to see logs. When a real site has an AJAX crash, with a human being-controlled web browser making the request, you can go and look in the logs. With a test site, the log table is zapped when the test is completed.</p>
+<p>Fortunately, Drupal 8's pluggable logging means there are other ways of getting hold of them, more permanent ways.</p>
+<p>I first tried <a href="https://www.drupal.org/project/log_stdout">log_stdout module</a>. This outputs log errors to STDOUT. If you're running on Docksal, as I am, you have an extra layer to get though to see that. You can monitor the cli container with <code>fin logs -f cli</code>, and with that module add a <code>| ag WATCHDOG</code> to filter.</p>
+<p>However, I wasn't seeing backtrace in this output, and I gave up figuring out why.</p>
+<p>So I tried <a href="https://www.drupal.org/project/filelog">filelog module</a> instead, which as the name implies, writes log to a simple text file. This needs a little bit more work, as by default it writes to 'public://logs'. This means that each run of the test gets its own log file, which is perhaps what you want, but for my own uses I wanted a single log file I could <code>tail -f</code> in a terminal window and have continual monitoring.</p>
+<p>A quick bit of config setting in the test's setUp() does the trick:</p>
+<pre><code>$this-&gt;config('filelog.settings')
+  -&gt;set('location', '/var/www/docroot/sites/simpletest/logs')
+  -&gt;save();
+</code></pre>
+<p>And I think that's me at last sorted.</p></div>
+      
+
+<div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="/taxonomy/term/62" hreflang="en">debugging</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/63" hreflang="en">tests</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+      </ul>
+</div>
+
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/52","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"52"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

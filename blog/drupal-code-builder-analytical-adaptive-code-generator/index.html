@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/drupal-code-builder-analytical-adaptive-code-generator" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/47" />
+
+    <title>Drupal Code Builder: the analytical, adaptive code generator | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_vfIdNKgDtRvyJuw916Kx8ALuhmUSYHx-WEC-P_sCyfQ.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>Drupal Code Builder: the analytical, adaptive code generator</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Sun, 09/09/2018 - 21:26
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>It's now just over 10 years since webchick handed maintainership of the Module Builder project over to me. I can still remember nervously approaching her at the end of a day at DrupalCon 2008, outside the building where people were chatting, and asking her if she'd had time to look at the patches I'd posted for it. I was at my first DrupalCon; she'd just been named as the core co-maintainer for the work about to start on Drupal 7. No, she hadn't, she said, and she instantly came to the conclusion that she'd never have the time to look at them, and so got her laptop out of her rucksack and there and then edited the project node to make me the maintainer.</p>
+<p>Given the longevity of the project, I am often surprised when I talk to people that they don't know what its crucial advantage is over the other Drupal code generating tools that now also exist. Drupal Code Builder, as it's now called, is fundamentally different from Drupal Console's Generator command, and the Drupal Code Generator library that’s included in Drush 9.</p>
+<p>I feel that perhaps this requires a buzzword, to make it more noticeable and memorable.</p>
+<p>So here is one: Drupal Code Builder is an <strong>analytical</strong> code generator.</p>
+<p>I'm going to add a second one: the Drupal Code Builder Drush commands and Module Builder (which still exists, though is now just module that provides a Drupal-based UI for the Drupal Code Builder library) are <strong>adaptive</strong>.</p>
+<p>What do I mean by those?</p>
+<p>When you first install Drupal Code Builder, it has no information about Drupal hooks, or plugin types, or services. There is no data in the codebase on how to generate a hook_form_alter() implementation, or a Block plugin, or how to inject the entity_type.manager service.</p>
+<p>Before you can generate code, you need to run a command or submit an admin form which will analyse your entire codebase, and store the resulting data on hooks, plugin types, services, and other Drupal structures (the list of what is analysed keeps growing.).</p>
+<p>The consequence of this is huge: Drupal Code Builder is not limited to core hooks, or to the hooks that it's been programmed for. Drupal Code Builder knows all the hooks in <strong>your</strong> codebase: from core, from contrib module, even from any of your own custom code that invents hooks.</p>
+<p>Now repeat that statement for plugin types, for services, and so on.</p>
+<p>And that analysis process can, and should, be repeated when you download a new module, because then any Drupal structures (hooks, plugin types, etc) that are defined in new modules gets added to the list of what Drupal Code Builder can generate.</p>
+<p>This means that you can use Drupal Code Builder to do something like this:</p>
+<ol>
+<li>Generate a new plugin type. This creates a plugin manager service class and declaration, an annotation class that defines the plugin annotation, and an interface and base class for the plugins.</li>
+<li>Re-run DCB's analysis.</li>
+<li>Generate a plugin of the type you've just made.</li>
+</ol>
+<p>When I say that this technique of analysis makes Drupal Coder Builder more powerful than other code generators, I'm not even blowing my own trumpet: the module I was handed in 2008 did the same. Back then in the Drupal 6 era is needed to connect to drupal.org's CVS repository to download the api.php files that document a module's hooks (which is why the Drush command for updating the code analysis prior to Drush 9 is called mb-download). For Drupal 7, the api.php files were moved into the core Drupal codebase, so from that point the process would scan the site's codebase directly. For Drupal 8, I added lots more code analysis, of plugin types and services, but still, the original idea remains: Drupal Code Builder knows how to detect Drupal structures, so it can know more structures than can be hardcoded.</p>
+<p>This analysis can get pretty complex. While for hooks, it's just a case of running a regex on api.php files, for detecting information about plugin types, all sorts of techniques are used, such as searching the class parentage of all the plugins of a type to try to guess whether there is a plugin base class. It’s not always perfect, and it could always use more refinement, but it’s a more powerful approach than hardcoding a necessarily finite number of cases. (If only plugin types were declared in some way, or if the documentation for them were systematic in the way hook documentation is, this would all be so much simpler, and much more importantly, it would be more accurate!)</p>
+<p>My second buzzword, that UIs for Drupal Code Builder are adaptive, describes the way that neither of the Drush command nor the Drupal module need to know what Drupal Code Builder can build. They merely know the API for describing properties, and how to present them to the user, to then pass the input values to Drupal Code Builder to get the generated code.</p>
+<p>This is analogous to the way that Form API doesn’t know anything about a particular form, just about the different kinds of form elements.</p>
+<p>This isn’t as exciting or indeed relevant to the end-user, but it does mean that development on Drupal Code Builder can move quickly, as adding new things to generate doesn’t require coordinated releases of software packages for the UI. In fact, I think nearly every new release of Drupal Code Builder has featured some sort of new code generating functionality, while keeping the API the same.</p>
+<p>For example, this used to be the UI for adding a route on Drupal and Drush:</p>
+<img src="https://joachim-n.github.io/sites/default/files/article/image/DCB%20adaptive%20-%20Drush%20routes%20before.png" width="550" height="47" alt="Screenshot showing Drush UI">
+<img src="https://joachim-n.github.io/sites/default/files/article/image/DCB%20adaptive%20-%20MB%20routes%20before.png" width="545" height="146" alt="Screenshot showing Module Builder UI">
+<p>A later release of Drupal Code Builder turned the UI into this, without the Drush command or Module Builder needing their code to be updated:</p>
+<img src="https://joachim-n.github.io/sites/default/files/article/image/DCB%20adaptive%20-%20Drush%20routes%20after.png" width="556" height="320" alt="Screenshot showing Drush UI">
+<img src="https://joachim-n.github.io/sites/default/files/article/image/DCB%20adaptive%20-%20MB%20routes%20after.png" width="603" height="331" alt="Screenshot showing Module Builder UI">
+<p>Similarly, an even later version of Drupal Code Builder added code analysis to detect all top-level admin menu items, and so the admin settings form generation now lets you pick where to place the form in the menu.</p>
+<p>It would be nice to think that a couple of buzzwords could gain Drupal Code Builder more attention and more users, but I fear that Drupal Console’s generator has got rather more traction in Drupal 8, despite its huge limitation. It’s disappointing that Drush has now added a third code generator to the mix, to even further dilute the ecosystem, and that it’s just as limited by hardcoding.</p>
+<p>So where do we go from here?</p>
+<p>Well, people get attached to UIs, but they don’t care much about what powers them, especially in this day and age of Composer, where adding dependencies no longer creates an imposition on the end-user.</p>
+<p>So I suggest the following: the code analysis portion of Drupal Code Builder could be extracted to a new package. It doesn’t depend on anything on the code generation side, so that should be fairly simple. It provides an API that supports analysis being run in batches, which could maybe do with being spruced up, but it’s good enough for a 1.0.0 version for now.</p>
+<p>Then, any code generating system would be able to use it. Both Console and Drush could replace their hardcoded lists of hooks and plugins with analytical data, while keeping the commands they expose to the end-user unchanged.</p>
+<p>I’ll be at DrupalEurope in Darmstadt, where I’ll be running a BoF to discuss where we go next with code generation on Drupal.</p></div>
+      
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/47","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"47"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

@@ -18,7 +18,7 @@
 <link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sxcib3" />
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
 </noscript>
   </head>
   <body class="path-test-everything">
@@ -56,7 +56,7 @@
     <div class="site-branding__inner">
               <div class="site-branding__text">
         <div class="site-branding__name">
-          <a href="https://joachim-n.github.io//" title="Home" rel="home">Joachim&#039;s blog</a>
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
         </div>
       </div>
       </div>
@@ -73,7 +73,7 @@
         
         <li class="menu__item menu__item--link menu__item--level-1">
                     
-          <a href="https://joachim-n.github.io//" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
 
           
         </li>
@@ -83,7 +83,7 @@
         
         <li class="menu__item menu__item--link menu__item--level-1">
                     
-          <a href="https://joachim-n.github.io//about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
 
           
         </li>
@@ -128,7 +128,7 @@
     <div class="breadcrumb__content">
       <ol class="breadcrumb__list">
                   <li class="breadcrumb__item">
-                          <a href="https://joachim-n.github.io//" class="breadcrumb__link">Home</a>
+                          <a href="/" class="breadcrumb__link">Home</a>
                       </li>
               </ol>
     </div>
@@ -166,18 +166,115 @@
   
     
       <div class="block__content">
-      <div class="views-element-container"><div class="view view-test-everything view-id-test_everything view-display-id-page_1 js-view-dom-id-4b0438c89b00e54eb3ecdf8f2676261fad24a14a235e6f5cc24bce200095730d">
+      <div class="views-element-container"><div class="view view-test-everything view-id-test_everything view-display-id-page_1 js-view-dom-id-313d4c96e618d1408306dea0f289136ed2d417ddf4d86fa4891d0eecfb604038">
   
     
       
       <div class="view-content">
           <div class="views-row">
 
+<article class="node node--type-article grid-full node--promoted node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+            <h2 class="node__title">
+        <a href="/blog/i-would-sme-fucking-content" rel="bookmark">
+<span>I would like sme fucking content</span>
+</a>
+      </h2>
+        
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>admin</span></span>, Thu, 06/05/2025 - 17:12
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item">xfsdfsd</div>
+      
+  </div>
+  </article>
+</div>
+    <div class="views-row">
+
+<article class="node node--type-article grid-full node--promoted node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+            <h2 class="node__title">
+        <a href="/blog/changing-your-mind-about-dependency-injection" rel="bookmark">
+<span>Changing your mind about dependency injection</span>
+</a>
+      </h2>
+        
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Thu, 10/24/2024 - 11:25
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>When I start writing a class that has a dependency injection, I have a clear idea about which services it needs. I generate it -- the plugin, form, controller, or service -- and specify those services.</p>
+<p>Then nearly always, unless it's something really very simple, I find that no matter how much I thought about it and planned it, I need to add more services. Maybe remove some too.</p>
+<p>Fortunately, because Module Builder saves the configuration of the module code you've generated, it's easy to go back to it and edit it to add more services:</p>
+<ol>
+<li>Edit your module in Module Builder</li>
+<li>Add to the injected services for your component</li>
+<li>Ensure your code file is committed to version control</li>
+<li>Generate the code, and write the updated version of the code file</li>
+<li>Add and commit the new DI code, while discarding the changes that remove your code. (I find it helps to use a git GUI for things like this, though <code>git add -p</code> works too.)</li>
+</ol>
+<p>But I tend to find that I make this mistake several times as the class develops, and so I adopt the approach of using the <code>\Drupal::service()</code> function to get my services, and only when I'm fairly confident I'm not going to need to make any more changes to DI, I update the injected services in one go, converting all the service calls to use the service properties.</p>
+<p>I was asked yesterday at Drupal Drinks about how to do that, and it occurred to me that there's a way of doing this so after you've updated the dependency injection with Module Builder, it's a simple find and replace to update your code.</p>
+<p>If you write your code like this whenever you need a service:</p>
+<pre><code>$service_entityTypeManager = \Drupal::service('entity_type.manager');
+$stuff = $service_entityTypeManager-&gt;doSomething();
+</code></pre>
+<p>Then you need to do only two find and replace operations to convert this to DI:</p>
+<ol>
+<li>Replace <code>'^.+Drupal::service.+\n'</code> with <code>''</code>. This removes all the lines where you get the service from the Drupal class.</li>
+<li>Replace <code>'\$service_(\w+)'</code> with <code>'$this-&gt;$1'</code>. This replaces all the service variables
+with the class property.</li>
+</ol>
+<p>Up until now I'd been calling the service variables something like <code>$entityTypeManager</code> so that I could easily change that to <code>$this-&gt;entityTypeManager</code> manually, but prefixing the variable name with a camel case <code>'service_'</code> gives you something to find with a regular expression.</p>
+<p>If you want to be really fancy, you can use a regular expression like <code>'(?&lt;=::service..)[\w.]+'</code> (using dots to avoid having to escape the open bracket and the quote mark) to find all the services that you need to add to the class's dependency injection.</p>
+<p>Something like this:</p>
+<pre><code>$ ag -G MyClass.php '(?&lt;=::service..)[\w.]+' -o --nonumbers --nofilename | sort | uniq | tr "\n" ", "
+</code></pre>
+<p>will give you a list of service names that you can copy-paste into the Module Builder form. This is probably overkill for something you can do pretty quickly with the search in a text editor or IDE, but it's a nice illustration of the power of unix tools: <code>ag</code> has options to output just the found text, then <code>sort</code> and <code>uniq</code> eliminate duplicates, and finally <code>tr</code> turns it into a comma-separated list.</p></div>
+      
+
+<div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="/taxonomy/term/68" hreflang="en">dependency injection</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/56" hreflang="en">drupal code builder</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/8" hreflang="en">module builder</a></li>
+      </ul>
+</div>
+
+  </div>
+  </article>
+</div>
+    <div class="views-row">
+
 <article class="node node--type-article grid-full node--view-mode-full">
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/refactoring-rector" rel="bookmark">
+        <a href="/blog/refactoring-rector" rel="bookmark">
 <span>Refactoring with Rector</span>
 </a>
       </h2>
@@ -279,10 +376,10 @@ use PhpParser\Node\Identifier;
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/65" hreflang="en">refactoring</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/66" hreflang="en">Rector</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/67" hreflang="en">PhpParser</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/56" hreflang="en">drupal code builder</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/65" hreflang="en">refactoring</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/66" hreflang="en">Rector</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/67" hreflang="en">PhpParser</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/56" hreflang="en">drupal code builder</a></li>
       </ul>
 </div>
 
@@ -295,7 +392,7 @@ use PhpParser\Node\Identifier;
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/defining-bundle-fields-code" rel="bookmark">
+        <a href="/blog/defining-bundle-fields-code" rel="bookmark">
 <span>Defining bundle fields in code</span>
 </a>
       </h2>
@@ -423,7 +520,7 @@ know that it's area of the code that may need maintainance when the API is updat
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/commit-your-composer-managed-files-version-control" rel="bookmark">
+        <a href="/blog/commit-your-composer-managed-files-version-control" rel="bookmark">
 <span>Commit your Composer-managed files to version control</span>
 </a>
       </h2>
@@ -493,7 +590,7 @@ that means the following folders are not in your git repository:</p>
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/better-way-work-drupal-core" rel="bookmark">
+        <a href="/blog/better-way-work-drupal-core" rel="bookmark">
 <span>A better way to work on Drupal core</span>
 </a>
       </h2>
@@ -549,8 +646,8 @@ that means the following folders are not in your git repository:</p>
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/59" hreflang="en">Composer</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/64" hreflang="en">Drupal core</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/59" hreflang="en">Composer</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/64" hreflang="en">Drupal core</a></li>
       </ul>
 </div>
 
@@ -563,7 +660,7 @@ that means the following folders are not in your git repository:</p>
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/different-ways-make-entity-bundles" rel="bookmark">
+        <a href="/blog/different-ways-make-entity-bundles" rel="bookmark">
 <span>Different ways to make entity bundles</span>
 </a>
       </h2>
@@ -668,7 +765,7 @@ function mymodule_entity_bundle_info() {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/using-lazy-builders-twig-templates" rel="bookmark">
+        <a href="/blog/using-lazy-builders-twig-templates" rel="bookmark">
 <span>Using lazy builders with Twig templates</span>
 </a>
       </h2>
@@ -733,7 +830,7 @@ $build['#attached']['placeholders'][$placeholder] = [
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/base-fields-versus-config-fields-and-how-handle-latter-tests" rel="bookmark">
+        <a href="/blog/base-fields-versus-config-fields-and-how-handle-latter-tests" rel="bookmark">
 <span>Base fields versus config fields, and how to handle the latter in tests</span>
 </a>
       </h2>
@@ -1023,7 +1120,7 @@ use Drupal\config\StorageReplaceDataWrapper;
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/debugging-and-logging-ajax-requests-tests-docksal" rel="bookmark">
+        <a href="/blog/debugging-and-logging-ajax-requests-tests-docksal" rel="bookmark">
 <span>Debugging and Logging AJAX requests tests in Docksal</span>
 </a>
       </h2>
@@ -1063,9 +1160,9 @@ use Drupal\config\StorageReplaceDataWrapper;
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/62" hreflang="en">debugging</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/63" hreflang="en">tests</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/62" hreflang="en">debugging</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/63" hreflang="en">tests</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 </div>
 
@@ -1078,7 +1175,7 @@ use Drupal\config\StorageReplaceDataWrapper;
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/multi-site-search-using-feeds-and-searchapi" rel="bookmark">
+        <a href="/blog/multi-site-search-using-feeds-and-searchapi" rel="bookmark">
 <span>Multi-site search using Feeds and SearchAPI</span>
 </a>
       </h2>
@@ -1117,9 +1214,9 @@ use Drupal\config\StorageReplaceDataWrapper;
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/60" hreflang="en">search</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/61" hreflang="en">Feeds</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/60" hreflang="en">search</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/61" hreflang="en">Feeds</a></li>
       </ul>
 </div>
 
@@ -1132,7 +1229,7 @@ use Drupal\config\StorageReplaceDataWrapper;
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/controlling-multiple-sites-drush-9" rel="bookmark">
+        <a href="/blog/controlling-multiple-sites-drush-9" rel="bookmark">
 <span>Controlling multiple sites with Drush 9</span>
 </a>
       </h2>
@@ -1189,8 +1286,8 @@ use Drupal\config\StorageReplaceDataWrapper;
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/9" hreflang="en">drush</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/9" hreflang="en">drush</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 </div>
 
@@ -1203,7 +1300,7 @@ use Drupal\config\StorageReplaceDataWrapper;
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/unnatural-file-changes-git" rel="bookmark">
+        <a href="/blog/unnatural-file-changes-git" rel="bookmark">
 <span>Unnatural file changes with git</span>
 </a>
       </h2>
@@ -1258,7 +1355,7 @@ use Drupal\config\StorageReplaceDataWrapper;
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/getting-more-you-bargained-removing-drupal-module-composer" rel="bookmark">
+        <a href="/blog/getting-more-you-bargained-removing-drupal-module-composer" rel="bookmark">
 <span>Getting more than you bargained for: removing a Drupal module with Composer</span>
 </a>
       </h2>
@@ -1345,7 +1442,7 @@ and check your site doesn't have any of the Drupal modules enabled.</p>
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/59" hreflang="en">Composer</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/59" hreflang="en">Composer</a></li>
       </ul>
 </div>
 
@@ -1358,7 +1455,7 @@ and check your site doesn't have any of the Drupal modules enabled.</p>
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/drupal-code-builder-analytical-adaptive-code-generator" rel="bookmark">
+        <a href="/blog/drupal-code-builder-analytical-adaptive-code-generator" rel="bookmark">
 <span>Drupal Code Builder: the analytical, adaptive code generator</span>
 </a>
       </h2>
@@ -1422,7 +1519,7 @@ and check your site doesn't have any of the Drupal modules enabled.</p>
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/making-builder-code-look-output-code" rel="bookmark">
+        <a href="/blog/making-builder-code-look-output-code" rel="bookmark">
 <span>Making builder code look like output code</span>
 </a>
       </h2>
@@ -1492,7 +1589,7 @@ $annotation_lines = $annotation-&gt;render();
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/quick-and-dirty-debug-module" rel="bookmark">
+        <a href="/blog/quick-and-dirty-debug-module" rel="bookmark">
 <span>The quick and dirty debug module</span>
 </a>
       </h2>
@@ -1597,7 +1694,7 @@ function joachim_debug_page() {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/regenerating-plugin-dependency-injection-module-builder" rel="bookmark">
+        <a href="/blog/regenerating-plugin-dependency-injection-module-builder" rel="bookmark">
 <span>Regenerating plugin dependency injection with Module Builder</span>
 </a>
       </h2>
@@ -1632,8 +1729,8 @@ function joachim_debug_page() {
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/56" hreflang="en">drupal code builder</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/8" hreflang="en">module builder</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/56" hreflang="en">drupal code builder</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/8" hreflang="en">module builder</a></li>
       </ul>
 </div>
 
@@ -1646,7 +1743,7 @@ function joachim_debug_page() {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/triggering-events-fly" rel="bookmark">
+        <a href="/blog/triggering-events-fly" rel="bookmark">
 <span>Triggering events on the fly</span>
 </a>
       </h2>
@@ -1689,8 +1786,8 @@ function joachim_debug_page() {
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/57" hreflang="en">events</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/58" hreflang="en">developer tools</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/57" hreflang="en">events</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/58" hreflang="en">developer tools</a></li>
       </ul>
 </div>
 
@@ -1703,7 +1800,7 @@ function joachim_debug_page() {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/drupal-code-builder-unit-testing-bringing-heavy-stuff" rel="bookmark">
+        <a href="/blog/drupal-code-builder-unit-testing-bringing-heavy-stuff" rel="bookmark">
 <span>Drupal Code Builder unit testing: bringing in the heavy stuff</span>
 </a>
       </h2>
@@ -1735,7 +1832,7 @@ function joachim_debug_page() {
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/56" hreflang="en">drupal code builder</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/56" hreflang="en">drupal code builder</a></li>
       </ul>
 </div>
 
@@ -1748,7 +1845,7 @@ function joachim_debug_page() {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/brief-update-drupal-code-builder" rel="bookmark">
+        <a href="/blog/brief-update-drupal-code-builder" rel="bookmark">
 <span>Brief update on Drupal Code Builder</span>
 </a>
       </h2>
@@ -1793,7 +1890,7 @@ function joachim_debug_page() {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/dorgflow-tool-automate-your-drupalorg-patch-workflow" rel="bookmark">
+        <a href="/blog/dorgflow-tool-automate-your-drupalorg-patch-workflow" rel="bookmark">
 <span>Dorgflow: a tool to automate your drupal.org patch workflow</span>
 </a>
       </h2>
@@ -1864,7 +1961,7 @@ function joachim_debug_page() {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/changing-type-node" rel="bookmark">
+        <a href="/blog/changing-type-node" rel="bookmark">
 <span>Changing the type of a node</span>
 </a>
       </h2>
@@ -1969,7 +2066,7 @@ foreach ($field_table_names as $table_name) {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/what-goes-drupal-code-builder" rel="bookmark">
+        <a href="/blog/what-goes-drupal-code-builder" rel="bookmark">
 <span>What goes on in Drupal Code Builder?</span>
 </a>
       </h2>
@@ -2115,7 +2212,7 @@ foreach ($field_table_names as $table_name) {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/lazy-maintainers-handbook-part-1-frequent-releases" rel="bookmark">
+        <a href="/blog/lazy-maintainers-handbook-part-1-frequent-releases" rel="bookmark">
 <span>The Lazy Maintainer&#039;s Handbook, Part 1: Frequent Releases</span>
 </a>
       </h2>
@@ -2207,7 +2304,7 @@ foreach ($field_table_names as $table_name) {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/module-builder-announces-split-due-functionality-differences" rel="bookmark">
+        <a href="/blog/module-builder-announces-split-due-functionality-differences" rel="bookmark">
 <span>Module Builder announces split, due to functionality differences</span>
 </a>
       </h2>
@@ -2271,7 +2368,7 @@ foreach ($field_table_names as $table_name) {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/importing-wysiwyg-image-files-body-text-migrate" rel="bookmark">
+        <a href="/blog/importing-wysiwyg-image-files-body-text-migrate" rel="bookmark">
 <span>Importing wysiwyg image files in body text with Migrate</span>
 </a>
       </h2>
@@ -2339,7 +2436,7 @@ foreach ($field_table_names as $table_name) {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/script-making-patches" rel="bookmark">
+        <a href="/blog/script-making-patches" rel="bookmark">
 <span>A script for making patches</span>
 </a>
       </h2>
@@ -2387,10 +2484,10 @@ foreach ($field_table_names as $table_name) {
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/46" hreflang="en">git</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/49" hreflang="en">patching</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/54" hreflang="en">drupal.org</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/55" hreflang="en">workflow</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/46" hreflang="en">git</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/49" hreflang="en">patching</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/54" hreflang="en">drupal.org</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/55" hreflang="en">workflow</a></li>
       </ul>
 </div>
 
@@ -2403,7 +2500,7 @@ foreach ($field_table_names as $table_name) {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/git-based-patch-workflow-drupalorg-interdiffs-free" rel="bookmark">
+        <a href="/blog/git-based-patch-workflow-drupalorg-interdiffs-free" rel="bookmark">
 <span>A git-based patch workflow for drupal.org (with interdiffs for free!)</span>
 </a>
       </h2>
@@ -2482,10 +2579,10 @@ foreach ($field_table_names as $table_name) {
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/46" hreflang="en">git</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/48" hreflang="en">issue queue</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/49" hreflang="en">patching</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/46" hreflang="en">git</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/48" hreflang="en">issue queue</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/49" hreflang="en">patching</a></li>
       </ul>
 </div>
 
@@ -2498,7 +2595,7 @@ foreach ($field_table_names as $table_name) {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/building-fast-and-flexible-application-uis-entity-operations" rel="bookmark">
+        <a href="/blog/building-fast-and-flexible-application-uis-entity-operations" rel="bookmark">
 <span>Building Fast and Flexible Application UIs with Entity Operations</span>
 </a>
       </h2>
@@ -2550,7 +2647,7 @@ foreach ($field_table_names as $table_name) {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/graphing-relationships-between-entity-types" rel="bookmark">
+        <a href="/blog/graphing-relationships-between-entity-types" rel="bookmark">
 <span>Graphing relationships between entity types</span>
 </a>
       </h2>
@@ -2589,7 +2686,7 @@ foreach ($field_table_names as $table_name) {
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/getting-module-builder-ready-drupal-8" rel="bookmark">
+        <a href="/blog/getting-module-builder-ready-drupal-8" rel="bookmark">
 <span>Getting Module Builder ready for Drupal 8</span>
 </a>
       </h2>
@@ -2640,7 +2737,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/using-human-queue-worker-process-comments" rel="bookmark">
+        <a href="/blog/using-human-queue-worker-process-comments" rel="bookmark">
 <span>Using Human Queue Worker to process comments</span>
 </a>
       </h2>
@@ -2677,7 +2774,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/ripple-effect" rel="bookmark">
+        <a href="/blog/ripple-effect" rel="bookmark">
 <span>The ripple effect</span>
 </a>
       </h2>
@@ -2727,10 +2824,10 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/52" hreflang="en">contributing code</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/41" hreflang="en">drupal commerce</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/3" hreflang="en">development</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/53" hreflang="en">maintaining projects</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/52" hreflang="en">contributing code</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/41" hreflang="en">drupal commerce</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/3" hreflang="en">development</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/53" hreflang="en">maintaining projects</a></li>
       </ul>
 </div>
 
@@ -2743,7 +2840,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/corralling-permissions-grid" rel="bookmark">
+        <a href="/blog/corralling-permissions-grid" rel="bookmark">
 <span>Corralling permissions into a grid</span>
 </a>
       </h2>
@@ -2775,10 +2872,10 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/51" hreflang="en">permissions</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/41" hreflang="en">drupal commerce</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/51" hreflang="en">permissions</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/41" hreflang="en">drupal commerce</a></li>
       </ul>
 </div>
 
@@ -2791,7 +2888,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/rules-versus-hooks-or-abstraction-shock" rel="bookmark">
+        <a href="/blog/rules-versus-hooks-or-abstraction-shock" rel="bookmark">
 <span>On rules versus hooks, or, abstraction shock</span>
 </a>
       </h2>
@@ -2825,9 +2922,9 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/50" hreflang="en">rules</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/41" hreflang="en">drupal commerce</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/50" hreflang="en">rules</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/41" hreflang="en">drupal commerce</a></li>
       </ul>
 </div>
 
@@ -2840,7 +2937,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/git-tricks-repatching-issue-branch" rel="bookmark">
+        <a href="/blog/git-tricks-repatching-issue-branch" rel="bookmark">
 <span>Git tricks: repatching for an issue branch</span>
 </a>
       </h2>
@@ -2879,11 +2976,11 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/46" hreflang="en">git</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/48" hreflang="en">issue queue</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/49" hreflang="en">patching</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/46" hreflang="en">git</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/48" hreflang="en">issue queue</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/49" hreflang="en">patching</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
       </ul>
 </div>
 
@@ -2896,7 +2993,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/git-tricks-being-wrong-branch" rel="bookmark">
+        <a href="/blog/git-tricks-being-wrong-branch" rel="bookmark">
 <span>Git tricks: being on the wrong branch</span>
 </a>
       </h2>
@@ -2931,8 +3028,8 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/46" hreflang="en">git</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/46" hreflang="en">git</a></li>
       </ul>
 </div>
 
@@ -2945,7 +3042,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/get-out-git" rel="bookmark">
+        <a href="/blog/get-out-git" rel="bookmark">
 <span>Get out, git!</span>
 </a>
       </h2>
@@ -2992,9 +3089,9 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/46" hreflang="en">git</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/47" hreflang="en">security</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/46" hreflang="en">git</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/47" hreflang="en">security</a></li>
       </ul>
 </div>
 
@@ -3007,7 +3104,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/moving-git-local-branch-one-local-another" rel="bookmark">
+        <a href="/blog/moving-git-local-branch-one-local-another" rel="bookmark">
 <span>Moving a git local branch from one local to another</span>
 </a>
       </h2>
@@ -3051,9 +3148,9 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/46" hreflang="en">git</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/46" hreflang="en">git</a></li>
       </ul>
 </div>
 
@@ -3066,7 +3163,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/concept-limiting-taxonomy-terms-common-fields" rel="bookmark">
+        <a href="/blog/concept-limiting-taxonomy-terms-common-fields" rel="bookmark">
 <span>A concept for limiting taxonomy terms by common fields</span>
 </a>
       </h2>
@@ -3101,11 +3198,11 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/43" hreflang="en">taxonomy</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/44" hreflang="en">javascript</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/45" hreflang="en">ajax</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/43" hreflang="en">taxonomy</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/44" hreflang="en">javascript</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/45" hreflang="en">ajax</a></li>
       </ul>
 </div>
 
@@ -3118,7 +3215,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/dynamically-changing-views-table-joins" rel="bookmark">
+        <a href="/blog/dynamically-changing-views-table-joins" rel="bookmark">
 <span>Dynamically changing Views table joins</span>
 </a>
       </h2>
@@ -3173,11 +3270,11 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/40" hreflang="en">views</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/41" hreflang="en">drupal commerce</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/42" hreflang="en">drupal crm</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/40" hreflang="en">views</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/41" hreflang="en">drupal commerce</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/42" hreflang="en">drupal crm</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 </div>
 
@@ -3190,7 +3287,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/its-amazing-what-you-find-crusty-bits-menu-system/505" rel="bookmark">
+        <a href="/blog/its-amazing-what-you-find-crusty-bits-menu-system/505" rel="bookmark">
 <span>It&#039;s Amazing What You Find: Crusty Bits of the Menu System</span>
 </a>
       </h2>
@@ -3222,10 +3319,10 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/38" hreflang="en">drupal 7</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/39" hreflang="en">menu system</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/38" hreflang="en">drupal 7</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/39" hreflang="en">menu system</a></li>
       </ul>
 </div>
 
@@ -3238,7 +3335,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/oxford-comma/503" rel="bookmark">
+        <a href="/blog/oxford-comma/503" rel="bookmark">
 <span>The Oxford Comma</span>
 </a>
       </h2>
@@ -3267,11 +3364,11 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/35" hreflang="en">php</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/36" hreflang="en">theming</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/37" hreflang="en">text</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/35" hreflang="en">php</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/36" hreflang="en">theming</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/37" hreflang="en">text</a></li>
       </ul>
 </div>
 
@@ -3284,7 +3381,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/using-constants-permission-names-why/502" rel="bookmark">
+        <a href="/blog/using-constants-permission-names-why/502" rel="bookmark">
 <span>Using Constants For Permission Names: WHY?</span>
 </a>
       </h2>
@@ -3314,10 +3411,10 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/11" hreflang="en">code style</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/19" hreflang="en">wtf</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/11" hreflang="en">code style</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/19" hreflang="en">wtf</a></li>
       </ul>
 </div>
 
@@ -3330,7 +3427,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/once-only-once-conversion-drupal-7s-fieldapi/494" rel="bookmark">
+        <a href="/blog/once-only-once-conversion-drupal-7s-fieldapi/494" rel="bookmark">
 <span>Once &amp; Only Once: The Conversion To Drupal 7&#039;s FieldAPI</span>
 </a>
       </h2>
@@ -3362,11 +3459,11 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/33" hreflang="en">module</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/25" hreflang="en">7.x</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/34" hreflang="en">fieldapi</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/33" hreflang="en">module</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/25" hreflang="en">7.x</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/34" hreflang="en">fieldapi</a></li>
       </ul>
 </div>
 
@@ -3379,7 +3476,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/help-needed-using-jquery-show-passwords-you-type/489" rel="bookmark">
+        <a href="/blog/help-needed-using-jquery-show-passwords-you-type/489" rel="bookmark">
 <span>Help needed: using jQuery to show passwords as you type</span>
 </a>
       </h2>
@@ -3409,12 +3506,12 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/7" hreflang="en">modules</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/30" hreflang="en">help needed</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/31" hreflang="en">jquery</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/32" hreflang="en">usability</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/7" hreflang="en">modules</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/30" hreflang="en">help needed</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/31" hreflang="en">jquery</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/32" hreflang="en">usability</a></li>
       </ul>
 </div>
 
@@ -3427,7 +3524,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/getting-stuff-done/485" rel="bookmark">
+        <a href="/blog/getting-stuff-done/485" rel="bookmark">
 <span>Getting Stuff Done</span>
 </a>
       </h2>
@@ -3461,10 +3558,10 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/17" hreflang="en">roadmap</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/29" hreflang="en">project management</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/17" hreflang="en">roadmap</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/29" hreflang="en">project management</a></li>
       </ul>
 </div>
 
@@ -3477,7 +3574,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/services-or-how-i-learned-were-all-just-secretly-hookmenu/484" rel="bookmark">
+        <a href="/blog/services-or-how-i-learned-were-all-just-secretly-hookmenu/484" rel="bookmark">
 <span>Services, or How I Learned We&#039;re All Just Secretly hook_menu()</span>
 </a>
       </h2>
@@ -3508,14 +3605,14 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/2" hreflang="en">6.x</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/24" hreflang="en">services</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/25" hreflang="en">7.x</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/26" hreflang="en">content distribution</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/27" hreflang="en">abstraction</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/28" hreflang="en">8.x</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/2" hreflang="en">6.x</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/24" hreflang="en">services</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/25" hreflang="en">7.x</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/26" hreflang="en">content distribution</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/27" hreflang="en">abstraction</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/28" hreflang="en">8.x</a></li>
       </ul>
 </div>
 
@@ -3528,7 +3625,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/why-writing-drupal-documentation-harder-writing-wikipedia/476" rel="bookmark">
+        <a href="/blog/why-writing-drupal-documentation-harder-writing-wikipedia/476" rel="bookmark">
 <span>Why Is Writing Drupal Documentation Harder Than Writing Wikipedia?</span>
 </a>
       </h2>
@@ -3566,9 +3663,9 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/23" hreflang="en">documentation</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/23" hreflang="en">documentation</a></li>
       </ul>
 </div>
 
@@ -3581,7 +3678,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/files-arent-visible-all-domains-site/468" rel="bookmark">
+        <a href="/blog/files-arent-visible-all-domains-site/468" rel="bookmark">
 <span>Files Aren&#039;t Visible From All Domains Of A Site</span>
 </a>
       </h2>
@@ -3618,15 +3715,15 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/18" hreflang="en">5.x</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/2" hreflang="en">6.x</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/4" hreflang="en">multisite</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/19" hreflang="en">wtf</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/20" hreflang="en">fix</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/21" hreflang="en">is this a bug?</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/22" hreflang="en">note to self</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/18" hreflang="en">5.x</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/2" hreflang="en">6.x</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/4" hreflang="en">multisite</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/19" hreflang="en">wtf</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/20" hreflang="en">fix</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/21" hreflang="en">is this a bug?</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/22" hreflang="en">note to self</a></li>
       </ul>
 </div>
 
@@ -3639,7 +3736,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/multisite-localhost-without-virtual-hosts/465" rel="bookmark">
+        <a href="/blog/multisite-localhost-without-virtual-hosts/465" rel="bookmark">
 <span>Multisite On localhost Without Virtual Hosts</span>
 </a>
       </h2>
@@ -3678,12 +3775,12 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/2" hreflang="en">6.x</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/3" hreflang="en">development</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/4" hreflang="en">multisite</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/5" hreflang="en">localhost</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/2" hreflang="en">6.x</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/3" hreflang="en">development</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/4" hreflang="en">multisite</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/5" hreflang="en">localhost</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 </div>
 
@@ -3696,7 +3793,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/counting-hooks/462" rel="bookmark">
+        <a href="/blog/counting-hooks/462" rel="bookmark">
 <span>Counting Hooks</span>
 </a>
       </h2>
@@ -3728,9 +3825,9 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/10" hreflang="en">perl</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/10" hreflang="en">perl</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 </div>
 
@@ -3743,7 +3840,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/six-reasons-get-handbook-page-your-module/460" rel="bookmark">
+        <a href="/blog/six-reasons-get-handbook-page-your-module/460" rel="bookmark">
 <span>Six Reasons To Get A Handbook Page For Your Module</span>
 </a>
       </h2>
@@ -3781,9 +3878,9 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/7" hreflang="en">modules</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/7" hreflang="en">modules</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 </div>
 
@@ -3796,7 +3893,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/nodes-nids/458" rel="bookmark">
+        <a href="/blog/nodes-nids/458" rel="bookmark">
 <span>Nodes As NIDs</span>
 </a>
       </h2>
@@ -3830,9 +3927,9 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/11" hreflang="en">code style</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/11" hreflang="en">code style</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 </div>
 
@@ -3845,7 +3942,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/creating-set-fields-one-swell-foop/459" rel="bookmark">
+        <a href="/blog/creating-set-fields-one-swell-foop/459" rel="bookmark">
 <span>Creating A Set Of Fields In One Swell Foop</span>
 </a>
       </h2>
@@ -3876,10 +3973,10 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/2" hreflang="en">6.x</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/12" hreflang="en">cck</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/2" hreflang="en">6.x</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/12" hreflang="en">cck</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 </div>
 
@@ -3892,7 +3989,7 @@ This is not a class hierarchy; this is a tree of objects where each generator ha
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/small-core-big-drupal-tighter-contrib-outer-core/453" rel="bookmark">
+        <a href="/blog/small-core-big-drupal-tighter-contrib-outer-core/453" rel="bookmark">
 <span>Small Core, Big Drupal, Tighter Contrib: Outer Core?</span>
 </a>
       </h2>
@@ -3929,11 +4026,11 @@ Drupal the product would be core + outer core. We'd release both simultaneously,
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/15" hreflang="en">thinking aloud</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/16" hreflang="en">core</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/17" hreflang="en">roadmap</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/15" hreflang="en">thinking aloud</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/16" hreflang="en">core</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/17" hreflang="en">roadmap</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 </div>
 
@@ -3946,7 +4043,7 @@ Drupal the product would be core + outer core. We'd release both simultaneously,
   <header class="layout--content-narrow">
     
             <h2 class="node__title">
-        <a href="https://joachim-n.github.io//blog/never-write-line-code-again/436" rel="bookmark">
+        <a href="/blog/never-write-line-code-again/436" rel="bookmark">
 <span>Never Write A Line Of Code Again!</span>
 </a>
       </h2>
@@ -3980,12 +4077,12 @@ Drupal the product would be core + outer core. We'd release both simultaneously,
 <div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/1" hreflang="en">drupal</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/2" hreflang="en">6.x</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/8" hreflang="en">module builder</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/3" hreflang="en">development</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/9" hreflang="en">drush</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/1" hreflang="en">drupal</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/2" hreflang="en">6.x</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/8" hreflang="en">module builder</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/3" hreflang="en">development</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/9" hreflang="en">drush</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 </div>
 

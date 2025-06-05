@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/getting-more-you-bargained-removing-drupal-module-composer" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/48" />
+
+    <title>Getting more than you bargained for: removing a Drupal module with Composer | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxtylEOgCAIANAL6TySA2OoQbRga96-_uv37U2D1odWFOManZQKiyFI9lgyDk7zO0676aIt48qvtv3vBLAnXx6kBcHpAYkAKP4" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_FfI1KBxjzizfquKZc-UBRYzejEfzH7TlH2sPqJxC3Hk.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxtylEOgCAIANAL6TySA2OoQbRga96-_uv37U2D1odWFOManZQKiyFI9lgyDk7zO0676aIt48qvtv3vBLAnXx6kBcHpAYkAKP4" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>Getting more than you bargained for: removing a Drupal module with Composer</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Wed, 01/09/2019 - 14:19
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>It's no secret that I find Composer a very troublesome piece of software to work with.</p>
+<p>I have issues with Composer on two fronts. First, its output is extremely user-unfriendly, such as the long lists of impenetrable statements about dependencies that it produces when it tells you why it can't make a change you request. Second, many Composer commands have unwanted side-effects, and these work against the practice that changes to your codebase should be as simple as possible for the sake of developer sanity, testing, and user acceptance.</p>
+<p>I recently discovered that removing packages is one such task where Composer has ideas of its own. A command such as remove drupal/foo will take it on itself to also update some apparently unrelated packages, meaning that you either have to manage the deployment of these updates as part of your uninstallation of a module, or roll up your sleeves and hack into the mess Composer has made of your codebase.</p>
+<p>Guess which option I went for.</p>
+<h2>Step 1: Remove the module you actually want to remove</h2>
+<p>Let's suppose we want to remove the Drupal module 'foo' from the codebase because we're no longer using it:</p>
+<pre><code>$ composer remove drupal/foo
+</code></pre>
+<p>This will have two side effects, one of which you might want, and one of which you definitely don't.</p>
+<h3>Side effect 1: dependent packages are removed</h3>
+<p>This is fine, in theory. You probably don't need the modules that are dependencies of foo. Except... Composer knows about dependencies declared in composer.json, which for Drupal modules might be different from the dependencies declared in module info.yml files (if maintainers haven't been careful to ensure they match). UPDATE: I've been informed in comments that drupal.org's packaging process ensures these are kept in sync. So that's one less thing to worry about!</p>
+<p>Furthermore, Composer doesn't know about Drupal configuration dependencies. You could have the situation where you installed module Foo, which had a dependency on Bar, so you installed that too. But then you found Bar was quite useful in itself, and you've created content and configuration on your site that depends on Bar. Ideally, at that point, you should have declared Bar explicitly in your project's root composer.json, but most likely, you haven't.</p>
+<p>So at this point, you should go through Composer's output of what it's removed,
+and check your site doesn't have any of the Drupal modules enabled.</p>
+<p>I recommend taking the list of Drupal modules that Composer has just told you it's removed in addition to the requested one, and checking its status on your live site:</p>
+<pre><code>$ drush pml | ag MODULE
+</code></pre>
+<p>If you find that any modules are still enabled, then revert the changes you've just made with the remove command, and declare the modules in your root composer.json, copying the declaration from the composer.json file of the module you are removing. Then start step 1 again.</p>
+<h3>Side effect 2: unrelated packages are updated</h3>
+<p>This is undesirable basically because any package update is something that has to be evaluated and tested before it's deployed. Having that happen as part of a package removal turns what should be a straight-forward task into something complex and unpredictable. It's forcing the developer to handle two operations that should be separate as one.</p>
+<p>(It turns out that the maintainers of Composer don't even consider this to be a problem, and as I have unfortunately come to expect, <a href="https://github.com/composer/composer/issues/7476">the issue on github</a> is a fine example of bad maintainership (for the nadir, see the issue on the use of JSON as a format for the main composer file) -- dismissing the problems that users explain they have, claiming the problems are by design, and so on.)</p>
+<p>So to revert this, you need to pick apart the changes Composer has made, and reverse some of them.</p>
+<p>Before you go any further, commit everything that Composer changed with the remove command. In my preferred method of operation, that means <em>all</em> the files, including the modules folder and the vendor folder. I know that Composer recommends you don't do that, but frankly I think trusting Composer not to damage your codebase on a whim is folly: you need to be able to back out of any mess it may make.</p>
+<h2>Step 2: Repair composer.lock</h2>
+<p>The composer.lock file is the record of how the packages currently are, so to undo some of the changes Composer made, we undo some of the changes made to this file, then get Composer to  update based on the lock.</p>
+<p>First, restore version of composer.lock to how it was before you started:</p>
+<pre><code>$ git checkout HEAD^ composer.lock
+</code></pre>
+<p>Unstage it. I prefer a GUI for git staging and unstaging operations, but on the command line it's:</p>
+<pre><code>$ git reset composer.lock
+</code></pre>
+<p>Your composer lock file now looks as it did before you started.</p>
+<p>Use either git add -p or your favourite git GUI to pick out the right bits. Understanding which bits are the 'right bits' takes a bit of mental gymnastics: overall, we want to keep the changes in the last commit that removed packages completely, but we want to discard the changes that upgrade packages.</p>
+<p>But here we've got a reverted diff. So in terms of what we have here, we want to discard changes that re-add a package, and stage and commit the changes that downgrade packages.</p>
+<p>When you're done staging you should have:</p>
+<ul>
+<li>the change to the content hash should be unstaged.</li>
+<li>chunks that are a whole package should be unstaged</li>
+<li>chunks that change version should be staged (be sure to get all the bits that relate to a package)</li>
+</ul>
+<p>Then commit what is staged, and discard the rest.</p>
+<p>Then do a git diff of composer.lock against your starting point: you should see only complete package removals.</p>
+<h2>Step 3: Restore packages with unrelated changes</h2>
+<p>Finally, do:</p>
+<pre><code>$ composer update --lock
+</code></pre>
+<p>This will restore the packages that Composer updated against your will in step 1 to their original state.</p>
+<p>If you are committing Composer-managed packages to your repository, commit them now.</p>
+<p>As a final sanity check, do a git diff against your starting point, like this:</p>
+<pre><code>$ git diff --name-status master
+</code></pre>
+<p>You should see mostly deleted files. To verify there's nothing that shouldn't be there in the changed files, do:</p>
+<pre><code>$ git diff --name-status master | ag '^[^D]'
+</code></pre>
+<p>You should see only composer.json, composer.lock, and the autoloader's files.</p>
+<p>PS. If I am wrong and there IS a way to get Compose to remove a package without side-effects, please tell me.</p>
+<p>I feel I have exhausted all the options of the remove command:</p>
+<ul>
+<li>--no-update only changes composer.json, and makes no changes to package files at all. I'm not sure what the point of this is.</li>
+<li>--no-update-with-dependencies only removes the one package, and doesn't remove any dependencies that are not required anywhere else. This leaves you having to pick through composer.json files yourself and remove dependencies individually, and completely obviates the purpose of a package manager!</li>
+</ul>
+<p>Why is something as simple as a package removal turned into a complex operation by Composer? Honestly, I'm baffled. I've tried reasoning with the maintainers, and it's a brick wall.</p>
+<p>PPS. Since writing this post, I’ve made <a href="https://github.com/joachim-n/composer-manifest">Composer Manifest</a> a small Composer plugin which makes it easier to see what Composer has decided to change behind your back. Every time you do a Composer update, install, or remove, it writes a YAML file that lists all the installed packages with their versions. Committing that to your repository means you have an easy way to see exactly what's been changed and when.</p></div>
+      
+
+<div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="/taxonomy/term/59" hreflang="en">Composer</a></li>
+      </ul>
+</div>
+
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/48","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"48"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

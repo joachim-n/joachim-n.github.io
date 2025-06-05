@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/different-ways-make-entity-bundles" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/55" />
+
+    <title>Different ways to make entity bundles | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_vfIdNKgDtRvyJuw916Kx8ALuhmUSYHx-WEC-P_sCyfQ.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>Different ways to make entity bundles</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Tue, 10/27/2020 - 11:52
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>A lot of the time, a custom content entity type only needs a single bundle: all the entities of this type have the same structure. But there are times where they need to vary, typically to have different fields, while still being the same type. This is where entity bundles come in.</p>
+<p>Bundles are to a custom entity type what node types are to the node entity type. They could be called sub-types instead (and there is <a href="https://www.drupal.org/project/drupal/issues/1380720">a long-running core issue to rename them to this</a>; I'd say go help but I'm not sure what can be done to move it forward), but the name 'bundle' has stuck because initially the concept was just about different 'bundles of fields', and then the name ended up being applied across the whole entity system.</p>
+<p>History lesson over; how do you define bundles on your entity type? Well there are several ways, and of course they each have their use cases.</p>
+<p>And of course, <a href="https://www.drupal.org/project/module_builder">Module Builder</a> can help generate your code, whichever of these methods you use.</p>
+<h2>Quick and simple: hardcode</h2>
+<p>The simplest way to do anything is to hardcode it. If you have a fixed number of bundles that aren't going to change over time, or at least so rarely that requiring a code deployment to change them is acceptable, then you can simply define the bundles in code. The way to do this is with a hook (though there's a core issue -- which I filed -- to <a href="https://www.drupal.org/project/drupal/issues/3112239">allow these to be defined in a method on the entity class</a>).</p>
+<p>Here's how you'd define your hardcoded bundles:</p>
+<pre><code>/**
+ * Implements hook_entity_bundle_info().
+ */
+function mymodule_entity_bundle_info() {
+  $bundles['my_entity_type'] = [
+    'bundle_alpha_' =&gt; [
+      'label' =&gt; t('Alpha'),
+      'description' =&gt; t('Represents an alpha entity.')
+    ],
+    'bundle_beta_' =&gt; [
+      'label' =&gt; t('Beta'),
+      'description' =&gt; t('Represents a beta entity.')
+    ],
+  ];
+
+  return $bundles;
+}
+</code></pre>
+<p>The machine names of the bundles (which are used as the bundle field values, and in field names, admin paths, and so on) are the keys of the array. The labels are used in UI messages and page titles. The descriptions are used on the 'Add entity' page's list of bundles.</p>
+<h2>Classic: bundle entity type</h2>
+<p>The way Drupal core does bundles is with a bundle entity type. In addition to the content entity type you want to have bundles, there is also a config entity type, called the 'bundle entity type'. Each single entity of the bundle entity type defines a bundle of the content entity type. So for example, a single node type entity called 'page' defines the 'page' node type; a single taxonomy vocabulary entity called 'tags' defines the 'tags' taxonomy term type.</p>
+<p>This is great if you want extensibility, and you want the bundles to be configurable by site admins in the UI rather than developers. The downside is that it's a lot of extra code, as there's a whole second entity type to define.</p>
+<p>Very little glue is required between the two entity types, though. They basically each need to reference the other in their entity type annotations:</p>
+<p>The content entity type needs:</p>
+<pre><code> *   bundle_entity_type = "my_entity_type_bundle",
+</code></pre>
+<p>and the bundle entity needs:</p>
+<pre><code> *   bundle_of = "my_entity_type",
+</code></pre>
+<p>and the bundle entity class should inherit from <code>\Drupal\Core\Config\Entity\ConfigEntityBundleBase</code>.</p>
+<h2>Per-bundle functionality: plugins as bundles</h2>
+<p>This third method needs more than just Drupal core: it's a technique provided by <a href="https://www.drupal.org/project/entity">Entity module</a>.</p>
+<p>Here, you define a plugin type (an annotation plugin type, rather than YAML), and each plugin of that type corresponds to a bundle. This means you need a whole class for each bundle, which seems like a lot of code compared to the hook technique, but there are cases where that's what you want.</p>
+<p>First, because Entity module's framework for this allows each plugin class to define different fields for each bundle. These so-called bundle fields are installed in the same way as entity base fields, but are only on one bundle. This gives you the diversification of per-bundle fields that you get with config fields, but with the definition of the fields in your code where it's easier to maintain.</p>
+<p>Second, because in your plugin class you can code different behaviours for different bundles of your entity type. Suppose you want the entity label to be slightly different. No problem, in your entity class simply hand over to the bundle:</p>
+<pre><code>class PluginAlpha {
+
+  public function label() {
+    $bundle_plugin = \Drupal::service('plugin.manager.my_plugin_type')
+    return $bundle_plugin-&gt;label($this);
+  }
+  
+}
+</code></pre>
+<p>Add a label() method to the plugin classes, and you can specialise the behaviour for each bundle. If you want to have behaviour that's grouped across more than one plugin, one way to do it is to add properties to your plugin type's annotation, and then implement the functionality in the plugin base class with a conditional on the value in the plugin's definition.</p>
+<pre><code>/**
+ * @MyPluginType(
+ *   id = "plugin_alpha",
+ *   label = @Translation("Alpha"),
+ *   label_handling = "combolulate"
+</code></pre>
+<pre><code>class MyPluginBase {
+
+  public function label() {
+    switch ($this-&gt;getPluginDefinition()['floopiness']) {
+      case 'combolulate':
+        // Return the combolulated label. 
+    }
+  }
+
+}
+</code></pre>
+<p>For a plugin type to be used as entity bundles, the plugins need to implement \Drupal\entity\BundlePlugin\BundlePluginInterface, and your entity type needs to declare the plugin:</p>
+<pre><code> *   bundle_plugin_type = "my_plugin_type",
+</code></pre>
+<p>Here, the string 'my_plugin_type' is the part of the plugin manager's service name that comes after the 'plugin.manager' prefix. (The plugin system unfortunately doesn't have a standard concept of a plugin type's name, but this is informally what is used in various places such as Entity module and Commerce.)</p>
+<p>The bundle plugin technique is well-suited to entities that are used as 'machinery' in some way, rather than content. For example, in Commerce License, each bundle of the license entity is a plugin which provides the behaviour that's specific to that type of license.</p>
+<p>One thing to note on this technique: if you're writing kernel tests, you'll need to manually install the bundle plugins for them to exist in the test. See the tests in Entity module for an example.</p>
+<p>These three techniques for bundles each have their advantages, so it's not unusual to find all three in use in a single project codebase. It's a question of which is best for a particular entity type.</p></div>
+      
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/55","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"55"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

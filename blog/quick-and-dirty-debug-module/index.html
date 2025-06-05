@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/quick-and-dirty-debug-module" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/45" />
+
+    <title>The quick and dirty debug module | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_vfIdNKgDtRvyJuw916Kx8ALuhmUSYHx-WEC-P_sCyfQ.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>The quick and dirty debug module</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Tue, 05/15/2018 - 06:28
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>There's a great module called the debug module. I'd give you the link… but it doesn't exist. Or rather, it's not a module you download. It's a module you write yourself, and write again, over and over again.</p>
+<p>Do you ever want to inspect the result of a method call, or the data you get back from a service, the result of a query, or the result of some other procedure, without having to wade through the steps in the UI, submit forms, and so on?</p>
+<p>This is where the debug module comes in. It's just a single page which outputs whatever code you happen to want to poke around with at the time. On Drupal 8, that page is made with:</p>
+<ul>
+<li>an info.yml file</li>
+<li>a routing file</li>
+<li>a file containing the route's callback. You could use a controller class for this, but it's easier to have the callback just be a plain old function in the module file, as there's no need to drill down a folder structure in a text editor to reach it.</li>
+</ul>
+<p>(You could quickly whip this up with <a href="https://www.drupal.org/project/module_builder">Module Builder</a>!)</p>
+<p>Here's what my router file looks like:</p>
+<pre><code>joachim_debug:
+  path: '/joachim-debug'
+  defaults:
+    _controller: 'joachim_debug_page'
+  options:
+    _admin_route: TRUE
+  requirements:
+    _access: 'TRUE'
+
+</code></pre>
+<p>My debug module is called 'joachim_debug'; you might want to call yours something else. Here you can see we're granting access unconditionally, so that whichever user I happen to be logged in as (or none) can see the page. That's of course completely insecure, especially as we're going to output all sorts of internals. But this module is only meant to be run on your local environment and you should on no account commit it to your repository.</p>
+<p>I don't want to worry about access, and I want the admin theme so the site theme doesn't get in the way of debug output or affect performance.</p>
+<p>If you sometimes want to see themed output, you can add a second route with a different path, which serves up the same content but without the admin theme option:</p>
+<pre><code>joachim_debug_theme:
+  path: '/joachim-debug-theme'
+  defaults:
+    _controller: 'joachim_debug_page'
+  requirements:
+    _access: 'TRUE'
+</code></pre>
+<p>The module file starts off looking like this:</p>
+<pre><code>opcache_reset();
+
+function joachim_debug_page() {
+  $build = [
+    '#markup' =&gt; “aaaaarrrgh!!!!”,
+  ];
+
+  /*
+  // ============================ TEMPLATE
+
+
+  return $build;
+  */
+
+  return $build;
+}
+
+</code></pre>
+<p>The commented-out section is there for me to quickly copy and paste a new section of code anytime I want to do something different. I always leave the old code in below the return, just in case I want to go back to it later on, or copy-paste snippets from it.</p>
+<p>Back in the Drupal 6 and 7 days, the return of the callback function was merely a string. On Drupal 8, it has to be a proper render array. The return text used to be 'It's going wrong!' but these days it's the more expressive 'aaaaarrrgh'. Most of the time, the output I want will be the result of dsm() call, so the $build is there just so Drupal's routing system doesn't complain about a route callback not returning anything.</p>
+<p>Here are some examples of the sort of code I might have in here.</p>
+<pre><code>  // ============================ Route provider
+  $route_provider = \Drupal::service('router.route_provider');
+  
+  $path = 'node/%/edit';
+  $rs = $route_provider-&gt;getRoutesByPattern($path);
+  dsm($rs);
+
+  return $build;
+</code></pre>
+<p>Here I wanted to see the what the route provider service returns. (I have no idea why, this is just something I found in the very long list of old code in my module's menu callback, pushed down by newer stuff.)</p>
+<pre><code>  // ============================ order receipt email
+  $order = entity_load('commerce_order', 3);
+  
+  $build = [
+    '#theme' =&gt; 'commerce_order_receipt',
+    '#order_entity' =&gt; $order,
+    '#totals' =&gt; \Drupal::service('commerce_order.order_total_summary')-&gt;buildTotals($order),
+  ];
+
+  return $build;
+</code></pre>
+<p>I wanted to work with the order receipt emails that Commerce sends. But I don't want to have to make a purchase, complete and order, and then look in the mail logger just to see the email! But this is quicker: all I have to do is load up my debug module's page (mine is at the path 'joachim-debug', which is easy to remember for me; you might want to have yours somewhere else), and vavoom, there's the rendered email. I can tweak the template, change the order, and just reload the page to see the effect.</p>
+<p>As you can see, it's quick and simple. There's no safety checks, so if you ever put code here that does something (such as an entity_delete(), it's useful for deleting entities in bulk quickly), be sure to comment out the code once you're done with it, or your next reload might blow up! And of course, it's only ever to be used on your local environment; never on shared development sites, and certainly never on production!</p>
+<p>I once read something about how a crucial piece of functionality required for programming, and more specifically, for ease of learning to program with a language or a framework, is being able to see and understand the outcomes of the code you are writing. In Drupal 8 more than ever, being able to understand the systems you're working with is vital. There are tools such as debuggers and the Devel and Devel Contrib modules' information pages, but sometimes quick and dirty does the job too.</p></div>
+      
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/45","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"45"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

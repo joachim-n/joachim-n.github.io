@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xml:base="https://joachim-n.github.io//">
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xml:base="https://joachim-n.github.io/">
   <channel>
     <title>Joachim's blog</title>
-    <link>https://joachim-n.github.io//</link>
+    <link>https://joachim-n.github.io/</link>
     <description/>
     <language>en</language>
     
     <item>
+  <title>Changing your mind about dependency injection</title>
+  <link>https://joachim-n.github.io/blog/changing-your-mind-about-dependency-injection</link>
+  <description><![CDATA[
+<span>Changing your mind about dependency injection</span>
+
+            <p>When I start writing a class that has a dependency injection, I have a clear idea about which services it needs. I generate it -- the plugin, form, controller, or service -- and specify those services.</p>
+<p>Then nearly always, unless it's something really very simple, I find that no matter how much I thought about it and planned it, I need to add more services. Maybe remove some too.</p>
+<p>Fortunately, because Module Builder saves the configuration of the module code you've generated, it's easy to go back to it and edit it to add more services:</p>
+<ol>
+<li>Edit your module in Module Builder</li>
+<li>Add to the injected services for your component</li>
+<li>Ensure your code file is committed to version control</li>
+<li>Generate the code, and write the updated version of the code file</li>
+<li>Add and commit the new DI code, while discarding the changes that remove your code. (I find it helps to use a git GUI for things like this, though <code>git add -p</code> works too.)</li>
+</ol>
+<p>But I tend to find that I make this mistake several times as the class develops, and so I adopt the approach of using the <code>\Drupal::service()</code> function to get my services, and only when I'm fairly confident I'm not going to need to make any more changes to DI, I update the injected services in one go, converting all the service calls to use the service properties.</p>
+<p>I was asked yesterday at Drupal Drinks about how to do that, and it occurred to me that there's a way of doing this so after you've updated the dependency injection with Module Builder, it's a simple find and replace to update your code.</p>
+<p>If you write your code like this whenever you need a service:</p>
+<pre><code>$service_entityTypeManager = \Drupal::service('entity_type.manager');
+$stuff = $service_entityTypeManager-&gt;doSomething();
+</code></pre>
+<p>Then you need to do only two find and replace operations to convert this to DI:</p>
+<ol>
+<li>Replace <code>'^.+Drupal::service.+\n'</code> with <code>''</code>. This removes all the lines where you get the service from the Drupal class.</li>
+<li>Replace <code>'\$service_(\w+)'</code> with <code>'$this-&gt;$1'</code>. This replaces all the service variables
+with the class property.</li>
+</ol>
+<p>Up until now I'd been calling the service variables something like <code>$entityTypeManager</code> so that I could easily change that to <code>$this-&gt;entityTypeManager</code> manually, but prefixing the variable name with a camel case <code>'service_'</code> gives you something to find with a regular expression.</p>
+<p>If you want to be really fancy, you can use a regular expression like <code>'(?&lt;=::service..)[\w.]+'</code> (using dots to avoid having to escape the open bracket and the quote mark) to find all the services that you need to add to the class's dependency injection.</p>
+<p>Something like this:</p>
+<pre><code>$ ag -G MyClass.php '(?&lt;=::service..)[\w.]+' -o --nonumbers --nofilename | sort | uniq | tr "\n" ", "
+</code></pre>
+<p>will give you a list of service names that you can copy-paste into the Module Builder form. This is probably overkill for something you can do pretty quickly with the search in a text editor or IDE, but it's a nice illustration of the power of unix tools: <code>ag</code> has options to output just the found text, then <code>sort</code> and <code>uniq</code> eliminate duplicates, and finally <code>tr</code> turns it into a comma-separated list.</p>
+      
+<span><span>joachim</span></span>
+
+<span>Thu, 10/24/2024 - 11:25
+</span>
+
+
+
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/68" hreflang="en">dependency injection</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/56" hreflang="en">drupal code builder</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/8" hreflang="en">module builder</a></li>
+      </ul>
+
+]]></description>
+  <pubDate>Thu, 24 Oct 2024 11:25:30 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">60 at https://joachim-n.github.io</guid>
+    </item>
+<item>
   <title>Refactoring with Rector</title>
-  <link>https://joachim-n.github.io//blog/refactoring-rector</link>
+  <link>https://joachim-n.github.io/blog/refactoring-rector</link>
   <description><![CDATA[
 <span>Refactoring with Rector</span>
 
@@ -100,10 +154,10 @@ use PhpParser\Node\Identifier;
 
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/65" hreflang="en">refactoring</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/66" hreflang="en">Rector</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/67" hreflang="en">PhpParser</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/56" hreflang="en">drupal code builder</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/65" hreflang="en">refactoring</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/66" hreflang="en">Rector</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/67" hreflang="en">PhpParser</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/56" hreflang="en">drupal code builder</a></li>
       </ul>
 
 ]]></description>
@@ -113,7 +167,7 @@ use PhpParser\Node\Identifier;
     </item>
 <item>
   <title>Defining bundle fields in code</title>
-  <link>https://joachim-n.github.io//blog/defining-bundle-fields-code</link>
+  <link>https://joachim-n.github.io/blog/defining-bundle-fields-code</link>
   <description><![CDATA[
 <span>Defining bundle fields in code</span>
 
@@ -228,7 +282,7 @@ know that it's area of the code that may need maintainance when the API is updat
     </item>
 <item>
   <title>Commit your Composer-managed files to version control</title>
-  <link>https://joachim-n.github.io//blog/commit-your-composer-managed-files-version-control</link>
+  <link>https://joachim-n.github.io/blog/commit-your-composer-managed-files-version-control</link>
   <description><![CDATA[
 <span>Commit your Composer-managed files to version control</span>
 
@@ -285,7 +339,7 @@ that means the following folders are not in your git repository:</p>
     </item>
 <item>
   <title>A better way to work on Drupal core</title>
-  <link>https://joachim-n.github.io//blog/better-way-work-drupal-core</link>
+  <link>https://joachim-n.github.io/blog/better-way-work-drupal-core</link>
   <description><![CDATA[
 <span>A better way to work on Drupal core</span>
 
@@ -331,8 +385,8 @@ that means the following folders are not in your git repository:</p>
 
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/59" hreflang="en">Composer</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/64" hreflang="en">Drupal core</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/59" hreflang="en">Composer</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/64" hreflang="en">Drupal core</a></li>
       </ul>
 
 ]]></description>
@@ -342,7 +396,7 @@ that means the following folders are not in your git repository:</p>
     </item>
 <item>
   <title>Different ways to make entity bundles</title>
-  <link>https://joachim-n.github.io//blog/different-ways-make-entity-bundles</link>
+  <link>https://joachim-n.github.io/blog/different-ways-make-entity-bundles</link>
   <description><![CDATA[
 <span>Different ways to make entity bundles</span>
 
@@ -434,7 +488,7 @@ function mymodule_entity_bundle_info() {
     </item>
 <item>
   <title>Using lazy builders with Twig templates</title>
-  <link>https://joachim-n.github.io//blog/using-lazy-builders-twig-templates</link>
+  <link>https://joachim-n.github.io/blog/using-lazy-builders-twig-templates</link>
   <description><![CDATA[
 <span>Using lazy builders with Twig templates</span>
 
@@ -486,7 +540,7 @@ $build['#attached']['placeholders'][$placeholder] = [
     </item>
 <item>
   <title>Base fields versus config fields, and how to handle the latter in tests</title>
-  <link>https://joachim-n.github.io//blog/base-fields-versus-config-fields-and-how-handle-latter-tests</link>
+  <link>https://joachim-n.github.io/blog/base-fields-versus-config-fields-and-how-handle-latter-tests</link>
   <description><![CDATA[
 <span>Base fields versus config fields, and how to handle the latter in tests</span>
 
@@ -763,7 +817,7 @@ use Drupal\config\StorageReplaceDataWrapper;
     </item>
 <item>
   <title>Debugging and Logging AJAX requests tests in Docksal</title>
-  <link>https://joachim-n.github.io//blog/debugging-and-logging-ajax-requests-tests-docksal</link>
+  <link>https://joachim-n.github.io/blog/debugging-and-logging-ajax-requests-tests-docksal</link>
   <description><![CDATA[
 <span>Debugging and Logging AJAX requests tests in Docksal</span>
 
@@ -793,9 +847,9 @@ use Drupal\config\StorageReplaceDataWrapper;
 
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/62" hreflang="en">debugging</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/63" hreflang="en">tests</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/62" hreflang="en">debugging</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/63" hreflang="en">tests</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/6" hreflang="en">drupal planet</a></li>
       </ul>
 
 ]]></description>
@@ -805,7 +859,7 @@ use Drupal\config\StorageReplaceDataWrapper;
     </item>
 <item>
   <title>Multi-site search using Feeds and SearchAPI</title>
-  <link>https://joachim-n.github.io//blog/multi-site-search-using-feeds-and-searchapi</link>
+  <link>https://joachim-n.github.io/blog/multi-site-search-using-feeds-and-searchapi</link>
   <description><![CDATA[
 <span>Multi-site search using Feeds and SearchAPI</span>
 
@@ -834,73 +888,15 @@ use Drupal\config\StorageReplaceDataWrapper;
 
       <h3 class="field__label field--tags__label">Tags</h3>
     <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/60" hreflang="en">search</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/61" hreflang="en">Feeds</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/60" hreflang="en">search</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io/taxonomy/term/61" hreflang="en">Feeds</a></li>
       </ul>
 
 ]]></description>
   <pubDate>Wed, 30 Oct 2019 13:08:43 +0000</pubDate>
     <dc:creator>joachim</dc:creator>
     <guid isPermaLink="false">51 at https://joachim-n.github.io</guid>
-    </item>
-<item>
-  <title>Controlling multiple sites with Drush 9</title>
-  <link>https://joachim-n.github.io//blog/controlling-multiple-sites-drush-9</link>
-  <description><![CDATA[
-<span>Controlling multiple sites with Drush 9</span>
-
-            <p>Drush 9 has removed dynamic site aliases. Site aliases are hardcoded in YAML files rather than declared in PHP. Sadly, that means that many tricks you could do with the declaration of the site aliases are no longer available.</p>
-<p>The only grouping possible is based on the YAML filename. So for example, with the Acquia Cloud Site Factory site aliases generated by the 'blt recipes:aliases:init:acquia' command, you can run a command on the same site across different environments.</p>
-<p>But what you can't do is run a command on all the sites in one environment.</p>
-<p>One use case for this is checking whether a module is enabled on any sites, so you know that it's safe to remove it from the codebase.</p>
-<p>Currently, this is quite a laborious process, as 'drush pm-list' needs to be run for each site.</p>
-<p>With environment aliases, this would be a one liner:</p>
-<pre><code>drush @hypothetical-env-alias pm-list | ag some_module
-</code></pre>
-<p>('ag' is the very useful <a href="https://github.com/ggreer/the_silver_searcher">silver searcher unix command</a>, which is almost the same as the also excellent 'ack' but faster, and both are much better than grep.)</p>
-<p>While site aliases are fixed, they can be altered with Drush hooks. I considered that these might allow something to dynamically declare aliases, or a command option. There's <a href="https://github.com/drush-ops/drush/commit/886354d4fd7516893eac12b2b6f4ca">an example of altering aliases with a hook in the Drush code</a>.</p>
-<p>In the meantime, a much simpler solution is to use xargs, which I have recently found is extremely useful in all sorts of situations. Because this allows you to run one command multiple times with a set of parameters, all you need to do is pass it a list of site aliases. Fortunately, the 'drush sa' command has lots of formatting options, and one of them gives us just what we need, a list of aliases with one on each line:</p>
-<pre><code>drush sa --format=list 
-</code></pre>
-<p>That gives us all the aliases, and we probably don't want that. So here's where ag first comes in to play, as we can filter the list, for example, to only run on live sites (I'm using my ACSF aliases here as an example):</p>
-<pre><code>drush sa --format=list| ag 01live
-</code></pre>
-<p>Now we have a filtered list of aliases, and we can feed that into xargs:</p>
-<pre><code>drush sa --format=list| ag 01live | xargs -I % drush % pm-list
-</code></pre>
-<p>Normally, xargs puts the input parameter at the end of its command, but here we want it inserted just after the 'drush' command. The -I parameter allows us to specify a placeholder where the input parameter goes, so:</p>
-<pre><code>xargs -I % drush % pm-list
-</code></pre>
-<p>says that we want the site name to go where the '%' is, and means that that xargs will run:</p>
-<pre><code>drush SITE-ALIAS pm-list
-</code></pre>
-<p>with each value it receives, in this case, each site alias.</p>
-<p>Another thing we will do with xargs is set the -t parameter, which outputs each actual command it executes on STDERR. That acts as a heading in the output, so we can clearly see which site is outputting what.</p>
-<p>Finally, we can use ag a second time to filter the module list down to just the module we want to find out about:</p>
-<pre><code>drush sa --format=list | ag live | xargs -t -I % drush % pml | ag some_module 
-</code></pre>
-<p>The nice thing about the -t parameter is that as it's STDERR, it's not affected by the final pipe to ag for filtering output. So the output will consist of the drush command for the site, followed by the filtered output.</p>
-<p>And hey presto.</p>
-<p>In conclusion: dynamic site aliases in Drush were nice, but the maintainers removed them (as far as I can gather) because they were a mess to implement, and removing them vastly simplified things. Doing the equivalent with xargs took a bit of figuring out, but once you know how to do it, it's actually a much more powerful way to work with multiple sites at once.</p>
-      
-<span><span>joachim</span></span>
-
-<span>Sat, 03/16/2019 - 20:44
-</span>
-
-
-
-      <h3 class="field__label field--tags__label">Tags</h3>
-    <ul class="links field__items field--tags__items">
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/9" hreflang="en">drush</a></li>
-          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
-      </ul>
-
-]]></description>
-  <pubDate>Sat, 16 Mar 2019 20:44:15 +0000</pubDate>
-    <dc:creator>joachim</dc:creator>
-    <guid isPermaLink="false">50 at https://joachim-n.github.io</guid>
     </item>
 
   </channel>

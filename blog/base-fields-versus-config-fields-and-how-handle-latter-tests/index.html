@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/base-fields-versus-config-fields-and-how-handle-latter-tests" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/53" />
+
+    <title>Base fields versus config fields, and how to handle the latter in tests | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_vfIdNKgDtRvyJuw916Kx8ALuhmUSYHx-WEC-P_sCyfQ.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>Base fields versus config fields, and how to handle the latter in tests</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Thu, 03/19/2020 - 14:07
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>All fields are equal in Drupal 8! Back in Drupal 7 we had two different systems for data on entities, which worked fairly differently: entity properties that were defined as database fields and controlled by hardcoded form elements, and user-created fields on entities that had widgets and formatters. But now in Drupal 8, every value on an entity is a field, with the same configuration in the UI, access to the widgets and formatters, and whose data is accessed in the same way.</p>
+<p>Is this the end of the story? No, not quite. For site builders, everything is unified, and that's great. For code that consumes data from entities, everything is unified, and that's great too. But for the developer actually working with those fields, whether a field is a base field or a config field still makes a big difference.</p>
+<h3>Config fields are easier...</h3>
+<p>Config fields are manipulated via a UI, and that makes them simple to work with.</p>
+<h4>Setup</h4>
+<p>Config fields win easily here: a few clicks in the UI to create the field, a few options to choose in dropdowns for the widget and formatter options and you're set. Export to config, commit: done!</p>
+<p>Base fields are more fiddly here. You need to be familiar with the Entity system, and understand (or copy-pasta!) the base field definitions. Then, knowing the right widget and formatter to use and how to set their options requires close reading of the relevant plugin classes.</p>
+<h4>Update</h4>
+<p>Config fields win again: change in the UI, export to config, deploy!</p>
+<p>For base fields, you once again need to know what you're doing with the code,
+and you now need a hook_update_N() to make the change to the database (now that entity updates are longer done automatically).</p>
+<h4>Removal</h4>
+<p>This is maybe a minor point, but while removing a config field is again just a
+UI click and a config export, removing a base field will again require a hook_update_N() to tell the Entity API to update the database tables.</p>
+<h3>...but base fields are more robust</h3>
+<p>Given the above, why bother with base fields? Well, if your fields just sit there holding data, you can stop reading. But if your fields are involved in your custom code, as a developer, this should give you an unpleasant feeling: your code in <code>modules/custom/mymodule</code> is dependent on configuration that lives in the site's config export.</p>
+<h4>Robustness</h4>
+<p>The fact that config fields are so easy to change in the UI is now a mark <em>against</em> them. Another developer could change a field without a full understanding of the code that works with it. The code might expect a value to always be there, but the field is now non-required. The code might expect certain options, but the field now has an extra one.</p>
+<p>Instead of this brittle dependency, it feels much safer to have base fields defined closer to the code that makes use of them: in the same module.</p>
+<h4>Tests</h4>
+<p>The solution to the dependency problem is obviously tests, which would pick up any change that breaks the code's expectations of how the fields behave. But now we hit a big problem with config fields: your test site doesn't have those fields!</p>
+<p>My first attempt at solving this problem was to use the <a href="https://www.drupal.org/project/config_devel">Configuration development module</a>. This allows you to export config from the site to a module's <code>/config/install</code> folder. A test that installs that module then gets those config items imported.</p>
+<p>It's a quick and simple approach: when a test crashes because of a missing field, find it in the config folder, add it to the right module's <code>.info.yml</code> file, do <code>drush cde MODULE</code> and commit the changes and the newly created files.</p>
+<p>This approach also works for all other sorts of config your test might need: taxonomy vocabularies, node types, roles, and more!</p>
+<p>But now you have an additional maintenance burden because your site config is now in <em>three</em> places: the site itself, the config export, and now also in module config. And if developers who change config forget to also export to module config, your test is now no longer testing how the site actually works, and so will either fail, or worse, won't be actually covering what you expect any more.</p>
+<h3>Best of both worlds: import from config</h3>
+<p>To summarize: we want the convenience of config fields, but we want them to be close to our code and testable. If they're testable, we can maybe stand to forego the closeness.</p>
+<p>My best solution to this so far is simple: allow tests to import configuration
+direct from the site config sync folder.</p>
+<p>Here's the helper method I've been using:</p>
+<pre><code>/**
+ * Imports config from a real local site's config folder.
+ *
+ * TODO: this currently only supports config entities.
+ *
+ * @param string $site_key
+ *   The site key, that is, the subfolder in /config in which to find the
+ *   config files.
+ * @param string $config_name
+ *   The config name. This is the same as the YML filename without the
+ *   extension. Note that this is not checked for dependencies.
+ *
+ * @throws \Exception
+ *   Throws an exception if the config can't be imported.
+ */
+protected function importSiteConfig(string $site_key, string $config_name) {
+  $storage = $this-&gt;container-&gt;get('config.storage.sync');
+
+  // Code cribbed from Config Devel module's ConfigImporterExporter.
+  $config_filename = "../config/{$site_key}/{$config_name}.yml";
+
+  if (!file_exists($config_filename)) {
+    throw new \Exception("Unable to find config file $config_filename to import from.");
+  }
+
+  $contents = @file_get_contents($config_filename);
+
+  $data = $storage-&gt;decode($contents);
+  if (!$data) {
+    throw new \Exception("Failed to import config $config_name from site $site_key.");
+  }
+
+  // This assumes we only ever import entities from site config for tests,
+  // which so far is the case.
+  $entity_type_id = $this-&gt;container-&gt;get('config.manager')-&gt;getEntityTypeIdByName($config_name);
+
+  if (empty($entity_type_id)) {
+    throw new \Exception("Non-entity config import not yet supported!");
+  }
+
+  $entity = $this-&gt;container-&gt;get('entity_type.manager')-&gt;getStorage($entity_type_id)-&gt;create($data);
+  $entity-&gt;save();
+}
+</code></pre>
+<p>Use it in your test's setUp() or test methods like this:</p>
+<pre><code>  // Import configuration from the default site config files.
+  $this-&gt;importSiteConfig('default', 'field.storage.node.field_my_field');
+  $this-&gt;importSiteConfig('default', 'field.field.node.article.field_my_field');
+</code></pre>
+<p>As you can see from the documentation, this so far only handles config that is entities. I've not yet had a use for importing config that's not an entity (and just about all config items are entities except for the ones that are a collection of a module's settings). And it doesn't check for dependencies: you'll need to import them in the right order (field storage before field) and ensure the modules that provide the various things are enabled in the test.</p>
+<p>I should mention for the sake of completeness that there's another sort of field, sort of: bundle fields. These are in code like base fields, but limited to a particular bundle. They also have a variety of problems as the system that support them is somewhat incomplete.</p>
+<p>Finally, it occurs to me that another way to bridge the gap would be to allow editing base fields in the UI, and then export that back to code consisting of the BaseFieldDefinition calls. But hang on... haven't I just reinvented Drupal 7-era Features?</p>
+<h3>UPDATE</h3>
+<p>It turned out this was crashing when importing fields with value options. This code (and that in Config Devel module, which is where I cribbed it from) wasn't properly using the Config API. Here's updated code, which incidentally, also now can handle non-entity config:</p>
+<pre><code>  /**
+   * Imports config from a real local site's config folder.
+   *
+   * Needs config module to be enabled.
+   *
+   * @param string $site_key
+   *   The site key, that is, the subfolder in /config in which to find the
+   *   config files.
+   * @param string $config_name
+   *   The config name. This is the same as the YML filename without the
+   *   extension.
+   *
+   * @throws \Exception
+   *   Throws an exception if the config can't be imported.
+   */
+  protected function importSiteConfig(string $site_key, string $config_name) {
+    $storage = $this-&gt;container-&gt;get('config.storage.sync');
+
+    // Code cribbed from Config Devel module's ConfigImporterExporter.
+    $config_filename = "../config/{$site_key}/{$config_name}.yml";
+
+    if (!file_exists($config_filename)) {
+      throw new \Exception("Unable to find config file $config_filename to import from.");
+    }
+
+    $contents = @file_get_contents($config_filename);
+
+    $data = $storage-&gt;decode($contents);
+    if (!$data) {
+      throw new \Exception("Failed to import config $config_name from site $site_key.");
+    }
+
+    unset($data['uuid']);
+
+    // We have to partially mock the source storage, because otherwise
+    // SystemConfigSubscriber::onConfigImporterValidateSiteUUID() will complain
+    // because the source config doesn't contain a system.site config. (For
+    // general information, the single-import UI in core doesn't hit this
+    // problem because it TOTALLY cheats and pretends its source is the full
+    // site config! Though who knows how it manages not to trip up when the site
+    // config folder is empty!)
+    $source_storage = $this-&gt;getMockBuilder(StorageReplaceDataWrapper::class)
+      -&gt;setConstructorArgs([$this-&gt;container-&gt;get('config.storage')])
+      -&gt;setMethods(['exists'])
+      -&gt;getMock();
+    // Satisfy SystemConfigSubscriber that we have a system.site config.
+    $source_storage-&gt;expects($this-&gt;any())
+      -&gt;method('exists')
+      -&gt;willReturn(TRUE);
+
+    $source_storage-&gt;replaceData($config_name, $data);
+
+    // Similarly mock the storage comparer.
+    $storage_comparer = $this-&gt;getMockBuilder(StorageComparer::class)
+      -&gt;setConstructorArgs([$source_storage, $this-&gt;container-&gt;get('config.storage')])
+      -&gt;setMethods(['validateSiteUuid'])
+      -&gt;getMock();
+    // Satisfy SystemConfigSubscriber that system.site config is valid.
+    $storage_comparer-&gt;expects($this-&gt;any())
+      -&gt;method('validateSiteUuid')
+      -&gt;willReturn(TRUE);
+
+    $storage_comparer-&gt;createChangelist();
+
+    $config_importer = new ConfigImporter(
+      $storage_comparer-&gt;createChangelist(),
+      $this-&gt;container-&gt;get('event_dispatcher'),
+      $this-&gt;container-&gt;get('config.manager'),
+      $this-&gt;container-&gt;get('lock'),
+      $this-&gt;container-&gt;get('config.typed'),
+      $this-&gt;container-&gt;get('module_handler'),
+      $this-&gt;container-&gt;get('module_installer'),
+      $this-&gt;container-&gt;get('theme_handler'),
+      $this-&gt;container-&gt;get('string_translation'),
+      $this-&gt;container-&gt;get('extension.list.module')
+    );
+
+    $config_importer-&gt;import();
+  }
+
+}
+</code></pre>
+<h3>UPDATE 2</h3>
+<p>I've found an occasional problem with site config items that have third-party settings from modules that aren't relevant to the test. Examples include Menu UI settings in node types, and contrib translation settings in fields. Rather than enable extra modules in the test, these settings can be hacked out of the data after we decode it from the YAML. Here's an updated version of the code.</p>
+<pre><code>
+use Drupal\Core\Config\ConfigImporter;
+use Drupal\Core\Config\StorageComparer;
+use Drupal\config\StorageReplaceDataWrapper;
+
+  /**
+   * Imports config from a real local site's config folder.
+   *
+   * @param string $site_key
+   *   The site key, that is, the subfolder in /config in which to find the
+   *   config files.
+   * @param string $config_name
+   *   The config name. This is the same as the YML filename without the
+   *   extension.
+   * @param array $third_party_filter
+   *   (optional) Keys in the config item's third party settings that are to be
+   *   removed prior to import. This prevents unwanted dependencies on modules
+   *   that are not relevant to a test. Defaults to an empty array; no keys
+   *   removed.
+   *
+   * @throws \Exception
+   *   Throws an exception if the config can't be imported.
+   */
+  protected function importSiteConfig(string $site_key, string $config_name, array $third_party_filter = []) {
+    $storage = $this-&gt;container-&gt;get('config.storage.sync');
+
+    // Code cribbed from Config Devel module's ConfigImporterExporter.
+    $config_filename = "../config/{$site_key}/{$config_name}.yml";
+
+    if (!file_exists($config_filename)) {
+      throw new \Exception("Unable to find config file $config_filename to import from.");
+    }
+
+    $contents = @file_get_contents($config_filename);
+
+    $data = $storage-&gt;decode($contents);
+    if (!$data) {
+      throw new \Exception("Failed to import config $config_name from site $site_key.");
+    }
+
+    unset($data['uuid']);
+
+    // Remove third-party settings.
+    foreach ($third_party_filter as $settings_key) {
+      unset($data['third_party_settings'][$settings_key]);
+    }
+
+    // We have to partially mock the source storage, because otherwise
+    // SystemConfigSubscriber::onConfigImporterValidateSiteUUID() will complain
+    // because the source config doesn't contain a system.site config. (For
+    // general information, the single-import UI in core doesn't hit this
+    // problem because it TOTALLY cheats and pretends its source is the full
+    // site config! Though who knows how it manages not to trip up when the site
+    // config folder is empty!)
+    $source_storage = $this-&gt;getMockBuilder(StorageReplaceDataWrapper::class)
+      -&gt;setConstructorArgs([$this-&gt;container-&gt;get('config.storage')])
+      -&gt;setMethods(['exists'])
+      -&gt;getMock();
+    // Satisfy SystemConfigSubscriber that we have a system.site config.
+    $source_storage-&gt;expects($this-&gt;any())
+      -&gt;method('exists')
+      -&gt;willReturn(TRUE);
+
+    $source_storage-&gt;replaceData($config_name, $data);
+
+    // Similarly mock the storage comparer.
+    $storage_comparer = $this-&gt;getMockBuilder(StorageComparer::class)
+      -&gt;setConstructorArgs([$source_storage, $this-&gt;container-&gt;get('config.storage')])
+      -&gt;setMethods(['validateSiteUuid'])
+      -&gt;getMock();
+    // Satisfy SystemConfigSubscriber that system.site config is valid.
+    $storage_comparer-&gt;expects($this-&gt;any())
+      -&gt;method('validateSiteUuid')
+      -&gt;willReturn(TRUE);
+
+    $storage_comparer-&gt;createChangelist();
+
+    $config_importer = new ConfigImporter(
+      $storage_comparer-&gt;createChangelist(),
+      $this-&gt;container-&gt;get('event_dispatcher'),
+      $this-&gt;container-&gt;get('config.manager'),
+      $this-&gt;container-&gt;get('lock'),
+      $this-&gt;container-&gt;get('config.typed'),
+      $this-&gt;container-&gt;get('module_handler'),
+      $this-&gt;container-&gt;get('module_installer'),
+      $this-&gt;container-&gt;get('theme_handler'),
+      $this-&gt;container-&gt;get('string_translation'),
+      $this-&gt;container-&gt;get('extension.list.module')
+    );
+
+    $config_importer-&gt;import();
+  }
+</code></pre></div>
+      
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/53","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"53"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

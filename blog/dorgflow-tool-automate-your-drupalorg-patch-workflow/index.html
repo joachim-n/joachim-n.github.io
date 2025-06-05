@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/dorgflow-tool-automate-your-drupalorg-patch-workflow" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/40" />
+
+    <title>Dorgflow: a tool to automate your drupal.org patch workflow | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_vfIdNKgDtRvyJuw916Kx8ALuhmUSYHx-WEC-P_sCyfQ.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>Dorgflow: a tool to automate your drupal.org patch workflow</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Wed, 02/22/2017 - 23:14
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>I’ve written previously about git workflow for working on drupal.org patches, and about how we don’t necessarily need to move to a github-style system on drupal.org, we just maybe need better tools for our existing workflow. It’s true that much of it is repetitive, but then repetitive tasks are ripe for automation. In the two years since I released Dorgpatch, a shell script that handles the making of patches for drupal.org issues, I’ve been thinking of how much more of the drupal.org patch workflow could be automated.</p>
+<p>Now, I have released a new script, <a href="https://github.com/joachim-n/dorgflow">Dorgflow</a>, and the answer is just about everything. The only thing that Dorgflow doesn’t automate is uploading the patch to drupal.org (and that’s because drupal.org’s REST API is read-only). Oh, and writing the code to actually fix bugs or create new features. You still have to do that yourself, along with your cup of coffee.</p>
+<p>So assuming you’ve made your own hot beverage of choice, how does Dorgflow work?</p>
+<p>Simply! To start with, you need to have an up to date git clone of the project you want to work on, be it Drupal core or a contrib project.</p>
+<p>To start work on an issue, just do:</p>
+<pre><code>$ dorgflow https://www.drupal.org/node/123456
+</code></pre>
+<p>You can copy and paste the URL from your browser. It doesn’t matter if it has an anchor link on the end, so if you followed a link from your issue tracker and it has ‘#new’ at the end, or clicked down to a comment and it has ‘#comment-1234’ that’s all fine.</p>
+<p>The first thing this comment does it make a new git branch for you, using the issue number and the name. It then also downloads and applies all the patch files from the issue node, and makes a commit for each one. Your local git now shows you the history of the work on the issue. (Note though that if a patch no longer applies against the main branch, then it’s skipped, and if a patch has been set to not be displayed on the issue’s file list, then it’s skipped too.)</p>
+<p>Let’s see how this works with an actual issue. Today I wanted to review the patch on an issue for Token module. The issue URL is https://www.drupal.org/node/2782605. So I did:</p>
+<pre><code>$ dorgflow https://www.drupal.org/node/2782605
+</code></pre>
+<p>That got me a git history like this:</p>
+<pre><code>  * 6d07524 (2782605-Move-list-of-available-tokens-from-Help-to-Reports) Patch from Drupal.org. Comment: 35; URL: https://www.drupal.org/node/2782605#comment-11934790; file: token-move-list-of-available-tokens-2782605-34.patch; fid 5784728. Automatic commit by dorgflow.
+ * 6f8f6e0 Patch from Drupal.org. Comment: 15; URL: https://www.drupal.org/node/2782605#comment-11666939; file: 2782605-13.patch; fid 5710235. Automatic commit by dorgflow.
+ /
+* a3b68cc (8.x-1.x) Issue #2833328 by Berdir: Handle bubbleable metadata for block title token replacements
+* [older commits…]
+</code></pre>
+<p>What we can see here is:</p>
+<ul>
+<li>Git is now on a feature branch, called ‘2782605-Move-list-of-available-tokens-from-Help-to-Reports’. The first part is the issue number, and the rest is from the title of the issue node on drupal.org.</li>
+<li>Two patches were found on the issue, and a commit was made for each one. Each patch’s commit message gives the comment index where the patch was posted, the URL to the comment, the patch filename, and the patch file entity ID (these last two are less interesting, but are used by Dorgflow when you update a feature branch with newer patches from an issue).</li>
+</ul>
+<p>The commit for patch 35 will obviously only show the difference between it and patch 15, an interdiff effectively. To see what the patch actually contains, take a diff from the master branch, 8.x-1.x.</p>
+<p>(As an aside, the trick to applying a patch that’s against 8.x-1.x to a feature branch that already has commit for a patch is that there is a way to check out files from any git commit while still keeping git’s HEAD on the current branch. So the patch applies, because the files look like 8.x-1.x, but when you make a commit, you’re on the feature branch. Details are on <a href="http://stackoverflow.com/questions/13896246/reset-git-to-commit-without-changing-head-to-detached-state">this Stack Overflow question</a>.)</p>
+<p>At this point, the feature branch is ready for work. You can make as many commits as you want. (You can rename the branch if you like, provided the ‘2782605-’ part stays at the beginning.) To make your own patch with your work, just run the Dorgflow script without any argument:</p>
+<pre><code>$ dorgflow
+</code></pre>
+<p>The script detects the current branch, and from that, the issue number, and then fetches the issue node from drupal.org to get the number of the next comment to use in the patch filename. All you now have to do is upload the patch, and post a comment explaining your changes.</p>
+<p>Alternatively, if you’re a maintainer for the project, and the latest patch is ready to be committed, you can do the following to put git into a state where the patch is applied to the main development branch:</p>
+<pre><code>$ dorgflow commit
+</code></pre>
+<p>At that point, you just need to obtain the git commit command from the issue node. (Remember the drupal standard git message format, and to check the attribution for the work on the issue is correct!)</p>
+<p>What if you’ve previously reviewed a patch, and now there’s a new one? Dorgflow can download new patches with this command:</p>
+<pre><code>$ dorgflow update
+</code></pre>
+<p>This compares your feature branch to the issue node’s patches, and any patches you don’t yet have get new commits.</p>
+<p>If you’ve made commits for your own work as well, then effectively there’s a fork in play, as your development in your commits and the other person’s patch are divergent lines of development. Appropriately, Dorgflow creates a separate branch. Your commits are moved onto this branch, while the feature branch is rewound to the last patch that was already there, and then has the new patches applied to it, so that it now reflects work on the issue. It’s then up to you to do a git merge of these two branches in order to combine the two lines of development back into one.</p>
+<p>Dorgflow is still being developed. There are a few ideas for further features in the issue queue on github (not to mention a couple of bugs for some of the various possible cases the update command can encounter). I’m also pondering whether it’s worth the effort to convert the script to use Symfony Console; feel free to chime in with any opinions on the issue for that.</p>
+<p>There are tests too, as it’s pretty important that a script that does things to your git repository does what it’s supposed to (though the only command that does anything destructive is ‘dorgflow cleanup’, which of course asks for confirmation). Having now written this, I’m obviously embarking upon cleaning it up and to some extent rewriting it, though I do have the excuse that the early weeks of working on this were the days after the late nights awake with my newborn daughter, and so the early versions of the code were written in a haze of sleep deprivation. If you’d like to submit a pull request, please do check in with me first on an issue to ensure it’s not going to clash with something I’m partway through changing.</p>
+<p>Finally, if you find this as useful as I do (this was definitely an itch I’ve been wanting to scratch for a long time, as well as being a prime case of condiment-passing), please tell other Drupal developers about it. Let’s all spend less time downloading, applying, and rolling patches, and more time writing Drupal code!</p></div>
+      
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/40","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"40"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

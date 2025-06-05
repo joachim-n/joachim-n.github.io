@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/refactoring-rector" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/59" />
+
+    <title>Refactoring with Rector | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxtylEOgCAIANAL6TySA2OoQbRga96-_uv37U2D1odWFOManZQKiyFI9lgyDk7zO0676aIt48qvtv3vBLAnXx6kBcHpAYkAKP4" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_FfI1KBxjzizfquKZc-UBRYzejEfzH7TlH2sPqJxC3Hk.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxtylEOgCAIANAL6TySA2OoQbRga96-_uv37U2D1odWFOManZQKiyFI9lgyDk7zO0676aIt48qvtv3vBLAnXx6kBcHpAYkAKP4" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>Refactoring with Rector</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Fri, 05/03/2024 - 20:47
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Rector is a tool for making changes to PHP code, which powers tools that assist with upgrading deprecated code in Drupal. When I recently made some refactoring changes in Drupal Code Builder, which were too complex to do with search and replace regexes, it seemed like a good opportunity to experiment with Rector, and learn a bit more about it.</p>
+<p>Besides, I'm an inveterate condiment-passer: I tend to prefer spending longer on a generalisation of a problem than on the problem itself, and the more dull the problem and the more interesting the generalisation, the more the probability increases.</p>
+<p>So faced with a refactoring from this return from the <code>getFileInfo()</code> method:</p>
+<pre><code>    return [
+      'path' =&gt; '',
+      'filename' =&gt; $this-&gt;component_data['filename'],
+      'body' =&gt; $body,
+      'merged' =&gt;$merged,
+    ];
+</code></pre>
+<p>to this:</p>
+<pre><code>    return new CodeFile(
+      body_pieces: $body,
+      merged: $merged,
+    );
+</code></pre>
+<p>which was going to be tedious as hell to do in a ton of files, obviously, I elected to spend time fiddling with Rector.</p>
+<p>The first thing I'll say is that the same sort of approach as I use with migrations works well: work with a small indicative sample, and iterate small changes. With a migration, I will find a small number of source rows which represent different variations (or if there is too much variation, I'll iterate the iteration multiple times). I'll run the migration with just those sources, examine the result, make refinements to the migration, then roll back and repeat.</p>
+<p>With Rector, you can specify just a single class in the code that registers the rule to RectorConfig in the rector.php file, so I picked a class which had very little code, as the dump() output of an entire PHP file's PhpParser analysis is enormous.</p>
+<p>You then use the rule class's <code>getNodeTypes()</code> method to declare which node types you are interested in. Here, I made a mis-step at first. I wanted to replace Array_ nodes, but only in the <code>getFileInfo()</code> method. So in my first attempt, I specified ClassMethod nodes, and then in <code>refactor()</code> I wrote code to drill down into them to get the array Array_ nodes. This went well until I tried returning a new replacement node, and then Rector complained, and I realised the obvious thing I'd skipped over: the <code>refactor()</code> method expects you to return a node to replace the found node. So my approach was completely wrong.</p>
+<p>I rewrote <code>getNodeTypes()</code> to search for <code>Array_</code> nodes: those represent the creation of an array value. This felt more dangerous: arrays are defined in lots of places in my code! And I haven't been able to see a way to determine the parentage of a node: there do not appear to be pointers that go back up the PhpParser syntax tree (it would be handy, but would make the dump() output even worse to read!). Fortunately, the combination of array keys was unique in DrupalCodeBuilder, or at least I hoped it was fairly unique. So I wrote code to get a list of the array's keys, and then compare it to what was expected:</p>
+<pre><code>        foreach ($node-&gt;items as $item) {
+            $seen_array_keys[] = $item-&gt;key-&gt;value;
+        }
+        if (array_intersect(static::EXPECTED_MINIMUM_ARRAY_KEYS, $seen_array_keys) != static::EXPECTED_MINIMUM_ARRAY_KEYS) {
+            return NULL;
+        }
+</code></pre>
+<p>Returning NULL from <code>refactor()</code> means we aren't interested in this node and don't want to change it.</p>
+<p>With the arrays that made it through the filter, I needed to make a new node that's a class instantiation, to replace the array, passing the same values to the <code>new</code> statement as the array keys (mostly).</p>
+<p>Rector's <a href="https://github.com/rectorphp/php-parser-nodes-docs">list of commonly used PhpParser nodes</a> was really useful here.</p>
+<p>A <code>new</code> statement node is made thus:</p>
+<pre><code>use PhpParser\Node\Name;
+use PhpParser\Node\Expr\New_;
+
+        $class = new Name('\DrupalCodeBuilder\File\CodeFile');
+        return new New_($class);
+</code></pre>
+<p>This doesn't have any parameters yet, but running Rector on this with my sample set showed me it was working properly. Rector has a dry run option for development, which shows you what would change but doesn't write anything to files, so you can run it over and over again. What's confusing is that it also has a cache; until I worked this out I was repeatedly confused by some runs having no effect and no output. I have honestly no idea what the point is of caching something that's designed to make changes, but there is an option to disable it. So the command to run is: <code>$ vendor/bin/rector --dry-run --clear-cache</code>. Over and over again.</p>
+<p>Once that worked, I needed to convert array items to constructor parameters. Fortunately, the value from the array items work for parameters too:</p>
+<pre><code>use PhpParser\Node\Arg;
+
+        foreach ($node-&gt;items as $array_item) {
+                $construct_argument = new Arg(
+                   $array_item-&gt;value,
+                );
+</code></pre>
+<p>That gave me the values. But I wanted named parameters for my constructor, partly because they're cool and mostly because the CodeFile class's <code>__construct()</code> has optional parameters, and using names makes that simpler.</p>
+<p>Inspecting the <code>Arg</code> class's own constructor showed how to do this:</p>
+<pre><code>use PhpParser\Node\Arg;
+use PhpParser\Node\Identifier;
+
+                $construct_argument = new Arg(
+                    value: $array_item-&gt;value,
+                    name: new Identifier($key),
+                );
+</code></pre>
+<p>Using named parameters here too to make the code clearer to read!</p>
+<p>It's also possible to copy over any inline comments that are above one node to a new node:</p>
+<pre><code>            // Preserve comments.
+            $construct_argument-&gt;setAttribute('comments', $array_item-&gt;getComments());
+</code></pre>
+<p>The constructor parameters are passed as a parameter to the <code>New_</code> class:</p>
+<pre><code>        return new New_($class, $new_call_args);
+</code></pre>
+<p>Once this was all working, I decided to do some more refactoring in the CodeFile class in DrupalCodeBuilder. The changes I was making with Rector made it more apparent that in a lot of cases, I was passing empty values. Also, the <code>$body</code> parameter wasn't well-named, as it's an array of pieces, so could do with a more descriptive name such as <code>$body_pieces</code>.</p>
+<p>Changes like this are really easy to do (though by this point, I had made a git repository for my Rector rule, so I could make further enhancements without breaking what I'd got working already).</p>
+<pre><code>        foreach ($node-&gt;items as $array_item) {
+            $key = $array_item-&gt;key-&gt;value;
+
+            // Rename the 'body' key.
+            if ($key == 'body') {
+                $key = 'body_pieces';
+            }
+</code></pre>
+<p>And that's my Rector rule done.</p>
+<p>Although it's taken me far more time than changing each file by hand, it's been far more interesting, and I've learned a lot about how Rector works, which will be useful to me in the future. I can definitely see how it's a very useful tool even for refactoring a small codebase such as DrupalCodeBuilder, where a rule is only going to be used once. It might even prompt me to undertake some minor refactoring tasks I've been putting off because of how tedious they'll be.</p>
+<p>What I've not figured out is how to extract namespaces from full class names to an import statement, or how to put line breaks in the <code>new</code> statement. I'm hoping that a pass through with PHP_CodeSniffer and Drupal Coder's rules will fix those. If not, there's always good old regexes!</p></div>
+      
+
+<div class="field field--name-field-tags field--type-entity-reference field--label-above field--tags">
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="/taxonomy/term/65" hreflang="en">refactoring</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/66" hreflang="en">Rector</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/67" hreflang="en">PhpParser</a></li>
+          <li class="field--tags__item"><a href="/taxonomy/term/56" hreflang="en">drupal code builder</a></li>
+      </ul>
+</div>
+
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/59","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"59"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>

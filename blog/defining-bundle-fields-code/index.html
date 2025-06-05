@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="--color--primary-hue:202;--color--primary-saturation:79%;--color--primary-lightness:50">
+  <head>
+    <meta charset="utf-8" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/joachim_blog_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="canonical" href="https://joachim-n.github.io/blog/defining-bundle-fields-code" />
+<link rel="shortlink" href="https://joachim-n.github.io/node/58" />
+
+    <title>Defining bundle fields in code | Joachim&#039;s blog</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_Ieh2vUUcEtzRhvSIWBeJjnBc0LoxtQhDMyau2Yr07-4.css?delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_vfIdNKgDtRvyJuw916Kx8ALuhmUSYHx-WEC-P_sCyfQ.css?delta=1&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJxlyksOgCAMBcALQTgSofjCx5YaS2J6e927nczUUvuQTKwt7w5BaqxUONp2HquF-R-XPrhxRPL4aT2DuW1IomJ4ARyZH6Q" />
+
+    
+    
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/metropolis/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/custom/joachim_blog_theme/fonts/lora/lora-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <noscript><link rel="stylesheet" href="/themes/custom/joachim_blog_theme/css/components/navigation/nav-primary-no-js.css?sspisc" />
+</noscript>
+  </head>
+  <body class="path-node page-node-type-article">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div id="page-wrapper" class="page-wrapper">
+  <div id="page">
+
+          <header id="header" class="site-header" data-drupal-selector="site-header" role="banner">
+
+                <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial">
+            <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="Sticky header" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </div>
+
+                    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+            <div class="container site-header__inner__container">
+
+              
+
+
+<div id="block-joachim-blog-theme-site-branding" class="site-branding block block-system block-system-branding-block">
+  
+    
+    <div class="site-branding__inner">
+              <div class="site-branding__text">
+        <div class="site-branding__name">
+          <a href="/" title="Home" rel="home">Joachim&#039;s blog</a>
+        </div>
+      </div>
+      </div>
+</div>
+<nav  id="block-joachim-blog-theme-main-menu" class="primary-nav block block-menu navigation menu--main" aria-labelledby="block-joachim-blog-theme-main-menu-menu" role="navigation">
+            
+  <h2 class="visually-hidden block__title" id="block-joachim-blog-theme-main-menu-menu">Main navigation</h2>
+  
+        
+          <ul  class="menu menu--level-1">
+            
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+
+          
+        </li>
+      
+                          
+        
+        
+        <li class="menu__item menu__item--link menu__item--level-1">
+                    
+          <a href="/about" class="menu__link menu__link--link menu__link--level-1" data-drupal-link-system-path="node/1">About</a>
+
+          
+        </li>
+          </ul>
+  
+
+
+  </nav>
+
+<div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+
+                          </div>
+          </div>
+        </div>
+      </header>
+    
+    <div id="main-wrapper" class="layout-main-wrapper layout-container">
+      <div id="main" class="layout-main">
+        <div class="main-content">
+          <a id="main-content" tabindex="-1"></a>
+          
+          <div class="main-content__container container">
+            
+
+  <div class="region region--highlighted grid-full layout--pass--content-medium">
+    <div data-drupal-messages-fallback class="hidden messages-list"></div>
+
+  </div>
+
+            
+
+  <div class="region region--breadcrumb grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+      <div class="block__content">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <div class="breadcrumb__content">
+      <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item">
+                          <a href="/" class="breadcrumb__link">Home</a>
+                      </li>
+              </ol>
+    </div>
+  </nav>
+
+    </div>
+  </div>
+
+  </div>
+
+
+                          <main role="main">
+                
+
+  <div class="region region--content-above grid-full layout--pass--content-medium">
+    
+
+<div id="block-joachim-blog-theme-page-title" class="block block-core block-page-title-block">
+  
+  
+
+  <h1 class="title page-title">
+<span>Defining bundle fields in code</span>
+</h1>
+
+
+  
+</div>
+
+  </div>
+
+                
+
+  <div class="region region--content grid-full layout--pass--content-medium" id="content">
+    
+
+<div id="block-joachim-blog-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+<article class="node node--type-article grid-full node--view-mode-full">
+  <header class="layout--content-narrow">
+    
+          
+          <div class="node__meta">
+              <div class="node__author-image">
+          <div>
+  </div>
+
+        </div>
+              <span>
+          By <span><span>joachim</span></span>, Mon, 01/31/2022 - 17:14
+        </span>
+        
+      </div>
+      </header>
+  <div class="node__content layout--content-narrow">
+        
+            <div class="text-content clearfix field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Fields in Drupal 9 can be defined in code, or they can be defined in configuration. Both techniques have their uses and advantages. Typically code fields apply to all bundles of the entity type, as so-called base fields, while config fields apply only to a single bundle.</p>
+<p>But there is a way to have code fields which apply only to specific bundles: these are called bundle fields. These are particularly useful for adding computed fields to specific bundles of an entity (more on computed fields in a future blog post).</p>
+<p>The API for these is a bit clunky, as it wasn't finalised for Drupal 8, and it may in fact be <a href="https://www.drupal.org/node/2346347">completely changed in the future</a>. If that causes you apprehension at implementing bundle fields in your code, it's worth mentioning that the last patch on that issue was in 2017: it's a complex problem without many applications, so accordingly doesn't get much attention.</p>
+<p>Bundle fields need to be defined in two places: the field storage, and field definition itself. This is similar to how config fields work; it's actually the
+same as base fields, but the BaseFieldDefinition hides this from you as it does double duty. (There is <a href="https://www.drupal.org/project/drupal/issues/2980922">an issue to remove the need to define the storage</a>, but again, not much happening there.)</p>
+<p>You also need a field definition class. The <a href="https://www.drupal.org/project/entity">entity contrib module</a> provides a BundleFieldDefinition class, but if you don't want to install that module just for a single class, <a href="https://git.drupalcode.org/project/entity/-/blob/8.x-1.x/src/BundleFieldDefinition.php">copy-pasting that class</a> to your custom module is fine too.</p>
+<p>(There is a class in core FieldDefinition, which was
+<a href="https://www.drupal.org/node/2982512">added for this purpose</a>, however, that requires a storage class to work alongside it, and <a href="https://www.drupal.org/node/2280639">the issue to provide that</a> has not yet been fixed.)</p>
+<p>Once you have that class, how you define the field depends on the entity you're adding it to.</p>
+<h3>Bundle fields on your own entity type</h3>
+<p>In your own entity type, you define the entity class. You can therefore implement the bundleFieldDefinitions() method in that class:</p>
+<pre><code>  // In MyEntity class:
+  /**
+   * {@inheritdoc}
+   */
+  public static function bundleFieldDefinitions(EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
+    $definitions = [];
+
+    if ($bundle == 'mybundle') {
+      $definitions['myfield'] = BundleFieldDefinition::create('entity_reference')
+        // This is essential: the array key is NOT used as the field machine name,
+        // so it MUST be specified here!
+        -&gt;setName('myfield')
+        // These two are essential: they define the entity type and the bundle
+        // that the field is on.
+        -&gt;setTargetEntityTypeId($entity_type-&gt;id())
+        -&gt;setTargetBundle($bundle)
+        // Further define the field as you would with a base field.
+        -&gt;setLabel(t('Label'))
+        -&gt;setDescription(t('Description.'));
+    }
+
+    return $definitions;
+  }
+</code></pre>
+<p>That defines the field. Because these are bundle fields, the storage must be
+defined separately in hook_entity_field_storage_info(). However, we can take
+advantage of the BundleFieldDefinition class doing double duty as a storage
+and a field, and piggy-back on the definition in the entity class:</p>
+<pre><code>/**
+ * Implements hook_entity_field_storage_info().
+ */
+function mymodule_entity_field_storage_info(EntityTypeInterface $entity_type) {
+  // Entity bundle fields need to declare their storage separately. However, we
+  // can piggyback on the field definition itself, since the
+  // BundleFieldDefinition class does double duty as field and storage
+  // definition since it extends from BaseFieldDefinition.
+  // We cheat on the parameters we pass in, as the entity's
+  // bundleFieldDefinitions() method expects a list of base field definitions,
+  // but we have none here to give. For our purposes, bundleFieldDefinitions()
+  // does not need them.
+  if ($entity_type-&gt;id() == 'myentity') {
+    return MyEntity::bundleFieldDefinitions($entity_type, 'mybundle', []);
+  }
+}
+</code></pre>
+<p>The documentation for hook_entity_bundle_field_info() suggests you do it the other way round,
+and define the storage first, then derive the field from the storage, but doing it in the way shown above means that the code for your field is in
+your entity class where it's alongside the base field definition, and more easily discoverable.</p>
+<h3>Bundle fields on someone else's entity type</h3>
+<p>For an entity type you don't control, you could switch the entity class to a
+custom subclass and implement bundleFieldDefinitions() in that, but it's simpler to use hook_entity_bundle_field_info().</p>
+<pre><code>/**
+ * Implements hook_entity_bundle_field_info().
+ */
+function mymodule_entity_bundle_field_info(EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
+  if ($entity_type-&gt;id() == 'myentity' &amp;&amp; $bundle == 'mybundle') {
+    $fields = [];
+    $fields['myfield'] = BundleFieldDefinition::create('list_integer')
+      // This is essential: the array key is NOT used as the field machine name,
+      // so it MUST be specified here!
+      -&gt;setName('myfield')
+      // These two are essential: they define the entity type and the bundle
+      // that the field is on.
+      -&gt;setTargetEntityTypeId($entity_type-&gt;id())
+      -&gt;setTargetBundle($bundle)
+      // Further define the field as you would with a base field.
+      -&gt;setLabel(t('Label'))
+      -&gt;setDescription(t('Description.'));
+
+    return $fields;
+  }
+}
+
+/**
+ * Implements hook_entity_field_storage_info().
+ */
+function mymodule_entity_field_storage_info(EntityTypeInterface $entity_type) {
+  if ($entity_type-&gt;id() == 'myentity') {
+    return mymodule_entity_bundle_field_info($entity_type, 'mybundle', []);
+  }
+}
+</code></pre>
+<p>We use the same piggybacking trick here. In the case of altering someone else's entity type,
+it makes just as much sense to define the storage and derive the field, but following the same pattern as the
+custom entity keeps the two methods matching.</p>
+<p>As you can see, this is an area of Drupal's entity system which is unfortunately incomplete,
+and liable to change in the future. Nonetheless, the usefulness of bundle fields means that it's worth using them. Just be sure to document your code so future developers (who might be you!)
+know that it's area of the code that may need maintainance when the API is updated. And keep an eye on the Drupal core change records!</p></div>
+      
+  </div>
+  </article>
+
+    </div>
+  </div>
+
+  </div>
+
+              </main>
+                        
+          </div>
+        </div>
+        <div class="social-bar">
+          
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        
+
+  <div class="region region--footer-top grid-full layout--pass--content-medium">
+    <div class="region--footer_top__inner">
+      
+
+<div id="block-joachim-blog-theme-powered" class="block block-system block-system-powered-by-block">
+  
+    
+    
+  <span>
+    Powered by    <a href="https://www.drupal.org">Drupal</a>
+    <span class="drupal-logo" role="img" aria-label="Drupal Logo">
+      <svg width="14" height="19" viewBox="0 0 42.15 55.08" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.75 11.73C25.87 7.86 22.18 4.16 21.08 0 20 4.16 16.28 7.86 12.4 11.73 6.59 17.54 0 24.12 0 34a21.08 21.08 0 1042.15 0c0-9.88-6.59-16.46-12.4-22.27zM10.84 35.92a14.13 14.13 0 00-1.65 2.62.54.54 0 01-.36.3h-.18c-.47 0-1-.92-1-.92-.14-.22-.27-.45-.4-.69l-.09-.19C5.94 34.25 7 30.28 7 30.28a17.42 17.42 0 012.52-5.41 31.53 31.53 0 012.28-3l1 1 4.72 4.82a.54.54 0 010 .72l-4.93 5.47zm10.48 13.81a7.29 7.29 0 01-5.4-12.14c1.54-1.83 3.42-3.63 5.46-6 2.42 2.58 4 4.35 5.55 6.29a3.08 3.08 0 01.32.48 7.15 7.15 0 011.3 4.12 7.23 7.23 0 01-7.23 7.25zM35 38.14a.84.84 0 01-.67.58h-.14a1.22 1.22 0 01-.68-.55 37.77 37.77 0 00-4.28-5.31l-1.93-2-6.41-6.65a54 54 0 01-3.84-3.94 1.3 1.3 0 00-.1-.15 3.84 3.84 0 01-.51-1v-.19a3.4 3.4 0 011-3c1.24-1.24 2.49-2.49 3.67-3.79 1.3 1.44 2.69 2.82 4.06 4.19a57.6 57.6 0 017.55 8.58A16 16 0 0135.65 34a14.55 14.55 0 01-.65 4.14z"/>
+</svg>
+    </span>
+  </span>
+</div>
+
+    </div>
+  </div>
+
+        
+      </div>
+    </footer>
+
+    <div class="overlay" data-drupal-selector="overlay"></div>
+
+  </div>
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/58","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"statistics":{"data":{"nid":"58"},"url":"\/modules\/contrib\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"01dd47ecd9bcd15f4ce2dda67f9266a98e8b92ff7b9c64558fb5367373af7d61"}}</script>
+<script src="/sites/default/files/js/js_s1tIGofbxa0ITpzzYAGRpe8O7EjnLTKFA-a_REG80oo.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=joachim_blog_theme&amp;include=eJzLyk9MzsjMjU_KyU-PL8lIzU3VT8_JT0rM0S0uqczJzEvXKS5JLMksLslMLtZPKSotSMzRQ4gAAAlUGM8"></script>
+
+  </body>
+</html>
