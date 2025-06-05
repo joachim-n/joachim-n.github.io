@@ -1,0 +1,907 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xml:base="https://joachim-n.github.io//">
+  <channel>
+    <title>Joachim's blog</title>
+    <link>https://joachim-n.github.io//</link>
+    <description/>
+    <language>en</language>
+    
+    <item>
+  <title>Refactoring with Rector</title>
+  <link>https://joachim-n.github.io//blog/refactoring-rector</link>
+  <description><![CDATA[
+<span>Refactoring with Rector</span>
+
+            <p>Rector is a tool for making changes to PHP code, which powers tools that assist with upgrading deprecated code in Drupal. When I recently made some refactoring changes in Drupal Code Builder, which were too complex to do with search and replace regexes, it seemed like a good opportunity to experiment with Rector, and learn a bit more about it.</p>
+<p>Besides, I'm an inveterate condiment-passer: I tend to prefer spending longer on a generalisation of a problem than on the problem itself, and the more dull the problem and the more interesting the generalisation, the more the probability increases.</p>
+<p>So faced with a refactoring from this return from the <code>getFileInfo()</code> method:</p>
+<pre><code>    return [
+      'path' =&gt; '',
+      'filename' =&gt; $this-&gt;component_data['filename'],
+      'body' =&gt; $body,
+      'merged' =&gt;$merged,
+    ];
+</code></pre>
+<p>to this:</p>
+<pre><code>    return new CodeFile(
+      body_pieces: $body,
+      merged: $merged,
+    );
+</code></pre>
+<p>which was going to be tedious as hell to do in a ton of files, obviously, I elected to spend time fiddling with Rector.</p>
+<p>The first thing I'll say is that the same sort of approach as I use with migrations works well: work with a small indicative sample, and iterate small changes. With a migration, I will find a small number of source rows which represent different variations (or if there is too much variation, I'll iterate the iteration multiple times). I'll run the migration with just those sources, examine the result, make refinements to the migration, then roll back and repeat.</p>
+<p>With Rector, you can specify just a single class in the code that registers the rule to RectorConfig in the rector.php file, so I picked a class which had very little code, as the dump() output of an entire PHP file's PhpParser analysis is enormous.</p>
+<p>You then use the rule class's <code>getNodeTypes()</code> method to declare which node types you are interested in. Here, I made a mis-step at first. I wanted to replace Array_ nodes, but only in the <code>getFileInfo()</code> method. So in my first attempt, I specified ClassMethod nodes, and then in <code>refactor()</code> I wrote code to drill down into them to get the array Array_ nodes. This went well until I tried returning a new replacement node, and then Rector complained, and I realised the obvious thing I'd skipped over: the <code>refactor()</code> method expects you to return a node to replace the found node. So my approach was completely wrong.</p>
+<p>I rewrote <code>getNodeTypes()</code> to search for <code>Array_</code> nodes: those represent the creation of an array value. This felt more dangerous: arrays are defined in lots of places in my code! And I haven't been able to see a way to determine the parentage of a node: there do not appear to be pointers that go back up the PhpParser syntax tree (it would be handy, but would make the dump() output even worse to read!). Fortunately, the combination of array keys was unique in DrupalCodeBuilder, or at least I hoped it was fairly unique. So I wrote code to get a list of the array's keys, and then compare it to what was expected:</p>
+<pre><code>        foreach ($node-&gt;items as $item) {
+            $seen_array_keys[] = $item-&gt;key-&gt;value;
+        }
+        if (array_intersect(static::EXPECTED_MINIMUM_ARRAY_KEYS, $seen_array_keys) != static::EXPECTED_MINIMUM_ARRAY_KEYS) {
+            return NULL;
+        }
+</code></pre>
+<p>Returning NULL from <code>refactor()</code> means we aren't interested in this node and don't want to change it.</p>
+<p>With the arrays that made it through the filter, I needed to make a new node that's a class instantiation, to replace the array, passing the same values to the <code>new</code> statement as the array keys (mostly).</p>
+<p>Rector's <a href="https://github.com/rectorphp/php-parser-nodes-docs">list of commonly used PhpParser nodes</a> was really useful here.</p>
+<p>A <code>new</code> statement node is made thus:</p>
+<pre><code>use PhpParser\Node\Name;
+use PhpParser\Node\Expr\New_;
+
+        $class = new Name('\DrupalCodeBuilder\File\CodeFile');
+        return new New_($class);
+</code></pre>
+<p>This doesn't have any parameters yet, but running Rector on this with my sample set showed me it was working properly. Rector has a dry run option for development, which shows you what would change but doesn't write anything to files, so you can run it over and over again. What's confusing is that it also has a cache; until I worked this out I was repeatedly confused by some runs having no effect and no output. I have honestly no idea what the point is of caching something that's designed to make changes, but there is an option to disable it. So the command to run is: <code>$ vendor/bin/rector --dry-run --clear-cache</code>. Over and over again.</p>
+<p>Once that worked, I needed to convert array items to constructor parameters. Fortunately, the value from the array items work for parameters too:</p>
+<pre><code>use PhpParser\Node\Arg;
+
+        foreach ($node-&gt;items as $array_item) {
+                $construct_argument = new Arg(
+                   $array_item-&gt;value,
+                );
+</code></pre>
+<p>That gave me the values. But I wanted named parameters for my constructor, partly because they're cool and mostly because the CodeFile class's <code>__construct()</code> has optional parameters, and using names makes that simpler.</p>
+<p>Inspecting the <code>Arg</code> class's own constructor showed how to do this:</p>
+<pre><code>use PhpParser\Node\Arg;
+use PhpParser\Node\Identifier;
+
+                $construct_argument = new Arg(
+                    value: $array_item-&gt;value,
+                    name: new Identifier($key),
+                );
+</code></pre>
+<p>Using named parameters here too to make the code clearer to read!</p>
+<p>It's also possible to copy over any inline comments that are above one node to a new node:</p>
+<pre><code>            // Preserve comments.
+            $construct_argument-&gt;setAttribute('comments', $array_item-&gt;getComments());
+</code></pre>
+<p>The constructor parameters are passed as a parameter to the <code>New_</code> class:</p>
+<pre><code>        return new New_($class, $new_call_args);
+</code></pre>
+<p>Once this was all working, I decided to do some more refactoring in the CodeFile class in DrupalCodeBuilder. The changes I was making with Rector made it more apparent that in a lot of cases, I was passing empty values. Also, the <code>$body</code> parameter wasn't well-named, as it's an array of pieces, so could do with a more descriptive name such as <code>$body_pieces</code>.</p>
+<p>Changes like this are really easy to do (though by this point, I had made a git repository for my Rector rule, so I could make further enhancements without breaking what I'd got working already).</p>
+<pre><code>        foreach ($node-&gt;items as $array_item) {
+            $key = $array_item-&gt;key-&gt;value;
+
+            // Rename the 'body' key.
+            if ($key == 'body') {
+                $key = 'body_pieces';
+            }
+</code></pre>
+<p>And that's my Rector rule done.</p>
+<p>Although it's taken me far more time than changing each file by hand, it's been far more interesting, and I've learned a lot about how Rector works, which will be useful to me in the future. I can definitely see how it's a very useful tool even for refactoring a small codebase such as DrupalCodeBuilder, where a rule is only going to be used once. It might even prompt me to undertake some minor refactoring tasks I've been putting off because of how tedious they'll be.</p>
+<p>What I've not figured out is how to extract namespaces from full class names to an import statement, or how to put line breaks in the <code>new</code> statement. I'm hoping that a pass through with PHP_CodeSniffer and Drupal Coder's rules will fix those. If not, there's always good old regexes!</p>
+      
+<span><span>joachim</span></span>
+
+<span>Fri, 05/03/2024 - 20:47
+</span>
+
+
+
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/65" hreflang="en">refactoring</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/66" hreflang="en">Rector</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/67" hreflang="en">PhpParser</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/56" hreflang="en">drupal code builder</a></li>
+      </ul>
+
+]]></description>
+  <pubDate>Fri, 03 May 2024 20:47:33 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">59 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Defining bundle fields in code</title>
+  <link>https://joachim-n.github.io//blog/defining-bundle-fields-code</link>
+  <description><![CDATA[
+<span>Defining bundle fields in code</span>
+
+            <p>Fields in Drupal 9 can be defined in code, or they can be defined in configuration. Both techniques have their uses and advantages. Typically code fields apply to all bundles of the entity type, as so-called base fields, while config fields apply only to a single bundle.</p>
+<p>But there is a way to have code fields which apply only to specific bundles: these are called bundle fields. These are particularly useful for adding computed fields to specific bundles of an entity (more on computed fields in a future blog post).</p>
+<p>The API for these is a bit clunky, as it wasn't finalised for Drupal 8, and it may in fact be <a href="https://www.drupal.org/node/2346347">completely changed in the future</a>. If that causes you apprehension at implementing bundle fields in your code, it's worth mentioning that the last patch on that issue was in 2017: it's a complex problem without many applications, so accordingly doesn't get much attention.</p>
+<p>Bundle fields need to be defined in two places: the field storage, and field definition itself. This is similar to how config fields work; it's actually the
+same as base fields, but the BaseFieldDefinition hides this from you as it does double duty. (There is <a href="https://www.drupal.org/project/drupal/issues/2980922">an issue to remove the need to define the storage</a>, but again, not much happening there.)</p>
+<p>You also need a field definition class. The <a href="https://www.drupal.org/project/entity">entity contrib module</a> provides a BundleFieldDefinition class, but if you don't want to install that module just for a single class, <a href="https://git.drupalcode.org/project/entity/-/blob/8.x-1.x/src/BundleFieldDefinition.php">copy-pasting that class</a> to your custom module is fine too.</p>
+<p>(There is a class in core FieldDefinition, which was
+<a href="https://www.drupal.org/node/2982512">added for this purpose</a>, however, that requires a storage class to work alongside it, and <a href="https://www.drupal.org/node/2280639">the issue to provide that</a> has not yet been fixed.)</p>
+<p>Once you have that class, how you define the field depends on the entity you're adding it to.</p>
+<h3>Bundle fields on your own entity type</h3>
+<p>In your own entity type, you define the entity class. You can therefore implement the bundleFieldDefinitions() method in that class:</p>
+<pre><code>  // In MyEntity class:
+  /**
+   * {@inheritdoc}
+   */
+  public static function bundleFieldDefinitions(EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
+    $definitions = [];
+
+    if ($bundle == 'mybundle') {
+      $definitions['myfield'] = BundleFieldDefinition::create('entity_reference')
+        // This is essential: the array key is NOT used as the field machine name,
+        // so it MUST be specified here!
+        -&gt;setName('myfield')
+        // These two are essential: they define the entity type and the bundle
+        // that the field is on.
+        -&gt;setTargetEntityTypeId($entity_type-&gt;id())
+        -&gt;setTargetBundle($bundle)
+        // Further define the field as you would with a base field.
+        -&gt;setLabel(t('Label'))
+        -&gt;setDescription(t('Description.'));
+    }
+
+    return $definitions;
+  }
+</code></pre>
+<p>That defines the field. Because these are bundle fields, the storage must be
+defined separately in hook_entity_field_storage_info(). However, we can take
+advantage of the BundleFieldDefinition class doing double duty as a storage
+and a field, and piggy-back on the definition in the entity class:</p>
+<pre><code>/**
+ * Implements hook_entity_field_storage_info().
+ */
+function mymodule_entity_field_storage_info(EntityTypeInterface $entity_type) {
+  // Entity bundle fields need to declare their storage separately. However, we
+  // can piggyback on the field definition itself, since the
+  // BundleFieldDefinition class does double duty as field and storage
+  // definition since it extends from BaseFieldDefinition.
+  // We cheat on the parameters we pass in, as the entity's
+  // bundleFieldDefinitions() method expects a list of base field definitions,
+  // but we have none here to give. For our purposes, bundleFieldDefinitions()
+  // does not need them.
+  if ($entity_type-&gt;id() == 'myentity') {
+    return MyEntity::bundleFieldDefinitions($entity_type, 'mybundle', []);
+  }
+}
+</code></pre>
+<p>The documentation for hook_entity_bundle_field_info() suggests you do it the other way round,
+and define the storage first, then derive the field from the storage, but doing it in the way shown above means that the code for your field is in
+your entity class where it's alongside the base field definition, and more easily discoverable.</p>
+<h3>Bundle fields on someone else's entity type</h3>
+<p>For an entity type you don't control, you could switch the entity class to a
+custom subclass and implement bundleFieldDefinitions() in that, but it's simpler to use hook_entity_bundle_field_info().</p>
+<pre><code>/**
+ * Implements hook_entity_bundle_field_info().
+ */
+function mymodule_entity_bundle_field_info(EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
+  if ($entity_type-&gt;id() == 'myentity' &amp;&amp; $bundle == 'mybundle') {
+    $fields = [];
+    $fields['myfield'] = BundleFieldDefinition::create('list_integer')
+      // This is essential: the array key is NOT used as the field machine name,
+      // so it MUST be specified here!
+      -&gt;setName('myfield')
+      // These two are essential: they define the entity type and the bundle
+      // that the field is on.
+      -&gt;setTargetEntityTypeId($entity_type-&gt;id())
+      -&gt;setTargetBundle($bundle)
+      // Further define the field as you would with a base field.
+      -&gt;setLabel(t('Label'))
+      -&gt;setDescription(t('Description.'));
+
+    return $fields;
+  }
+}
+
+/**
+ * Implements hook_entity_field_storage_info().
+ */
+function mymodule_entity_field_storage_info(EntityTypeInterface $entity_type) {
+  if ($entity_type-&gt;id() == 'myentity') {
+    return mymodule_entity_bundle_field_info($entity_type, 'mybundle', []);
+  }
+}
+</code></pre>
+<p>We use the same piggybacking trick here. In the case of altering someone else's entity type,
+it makes just as much sense to define the storage and derive the field, but following the same pattern as the
+custom entity keeps the two methods matching.</p>
+<p>As you can see, this is an area of Drupal's entity system which is unfortunately incomplete,
+and liable to change in the future. Nonetheless, the usefulness of bundle fields means that it's worth using them. Just be sure to document your code so future developers (who might be you!)
+know that it's area of the code that may need maintainance when the API is updated. And keep an eye on the Drupal core change records!</p>
+      
+<span><span>joachim</span></span>
+
+<span>Mon, 01/31/2022 - 17:14
+</span>
+]]></description>
+  <pubDate>Mon, 31 Jan 2022 17:14:06 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">58 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Commit your Composer-managed files to version control</title>
+  <link>https://joachim-n.github.io//blog/commit-your-composer-managed-files-version-control</link>
+  <description><![CDATA[
+<span>Commit your Composer-managed files to version control</span>
+
+            <p>According to the Composer documentation, you shouldn't commit to version control
+any of the files in packages that are managed by Composer. For a Drupal project,
+that means the following folders are not in your git repository:</p>
+<ul>
+<li>vendor</li>
+<li>web/core</li>
+<li>web/modules/contrib</li>
+</ul>
+<p>Bluntly, I think this is the wrong thing to do. Doing the exact opposite saves you time, effort, heartache, and energy.</p>
+<p>Let's start by comparing the two workflows.</p>
+<h2>Composer-recommended workflow: the wrong way</h2>
+<ol>
+<li>Alice, the developer, updates some packages in her local dev.</li>
+<li>She commits only the composer.json and composer.lock files.</li>
+<li>Bob pulls changes, and runs <code>composer install</code> to update his local dev.</li>
+<li>When the project is deployed, the server needs to run <code>composer install</code> as part of the deployment process.</li>
+</ol>
+<h2>Git-managed workflow: the right way</h2>
+<ol>
+<li>Alice, the developer, updates some packages in her local dev.</li>
+<li>She commits all the new and changed files.</li>
+<li>Bob pulls changes.</li>
+<li>When the project is deployed... it's deployed. All the files necessary to run the app are in git, and so updating the server's git clone gives it all the files.</li>
+</ol>
+<p>The first reason this workflow is better should jump out: developers save time. Git is much faster and pulling files from a repository than Composer is at resolving, downloading, and installing packages. Switching git branches is fast, even when a lot of files change. Having to run Composer because one branch has package updates on it and the other doesn't, or has different ones, is a waste of developer time.</p>
+<p>The second reason is related: save time in deployment. That's not just developer time, that's time your production server is down.</p>
+<p>The third reason is more philosophical: Composer is not a <em>file</em> management tool. It's a <em>dependency</em> management tool. Let Composer do what it does well, which is figuring out which versions of which packages should be installed. Let git handle what it does well, which is synchronizing different copies of a codebase. Purists may point out that git is a version control tool, not a file management tool: that's a valid point, but doesn't diminish my argument: commit all files, and then use rsync or whatever to get the files from a git clone to the server.</p>
+<p>Related to this: don't make your webserver do package management work; that's not its job. And don't make Bob repeat the work Alice already did.</p>
+<p>Finally, committing files to git puts them under version control. That's merely stating the obvious, but putting files under version control has many benefits.</p>
+<ul>
+<li>
+<p>IDEs typically ignore git-ignored files for things like searching and code analysis. On my IDE at least (VSCode), disabling that means it then wants to include things like the uploaded files folder.</p>
+</li>
+<li>
+<p>Similarly, search tools such as <code>ag</code> and <code>ack</code> take <code>.gitignore</code> files into account, and having to override that robs you of useful behaviour.</p>
+</li>
+<li>
+<p>Finally, files under version control are easier to debug and tinker with. I for one often go digging in core or contrib modules, trying to figure out why something isn't working the way it's supposed to, or trying to fix a bug. To do that, I put in dump statements; sometimes tons of dump statements. (I can never get xdebug to work. Dump statements are quick and easy.) With code under version control, cleaning up all that mess is trivial: git can discard all changes. Without version control, I'm hunting through files for all the debug changes I made, or bouncing on CMD-Z like it's still the dark ages.</p>
+</li>
+</ul>
+<p>So, put all your files in version control. And remember the adage: if it's not under version control, it doesn't exist.</p>
+      
+<span><span>joachim</span></span>
+
+<span>Tue, 04/20/2021 - 08:46
+</span>
+]]></description>
+  <pubDate>Tue, 20 Apr 2021 08:46:49 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">57 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>A better way to work on Drupal core</title>
+  <link>https://joachim-n.github.io//blog/better-way-work-drupal-core</link>
+  <description><![CDATA[
+<span>A better way to work on Drupal core</span>
+
+            <p>Often when things seem really complicated, I think it's because I must be doing it wrong.</p>
+<p>Working on Drupal core since dependencies were removed from git has seemed really fiddly. For a long time I thought I must have missed something, that there was some undocumented technique I wasn't aware of.</p>
+<p>But I've asked various people who work on core a lot more than I do, and they've confirmed that what I've been doing is pretty much the way that they do it:</p>
+<ol>
+<li>Get a git clone of Drupal core.</li>
+<li>Run <code>composer install</code> on it.</li>
+<li>Write code!</li>
+<li>Make a patch (well, a merge request now!)</li>
+</ol>
+<p>That all sounds simple, right? But wait! If you're working on core, you're going to want Devel module for its useful debugging and inspection tools, right? And Drush, for quick cache clearing. And probably Admin Toolbar so going around the UI is quicker.</p>
+<p>But you have to install all those with Composer. And doing that dirties the composer.lock file that's part of Drupal core's git clone.</p>
+<p>It's fairly simple to keep changes to that file out of your merge request or patch, but pretty soon, you're going to do a <code>git pull</code> on core that's going to include changes to the composer.lock file, because core will have updates to dependencies.</p>
+<p>And that's where it all starts to go wrong, because the <code>git pull</code> will fail because of conflicts in the composer.lock file and in other Composer files, and conflicts in that file are really painful to resolve.</p>
+<p>So maintaining an ongoing Drupal install that uses a Drupal core git clone quickly becomes a mess. As far as I know, most core developers frequently reset the whole thing and reinstall from scratch.</p>
+<p>The problem is caused by using the git clone of Drupal core as the Composer project, so that Drupal core's composer.json is being used as the project composer.json. But there's a better way...</p>
+<h2>Using Composer with git clones</h2>
+<p>Composer has a way of using a git clone for a package in a project:</p>
+<ol>
+<li>Create your own git clone of the package</li>
+<li>Declare that git clone as a Composer package repository in the project's composer.json</li>
+<li>Install the package</li>
+</ol>
+<p>The result is that Composer creates a symlink from your git clone into the project, and doesn't touch the git clone. You need to be fairly lax in the version requirement you give for the package, so that Composer doesn't object to the git clone being on a feature branch later on.</p>
+<p>This, as far as I know, is the standard way for working on a Composer package that you need to operate in the context of a project. It works for library packages and Composer plugins.</p>
+<p>For Drupal core...? Well, it works, but as you might have guessed it's a little more complicated.</p>
+<p>Drupal has opinions about where it expects to be located in a project, and furthermore, has a scaffolding system which writes files into the webroot when you install it. All of that gets a bit confused if you put Drupal core out of the way and symlink it in.</p>
+<p>But with a few symlinks, and one sneaky patch to a scaffold file, it works. It's all quite fiddly and so I've made...</p>
+<h2>The Drupal Core development project</h2>
+<p>This is a Composer project template, available at <a href="https://github.com/joachim-n/drupal-core-development-project">https://github.com/joachim-n/drupal-core-development-project</a>. It handles all the necessary tweaks to get Drupal to work when symlinked into a project: install it as a Composer project.</p>
+<p>There are still a few limitations: those are detailed in the README too.</p>
+<p>Of course, I've now fallen down the rabbithole of doing more work towards making Drupal completely agnostic of its location, rather than the core issues I wanted to work on in the first place.</p>
+<p>Please try it, report any problems, and happy coding on Drupal core!</p>
+      
+<span><span>joachim</span></span>
+
+<span>Fri, 04/16/2021 - 13:32
+</span>
+
+
+
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/59" hreflang="en">Composer</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/64" hreflang="en">Drupal core</a></li>
+      </ul>
+
+]]></description>
+  <pubDate>Fri, 16 Apr 2021 13:32:26 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">56 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Different ways to make entity bundles</title>
+  <link>https://joachim-n.github.io//blog/different-ways-make-entity-bundles</link>
+  <description><![CDATA[
+<span>Different ways to make entity bundles</span>
+
+            <p>A lot of the time, a custom content entity type only needs a single bundle: all the entities of this type have the same structure. But there are times where they need to vary, typically to have different fields, while still being the same type. This is where entity bundles come in.</p>
+<p>Bundles are to a custom entity type what node types are to the node entity type. They could be called sub-types instead (and there is <a href="https://www.drupal.org/project/drupal/issues/1380720">a long-running core issue to rename them to this</a>; I'd say go help but I'm not sure what can be done to move it forward), but the name 'bundle' has stuck because initially the concept was just about different 'bundles of fields', and then the name ended up being applied across the whole entity system.</p>
+<p>History lesson over; how do you define bundles on your entity type? Well there are several ways, and of course they each have their use cases.</p>
+<p>And of course, <a href="https://www.drupal.org/project/module_builder">Module Builder</a> can help generate your code, whichever of these methods you use.</p>
+<h2>Quick and simple: hardcode</h2>
+<p>The simplest way to do anything is to hardcode it. If you have a fixed number of bundles that aren't going to change over time, or at least so rarely that requiring a code deployment to change them is acceptable, then you can simply define the bundles in code. The way to do this is with a hook (though there's a core issue -- which I filed -- to <a href="https://www.drupal.org/project/drupal/issues/3112239">allow these to be defined in a method on the entity class</a>).</p>
+<p>Here's how you'd define your hardcoded bundles:</p>
+<pre><code>/**
+ * Implements hook_entity_bundle_info().
+ */
+function mymodule_entity_bundle_info() {
+  $bundles['my_entity_type'] = [
+    'bundle_alpha_' =&gt; [
+      'label' =&gt; t('Alpha'),
+      'description' =&gt; t('Represents an alpha entity.')
+    ],
+    'bundle_beta_' =&gt; [
+      'label' =&gt; t('Beta'),
+      'description' =&gt; t('Represents a beta entity.')
+    ],
+  ];
+
+  return $bundles;
+}
+</code></pre>
+<p>The machine names of the bundles (which are used as the bundle field values, and in field names, admin paths, and so on) are the keys of the array. The labels are used in UI messages and page titles. The descriptions are used on the 'Add entity' page's list of bundles.</p>
+<h2>Classic: bundle entity type</h2>
+<p>The way Drupal core does bundles is with a bundle entity type. In addition to the content entity type you want to have bundles, there is also a config entity type, called the 'bundle entity type'. Each single entity of the bundle entity type defines a bundle of the content entity type. So for example, a single node type entity called 'page' defines the 'page' node type; a single taxonomy vocabulary entity called 'tags' defines the 'tags' taxonomy term type.</p>
+<p>This is great if you want extensibility, and you want the bundles to be configurable by site admins in the UI rather than developers. The downside is that it's a lot of extra code, as there's a whole second entity type to define.</p>
+<p>Very little glue is required between the two entity types, though. They basically each need to reference the other in their entity type annotations:</p>
+<p>The content entity type needs:</p>
+<pre><code> *   bundle_entity_type = "my_entity_type_bundle",
+</code></pre>
+<p>and the bundle entity needs:</p>
+<pre><code> *   bundle_of = "my_entity_type",
+</code></pre>
+<p>and the bundle entity class should inherit from <code>\Drupal\Core\Config\Entity\ConfigEntityBundleBase</code>.</p>
+<h2>Per-bundle functionality: plugins as bundles</h2>
+<p>This third method needs more than just Drupal core: it's a technique provided by <a href="https://www.drupal.org/project/entity">Entity module</a>.</p>
+<p>Here, you define a plugin type (an annotation plugin type, rather than YAML), and each plugin of that type corresponds to a bundle. This means you need a whole class for each bundle, which seems like a lot of code compared to the hook technique, but there are cases where that's what you want.</p>
+<p>First, because Entity module's framework for this allows each plugin class to define different fields for each bundle. These so-called bundle fields are installed in the same way as entity base fields, but are only on one bundle. This gives you the diversification of per-bundle fields that you get with config fields, but with the definition of the fields in your code where it's easier to maintain.</p>
+<p>Second, because in your plugin class you can code different behaviours for different bundles of your entity type. Suppose you want the entity label to be slightly different. No problem, in your entity class simply hand over to the bundle:</p>
+<pre><code>class PluginAlpha {
+
+  public function label() {
+    $bundle_plugin = \Drupal::service('plugin.manager.my_plugin_type')
+    return $bundle_plugin-&gt;label($this);
+  }
+  
+}
+</code></pre>
+<p>Add a label() method to the plugin classes, and you can specialise the behaviour for each bundle. If you want to have behaviour that's grouped across more than one plugin, one way to do it is to add properties to your plugin type's annotation, and then implement the functionality in the plugin base class with a conditional on the value in the plugin's definition.</p>
+<pre><code>/**
+ * @MyPluginType(
+ *   id = "plugin_alpha",
+ *   label = @Translation("Alpha"),
+ *   label_handling = "combolulate"
+</code></pre>
+<pre><code>class MyPluginBase {
+
+  public function label() {
+    switch ($this-&gt;getPluginDefinition()['floopiness']) {
+      case 'combolulate':
+        // Return the combolulated label. 
+    }
+  }
+
+}
+</code></pre>
+<p>For a plugin type to be used as entity bundles, the plugins need to implement \Drupal\entity\BundlePlugin\BundlePluginInterface, and your entity type needs to declare the plugin:</p>
+<pre><code> *   bundle_plugin_type = "my_plugin_type",
+</code></pre>
+<p>Here, the string 'my_plugin_type' is the part of the plugin manager's service name that comes after the 'plugin.manager' prefix. (The plugin system unfortunately doesn't have a standard concept of a plugin type's name, but this is informally what is used in various places such as Entity module and Commerce.)</p>
+<p>The bundle plugin technique is well-suited to entities that are used as 'machinery' in some way, rather than content. For example, in Commerce License, each bundle of the license entity is a plugin which provides the behaviour that's specific to that type of license.</p>
+<p>One thing to note on this technique: if you're writing kernel tests, you'll need to manually install the bundle plugins for them to exist in the test. See the tests in Entity module for an example.</p>
+<p>These three techniques for bundles each have their advantages, so it's not unusual to find all three in use in a single project codebase. It's a question of which is best for a particular entity type.</p>
+      
+<span><span>joachim</span></span>
+
+<span>Tue, 10/27/2020 - 11:52
+</span>
+]]></description>
+  <pubDate>Tue, 27 Oct 2020 11:52:24 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">55 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Using lazy builders with Twig templates</title>
+  <link>https://joachim-n.github.io//blog/using-lazy-builders-twig-templates</link>
+  <description><![CDATA[
+<span>Using lazy builders with Twig templates</span>
+
+            <p>Lazy builders were introduced in Drupal 8's render system to solve the problem of pieces of your page that have a low cacheability affecting the cacheability of the whole page. Typical uses of this technique are with entire render arrays which are handed over to a lazy builder.</p>
+<p>However, in retrofitting an existing site to make use of caching more effectively, I found that we have a large amount of content that would be cacheable were it not for a single string. Specifically, we have a DIV of the details for a product, but also in that DIV there is the serial number for the user's specific instance of that product.</p>
+<p>The whole of this product DIV was output by a Twig template. I could have ripped this up and remade it as a big render array, putting the lazy builder in for the serial number, but this seemed like a lot of work, and would also make our front-end developers unhappy.</p>
+<p>It turned out there was another way. The render system deals with placeholders for lazy builders automatically, so you typically will just do:</p>
+<pre><code>$build['uncacheable_bit'] = [
+  '#lazy_builder' =&gt; [
+    'my_service:myLazyBuilder',
+    [],
+  ],
+];
+</code></pre>
+<p>but as I learned from a <a href="http://tech.dichtlog.nl/php/2015/08/03/lazy-builder-callback.html">blog post</a> by <a href="https://twitter.com/borisson">Borisson</a>, you can make the placeholders yourself put them <em>anywhere in the content</em> and attach the lazy builders to the build array. This is what the render system does when it handles a '#lazy_builder' builder render array item.</p>
+<p>One application of this is that you can pass the placeholder as a parameter to a twig template:</p>
+<pre><code>// Your placeholder can be anything, but using a hash like the render system
+// does prevents accidental replacements.
+$placeholder = Crypt::hashBase64('some_data');
+
+$build['my_content'] = [
+  '#theme' =&gt; 'my_template',
+  '#var_1' =&gt; $var_1,
+  // This is just a regular parameter as far as the Twig template cares, 
+  // output with {{lazy_builder_var}} as normal.
+  '#lazy_builder_var' =&gt; $placeholder,
+];
+
+$build['#attached']['placeholders'][$placeholder] = [
+  '#lazy_builder' =&gt; [
+    // The lazy builder callback and parameters.
+    'my_service:myLazyBuilder',
+    [],
+  ],
+];
+</code></pre>
+<p>With this approach, the Twig template just needed some minor changes. It doesn't care about the lazy builder; all it sees is the placeholder string which it treats like any other text. The render system finds the placeholder in the '#attached' attribute, and handles the replacement when the rendered template is retrieved from the render cache.</p>
+<p>The result is that we're able to cache much more in the render cache, and improve site performance.</p>
+<p>Now I just have to figure out the cache tags...</p>
+      
+<span><span>joachim</span></span>
+
+<span>Thu, 06/04/2020 - 14:04
+</span>
+]]></description>
+  <pubDate>Thu, 04 Jun 2020 14:04:12 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">54 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Base fields versus config fields, and how to handle the latter in tests</title>
+  <link>https://joachim-n.github.io//blog/base-fields-versus-config-fields-and-how-handle-latter-tests</link>
+  <description><![CDATA[
+<span>Base fields versus config fields, and how to handle the latter in tests</span>
+
+            <p>All fields are equal in Drupal 8! Back in Drupal 7 we had two different systems for data on entities, which worked fairly differently: entity properties that were defined as database fields and controlled by hardcoded form elements, and user-created fields on entities that had widgets and formatters. But now in Drupal 8, every value on an entity is a field, with the same configuration in the UI, access to the widgets and formatters, and whose data is accessed in the same way.</p>
+<p>Is this the end of the story? No, not quite. For site builders, everything is unified, and that's great. For code that consumes data from entities, everything is unified, and that's great too. But for the developer actually working with those fields, whether a field is a base field or a config field still makes a big difference.</p>
+<h3>Config fields are easier...</h3>
+<p>Config fields are manipulated via a UI, and that makes them simple to work with.</p>
+<h4>Setup</h4>
+<p>Config fields win easily here: a few clicks in the UI to create the field, a few options to choose in dropdowns for the widget and formatter options and you're set. Export to config, commit: done!</p>
+<p>Base fields are more fiddly here. You need to be familiar with the Entity system, and understand (or copy-pasta!) the base field definitions. Then, knowing the right widget and formatter to use and how to set their options requires close reading of the relevant plugin classes.</p>
+<h4>Update</h4>
+<p>Config fields win again: change in the UI, export to config, deploy!</p>
+<p>For base fields, you once again need to know what you're doing with the code,
+and you now need a hook_update_N() to make the change to the database (now that entity updates are longer done automatically).</p>
+<h4>Removal</h4>
+<p>This is maybe a minor point, but while removing a config field is again just a
+UI click and a config export, removing a base field will again require a hook_update_N() to tell the Entity API to update the database tables.</p>
+<h3>...but base fields are more robust</h3>
+<p>Given the above, why bother with base fields? Well, if your fields just sit there holding data, you can stop reading. But if your fields are involved in your custom code, as a developer, this should give you an unpleasant feeling: your code in <code>modules/custom/mymodule</code> is dependent on configuration that lives in the site's config export.</p>
+<h4>Robustness</h4>
+<p>The fact that config fields are so easy to change in the UI is now a mark <em>against</em> them. Another developer could change a field without a full understanding of the code that works with it. The code might expect a value to always be there, but the field is now non-required. The code might expect certain options, but the field now has an extra one.</p>
+<p>Instead of this brittle dependency, it feels much safer to have base fields defined closer to the code that makes use of them: in the same module.</p>
+<h4>Tests</h4>
+<p>The solution to the dependency problem is obviously tests, which would pick up any change that breaks the code's expectations of how the fields behave. But now we hit a big problem with config fields: your test site doesn't have those fields!</p>
+<p>My first attempt at solving this problem was to use the <a href="https://www.drupal.org/project/config_devel">Configuration development module</a>. This allows you to export config from the site to a module's <code>/config/install</code> folder. A test that installs that module then gets those config items imported.</p>
+<p>It's a quick and simple approach: when a test crashes because of a missing field, find it in the config folder, add it to the right module's <code>.info.yml</code> file, do <code>drush cde MODULE</code> and commit the changes and the newly created files.</p>
+<p>This approach also works for all other sorts of config your test might need: taxonomy vocabularies, node types, roles, and more!</p>
+<p>But now you have an additional maintenance burden because your site config is now in <em>three</em> places: the site itself, the config export, and now also in module config. And if developers who change config forget to also export to module config, your test is now no longer testing how the site actually works, and so will either fail, or worse, won't be actually covering what you expect any more.</p>
+<h3>Best of both worlds: import from config</h3>
+<p>To summarize: we want the convenience of config fields, but we want them to be close to our code and testable. If they're testable, we can maybe stand to forego the closeness.</p>
+<p>My best solution to this so far is simple: allow tests to import configuration
+direct from the site config sync folder.</p>
+<p>Here's the helper method I've been using:</p>
+<pre><code>/**
+ * Imports config from a real local site's config folder.
+ *
+ * TODO: this currently only supports config entities.
+ *
+ * @param string $site_key
+ *   The site key, that is, the subfolder in /config in which to find the
+ *   config files.
+ * @param string $config_name
+ *   The config name. This is the same as the YML filename without the
+ *   extension. Note that this is not checked for dependencies.
+ *
+ * @throws \Exception
+ *   Throws an exception if the config can't be imported.
+ */
+protected function importSiteConfig(string $site_key, string $config_name) {
+  $storage = $this-&gt;container-&gt;get('config.storage.sync');
+
+  // Code cribbed from Config Devel module's ConfigImporterExporter.
+  $config_filename = "../config/{$site_key}/{$config_name}.yml";
+
+  if (!file_exists($config_filename)) {
+    throw new \Exception("Unable to find config file $config_filename to import from.");
+  }
+
+  $contents = @file_get_contents($config_filename);
+
+  $data = $storage-&gt;decode($contents);
+  if (!$data) {
+    throw new \Exception("Failed to import config $config_name from site $site_key.");
+  }
+
+  // This assumes we only ever import entities from site config for tests,
+  // which so far is the case.
+  $entity_type_id = $this-&gt;container-&gt;get('config.manager')-&gt;getEntityTypeIdByName($config_name);
+
+  if (empty($entity_type_id)) {
+    throw new \Exception("Non-entity config import not yet supported!");
+  }
+
+  $entity = $this-&gt;container-&gt;get('entity_type.manager')-&gt;getStorage($entity_type_id)-&gt;create($data);
+  $entity-&gt;save();
+}
+</code></pre>
+<p>Use it in your test's setUp() or test methods like this:</p>
+<pre><code>  // Import configuration from the default site config files.
+  $this-&gt;importSiteConfig('default', 'field.storage.node.field_my_field');
+  $this-&gt;importSiteConfig('default', 'field.field.node.article.field_my_field');
+</code></pre>
+<p>As you can see from the documentation, this so far only handles config that is entities. I've not yet had a use for importing config that's not an entity (and just about all config items are entities except for the ones that are a collection of a module's settings). And it doesn't check for dependencies: you'll need to import them in the right order (field storage before field) and ensure the modules that provide the various things are enabled in the test.</p>
+<p>I should mention for the sake of completeness that there's another sort of field, sort of: bundle fields. These are in code like base fields, but limited to a particular bundle. They also have a variety of problems as the system that support them is somewhat incomplete.</p>
+<p>Finally, it occurs to me that another way to bridge the gap would be to allow editing base fields in the UI, and then export that back to code consisting of the BaseFieldDefinition calls. But hang on... haven't I just reinvented Drupal 7-era Features?</p>
+<h3>UPDATE</h3>
+<p>It turned out this was crashing when importing fields with value options. This code (and that in Config Devel module, which is where I cribbed it from) wasn't properly using the Config API. Here's updated code, which incidentally, also now can handle non-entity config:</p>
+<pre><code>  /**
+   * Imports config from a real local site's config folder.
+   *
+   * Needs config module to be enabled.
+   *
+   * @param string $site_key
+   *   The site key, that is, the subfolder in /config in which to find the
+   *   config files.
+   * @param string $config_name
+   *   The config name. This is the same as the YML filename without the
+   *   extension.
+   *
+   * @throws \Exception
+   *   Throws an exception if the config can't be imported.
+   */
+  protected function importSiteConfig(string $site_key, string $config_name) {
+    $storage = $this-&gt;container-&gt;get('config.storage.sync');
+
+    // Code cribbed from Config Devel module's ConfigImporterExporter.
+    $config_filename = "../config/{$site_key}/{$config_name}.yml";
+
+    if (!file_exists($config_filename)) {
+      throw new \Exception("Unable to find config file $config_filename to import from.");
+    }
+
+    $contents = @file_get_contents($config_filename);
+
+    $data = $storage-&gt;decode($contents);
+    if (!$data) {
+      throw new \Exception("Failed to import config $config_name from site $site_key.");
+    }
+
+    unset($data['uuid']);
+
+    // We have to partially mock the source storage, because otherwise
+    // SystemConfigSubscriber::onConfigImporterValidateSiteUUID() will complain
+    // because the source config doesn't contain a system.site config. (For
+    // general information, the single-import UI in core doesn't hit this
+    // problem because it TOTALLY cheats and pretends its source is the full
+    // site config! Though who knows how it manages not to trip up when the site
+    // config folder is empty!)
+    $source_storage = $this-&gt;getMockBuilder(StorageReplaceDataWrapper::class)
+      -&gt;setConstructorArgs([$this-&gt;container-&gt;get('config.storage')])
+      -&gt;setMethods(['exists'])
+      -&gt;getMock();
+    // Satisfy SystemConfigSubscriber that we have a system.site config.
+    $source_storage-&gt;expects($this-&gt;any())
+      -&gt;method('exists')
+      -&gt;willReturn(TRUE);
+
+    $source_storage-&gt;replaceData($config_name, $data);
+
+    // Similarly mock the storage comparer.
+    $storage_comparer = $this-&gt;getMockBuilder(StorageComparer::class)
+      -&gt;setConstructorArgs([$source_storage, $this-&gt;container-&gt;get('config.storage')])
+      -&gt;setMethods(['validateSiteUuid'])
+      -&gt;getMock();
+    // Satisfy SystemConfigSubscriber that system.site config is valid.
+    $storage_comparer-&gt;expects($this-&gt;any())
+      -&gt;method('validateSiteUuid')
+      -&gt;willReturn(TRUE);
+
+    $storage_comparer-&gt;createChangelist();
+
+    $config_importer = new ConfigImporter(
+      $storage_comparer-&gt;createChangelist(),
+      $this-&gt;container-&gt;get('event_dispatcher'),
+      $this-&gt;container-&gt;get('config.manager'),
+      $this-&gt;container-&gt;get('lock'),
+      $this-&gt;container-&gt;get('config.typed'),
+      $this-&gt;container-&gt;get('module_handler'),
+      $this-&gt;container-&gt;get('module_installer'),
+      $this-&gt;container-&gt;get('theme_handler'),
+      $this-&gt;container-&gt;get('string_translation'),
+      $this-&gt;container-&gt;get('extension.list.module')
+    );
+
+    $config_importer-&gt;import();
+  }
+
+}
+</code></pre>
+<h3>UPDATE 2</h3>
+<p>I've found an occasional problem with site config items that have third-party settings from modules that aren't relevant to the test. Examples include Menu UI settings in node types, and contrib translation settings in fields. Rather than enable extra modules in the test, these settings can be hacked out of the data after we decode it from the YAML. Here's an updated version of the code.</p>
+<pre><code>
+use Drupal\Core\Config\ConfigImporter;
+use Drupal\Core\Config\StorageComparer;
+use Drupal\config\StorageReplaceDataWrapper;
+
+  /**
+   * Imports config from a real local site's config folder.
+   *
+   * @param string $site_key
+   *   The site key, that is, the subfolder in /config in which to find the
+   *   config files.
+   * @param string $config_name
+   *   The config name. This is the same as the YML filename without the
+   *   extension.
+   * @param array $third_party_filter
+   *   (optional) Keys in the config item's third party settings that are to be
+   *   removed prior to import. This prevents unwanted dependencies on modules
+   *   that are not relevant to a test. Defaults to an empty array; no keys
+   *   removed.
+   *
+   * @throws \Exception
+   *   Throws an exception if the config can't be imported.
+   */
+  protected function importSiteConfig(string $site_key, string $config_name, array $third_party_filter = []) {
+    $storage = $this-&gt;container-&gt;get('config.storage.sync');
+
+    // Code cribbed from Config Devel module's ConfigImporterExporter.
+    $config_filename = "../config/{$site_key}/{$config_name}.yml";
+
+    if (!file_exists($config_filename)) {
+      throw new \Exception("Unable to find config file $config_filename to import from.");
+    }
+
+    $contents = @file_get_contents($config_filename);
+
+    $data = $storage-&gt;decode($contents);
+    if (!$data) {
+      throw new \Exception("Failed to import config $config_name from site $site_key.");
+    }
+
+    unset($data['uuid']);
+
+    // Remove third-party settings.
+    foreach ($third_party_filter as $settings_key) {
+      unset($data['third_party_settings'][$settings_key]);
+    }
+
+    // We have to partially mock the source storage, because otherwise
+    // SystemConfigSubscriber::onConfigImporterValidateSiteUUID() will complain
+    // because the source config doesn't contain a system.site config. (For
+    // general information, the single-import UI in core doesn't hit this
+    // problem because it TOTALLY cheats and pretends its source is the full
+    // site config! Though who knows how it manages not to trip up when the site
+    // config folder is empty!)
+    $source_storage = $this-&gt;getMockBuilder(StorageReplaceDataWrapper::class)
+      -&gt;setConstructorArgs([$this-&gt;container-&gt;get('config.storage')])
+      -&gt;setMethods(['exists'])
+      -&gt;getMock();
+    // Satisfy SystemConfigSubscriber that we have a system.site config.
+    $source_storage-&gt;expects($this-&gt;any())
+      -&gt;method('exists')
+      -&gt;willReturn(TRUE);
+
+    $source_storage-&gt;replaceData($config_name, $data);
+
+    // Similarly mock the storage comparer.
+    $storage_comparer = $this-&gt;getMockBuilder(StorageComparer::class)
+      -&gt;setConstructorArgs([$source_storage, $this-&gt;container-&gt;get('config.storage')])
+      -&gt;setMethods(['validateSiteUuid'])
+      -&gt;getMock();
+    // Satisfy SystemConfigSubscriber that system.site config is valid.
+    $storage_comparer-&gt;expects($this-&gt;any())
+      -&gt;method('validateSiteUuid')
+      -&gt;willReturn(TRUE);
+
+    $storage_comparer-&gt;createChangelist();
+
+    $config_importer = new ConfigImporter(
+      $storage_comparer-&gt;createChangelist(),
+      $this-&gt;container-&gt;get('event_dispatcher'),
+      $this-&gt;container-&gt;get('config.manager'),
+      $this-&gt;container-&gt;get('lock'),
+      $this-&gt;container-&gt;get('config.typed'),
+      $this-&gt;container-&gt;get('module_handler'),
+      $this-&gt;container-&gt;get('module_installer'),
+      $this-&gt;container-&gt;get('theme_handler'),
+      $this-&gt;container-&gt;get('string_translation'),
+      $this-&gt;container-&gt;get('extension.list.module')
+    );
+
+    $config_importer-&gt;import();
+  }
+</code></pre>
+      
+<span><span>joachim</span></span>
+
+<span>Thu, 03/19/2020 - 14:07
+</span>
+]]></description>
+  <pubDate>Thu, 19 Mar 2020 14:07:39 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">53 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Debugging and Logging AJAX requests tests in Docksal</title>
+  <link>https://joachim-n.github.io//blog/debugging-and-logging-ajax-requests-tests-docksal</link>
+  <description><![CDATA[
+<span>Debugging and Logging AJAX requests tests in Docksal</span>
+
+            <p>The hardest thing I find with tests is understanding errors. Every time I think I've got debugging output sorted, I find a new layer where it doesn't work, I've got nothing, and I'm in the dark with something that's crashing and I don't know why.</p>
+<p>The first layer is simple: errors in your test code itself. For example, make a typo in your tests/src/Functional/MyTest.php and PHPUnit crashes and you see the error in the terminal.</p>
+<p>But when it's site code that's crashing, you're dealing with a system that is being driven by code, and therefore, you can't see it. And that's a major obstacle to figuring out a problem.</p>
+<p>The HTML output that Drupal's Functional and Functional Javascript tests produce is a huge help: every time your test code makes a request to the test site, an HTML file is written to the test files directory. If your site crashes when your test makes a request, you'll see the error and the backtrace there.</p>
+<p>However, there's no such output when in a Functional Javascript test you cause an AJAX request. And while you can create a screenshot of what the page looks like after the request, our another HTML file of the page (see <a href="https://www.drupal.org/project/drupal/issues/3090498">https://www.drupal.org/project/drupal/issues/3090498</a> for instructions how; the issue is about how to make that automatic but I have no idea how that might be possible), you can't see the actual error, because AJAX requests that fail just sit there doing nothing. There's nothing useful to see in the browser.</p>
+<p>So we need to see logs. When a real site has an AJAX crash, with a human being-controlled web browser making the request, you can go and look in the logs. With a test site, the log table is zapped when the test is completed.</p>
+<p>Fortunately, Drupal 8's pluggable logging means there are other ways of getting hold of them, more permanent ways.</p>
+<p>I first tried <a href="https://www.drupal.org/project/log_stdout">log_stdout module</a>. This outputs log errors to STDOUT. If you're running on Docksal, as I am, you have an extra layer to get though to see that. You can monitor the cli container with <code>fin logs -f cli</code>, and with that module add a <code>| ag WATCHDOG</code> to filter.</p>
+<p>However, I wasn't seeing backtrace in this output, and I gave up figuring out why.</p>
+<p>So I tried <a href="https://www.drupal.org/project/filelog">filelog module</a> instead, which as the name implies, writes log to a simple text file. This needs a little bit more work, as by default it writes to 'public://logs'. This means that each run of the test gets its own log file, which is perhaps what you want, but for my own uses I wanted a single log file I could <code>tail -f</code> in a terminal window and have continual monitoring.</p>
+<p>A quick bit of config setting in the test's setUp() does the trick:</p>
+<pre><code>$this-&gt;config('filelog.settings')
+  -&gt;set('location', '/var/www/docroot/sites/simpletest/logs')
+  -&gt;save();
+</code></pre>
+<p>And I think that's me at last sorted.</p>
+      
+<span><span>joachim</span></span>
+
+<span>Wed, 11/06/2019 - 14:30
+</span>
+
+
+
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/62" hreflang="en">debugging</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/63" hreflang="en">tests</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+      </ul>
+
+]]></description>
+  <pubDate>Wed, 06 Nov 2019 14:30:07 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">52 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Multi-site search using Feeds and SearchAPI</title>
+  <link>https://joachim-n.github.io//blog/multi-site-search-using-feeds-and-searchapi</link>
+  <description><![CDATA[
+<span>Multi-site search using Feeds and SearchAPI</span>
+
+            <p>[This is an old post that I wrote for <a href="https://systemseed.com/blog/how-unc-achieved-multi-site-search-using-feeds-and-searchapi">System Seed's blog</a> and meant to put on my own too but it fell off my radar until now. It's also about Drupal 7, but the general principle still applies.]</p>
+<p>Handling clients with more than one site involves lots of decisions. And yet, it can sometimes seem like ultimately all that doesn't matter a hill of beans to the end-user, the site visitor. They won't care whether you use Domain module, multi-site, separate sites with common codebase, and so on. Because most people don't notice what's in their URL bar. They want ease of login, and ease of navigation. That translates into things such as the single sign-on that drupal.org uses, and common menus and headers, and also site search: they don’t care that it’s actually sites search, plural, they just want to find stuff.</p>
+<p>For the University of North Carolina, who have a network of sites running on a range of different platforms, a unified search system was a key way of giving visitors the experience of a cohesive whole. The hub site, an existing Drupal 7 installation, needed to provide search results from across the whole family of sites.</p>
+<p>This presented a few challenges. Naturally, I turned to Apache Solr. Hitherto, I've always considered Solr to be some sort of black magic, from the way in which it requires its own separate server (http not good enough for you?) to the mysteries of its configuration (both Drupal modules that integrate with it require you to dump a bunch of configuration files into your Solr installation). But Solr excels at what it sets out to do, and the Drupal modules around it are now mature enough that things just work out of the box. Even better, Search API module allows you to plug in a different search back-end, so you can develop locally using Drupal's own database as your search provider, with the intention of plugging it all into Solr when you deploy to servers.</p>
+<p>One possible setup would have been to have the various sites each send their data into Solr directly. However, with the Pantheon platform this didn't look to be possible: in order to achieve close integration between Drupal and Solr, Pantheon locks down your Solr instance.</p>
+<p>That left talking to Solr via Drupal.</p>
+<p>Search API lets you define different datasources for your search data, and comes with one for each entity type on your site. In a datasource handler class, you can define how the datasource gets a list of IDs of things to index, and how it gets the content. So writing a custom datasource was one possibility.</p>
+<p>Enter the next problem: the external sites that needed to be indexed only exposed their content to us in one format: RSS. In theory, you could have a Search API datasource which pulls in data from an RSS feed. But then you need to write a SearchAPI datasource class which knows how to parse RSS and extract the fields from it.</p>
+<p>That sounded like reinventing Feeds, so I turned to that to see what I could do with it. Feeds normally saves data into Drupal entities, but maybe (I thought) there was a way to have the data be passed into SearchAPI for indexing, by writing a custom Feeds plugin?</p>
+<p>However, this revealed a funny problem of the sort that you don’t consider the existence of until you stumble on it: Feeds works on cron runs, pulling in data from a remote source and saving it into Drupal somehow. But SearchAPI also works on cron runs, pulling data in, usually entities. How do you get two processes to communicate when they both want to be the active participant?</p>
+<p>With time pressing, I took the simple option: define a custom entity type for Feeds to put its data into, and SearchAPI to read its data from. (I could have just used a node type, but then there would have been an ongoing burden of needing to ensure that type was excluded from any kind of interaction with nodes.)</p>
+<p>Essentially, this custom entity type acted like a bucket: Feeds dumps data in, SearchAPI picks data out. As solutions go, not the most massively elegant, at first glance. But if you think about it, if I had gone down the route of SearchAPI fetching from RSS directly, then re-indexing would have been a really lengthy process, and could have had consequences for the performance of the sites whose content was being slurped up. A sensible approach would then have been to implement some sort of caching on our server, either of the RSS feeds as files, or the processed RSS data. And suddenly our custom entity bucket system doesn’t look so inelegant after all: it’s basically a cache that both Feeds and SearchAPI can talk to easily.</p>
+<p>There were a few pitalls. With Search API, our search index needed to work on two entity types (nodes and the custom bucket entities), and while Search API on Drupal 7 allows this, its multiple entity type datasource handler had a few issues to iron out or learn to live with. The good news though is that the Drupal 8 version of Search API has the concept of multi-entity type search indexes at its core, rather than as a side feature: every index can handle multiple entity types, and there’s no such thing as a datasource for a single entity type.</p>
+<p>With Feeds, I found that not all the configuration is exportable to Features for easy deployment. Everything about parsing the RSS feed into entities can be exported, except the actual URL, which is a separate piece of setup and not exportable. So I had to add a hook_updateN() to take care of setting that up.</p>
+<p>The end result though was a site search that seamlessly returns results from multiple sites, allowing users to work with a network of disparate sites built on different technologies as if they were all the same thing. Which is what they were probably thinking they were all along anyway.</p>
+      
+<span><span>joachim</span></span>
+
+<span>Wed, 10/30/2019 - 13:08
+</span>
+
+
+
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/60" hreflang="en">search</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/61" hreflang="en">Feeds</a></li>
+      </ul>
+
+]]></description>
+  <pubDate>Wed, 30 Oct 2019 13:08:43 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">51 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Controlling multiple sites with Drush 9</title>
+  <link>https://joachim-n.github.io//blog/controlling-multiple-sites-drush-9</link>
+  <description><![CDATA[
+<span>Controlling multiple sites with Drush 9</span>
+
+            <p>Drush 9 has removed dynamic site aliases. Site aliases are hardcoded in YAML files rather than declared in PHP. Sadly, that means that many tricks you could do with the declaration of the site aliases are no longer available.</p>
+<p>The only grouping possible is based on the YAML filename. So for example, with the Acquia Cloud Site Factory site aliases generated by the 'blt recipes:aliases:init:acquia' command, you can run a command on the same site across different environments.</p>
+<p>But what you can't do is run a command on all the sites in one environment.</p>
+<p>One use case for this is checking whether a module is enabled on any sites, so you know that it's safe to remove it from the codebase.</p>
+<p>Currently, this is quite a laborious process, as 'drush pm-list' needs to be run for each site.</p>
+<p>With environment aliases, this would be a one liner:</p>
+<pre><code>drush @hypothetical-env-alias pm-list | ag some_module
+</code></pre>
+<p>('ag' is the very useful <a href="https://github.com/ggreer/the_silver_searcher">silver searcher unix command</a>, which is almost the same as the also excellent 'ack' but faster, and both are much better than grep.)</p>
+<p>While site aliases are fixed, they can be altered with Drush hooks. I considered that these might allow something to dynamically declare aliases, or a command option. There's <a href="https://github.com/drush-ops/drush/commit/886354d4fd7516893eac12b2b6f4ca">an example of altering aliases with a hook in the Drush code</a>.</p>
+<p>In the meantime, a much simpler solution is to use xargs, which I have recently found is extremely useful in all sorts of situations. Because this allows you to run one command multiple times with a set of parameters, all you need to do is pass it a list of site aliases. Fortunately, the 'drush sa' command has lots of formatting options, and one of them gives us just what we need, a list of aliases with one on each line:</p>
+<pre><code>drush sa --format=list 
+</code></pre>
+<p>That gives us all the aliases, and we probably don't want that. So here's where ag first comes in to play, as we can filter the list, for example, to only run on live sites (I'm using my ACSF aliases here as an example):</p>
+<pre><code>drush sa --format=list| ag 01live
+</code></pre>
+<p>Now we have a filtered list of aliases, and we can feed that into xargs:</p>
+<pre><code>drush sa --format=list| ag 01live | xargs -I % drush % pm-list
+</code></pre>
+<p>Normally, xargs puts the input parameter at the end of its command, but here we want it inserted just after the 'drush' command. The -I parameter allows us to specify a placeholder where the input parameter goes, so:</p>
+<pre><code>xargs -I % drush % pm-list
+</code></pre>
+<p>says that we want the site name to go where the '%' is, and means that that xargs will run:</p>
+<pre><code>drush SITE-ALIAS pm-list
+</code></pre>
+<p>with each value it receives, in this case, each site alias.</p>
+<p>Another thing we will do with xargs is set the -t parameter, which outputs each actual command it executes on STDERR. That acts as a heading in the output, so we can clearly see which site is outputting what.</p>
+<p>Finally, we can use ag a second time to filter the module list down to just the module we want to find out about:</p>
+<pre><code>drush sa --format=list | ag live | xargs -t -I % drush % pml | ag some_module 
+</code></pre>
+<p>The nice thing about the -t parameter is that as it's STDERR, it's not affected by the final pipe to ag for filtering output. So the output will consist of the drush command for the site, followed by the filtered output.</p>
+<p>And hey presto.</p>
+<p>In conclusion: dynamic site aliases in Drush were nice, but the maintainers removed them (as far as I can gather) because they were a mess to implement, and removing them vastly simplified things. Doing the equivalent with xargs took a bit of figuring out, but once you know how to do it, it's actually a much more powerful way to work with multiple sites at once.</p>
+      
+<span><span>joachim</span></span>
+
+<span>Sat, 03/16/2019 - 20:44
+</span>
+
+
+
+      <h3 class="field__label field--tags__label">Tags</h3>
+    <ul class="links field__items field--tags__items">
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/9" hreflang="en">drush</a></li>
+          <li class="field--tags__item"><a href="https://joachim-n.github.io//taxonomy/term/6" hreflang="en">drupal planet</a></li>
+      </ul>
+
+]]></description>
+  <pubDate>Sat, 16 Mar 2019 20:44:15 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">50 at https://joachim-n.github.io</guid>
+    </item>
+
+  </channel>
+</rss>

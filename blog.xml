@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xml:base="https://joachim-n.github.io//">
+  <channel>
+    <title>Blog</title>
+    <link>https://joachim-n.github.io//</link>
+    <description/>
+    <language>en</language>
+    
+    <item>
+  <title>Refactoring with Rector</title>
+  <link>https://joachim-n.github.io//blog/refactoring-rector</link>
+  <description><![CDATA[
+<span>Refactoring with Rector</span>
+
+<span><span>joachim</span></span>
+
+<span>Fri, 05/03/2024 - 20:47
+</span>
+]]></description>
+  <pubDate>Fri, 03 May 2024 20:47:33 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">59 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Defining bundle fields in code</title>
+  <link>https://joachim-n.github.io//blog/defining-bundle-fields-code</link>
+  <description><![CDATA[
+<span>Defining bundle fields in code</span>
+
+<span><span>joachim</span></span>
+
+<span>Mon, 01/31/2022 - 17:14
+</span>
+]]></description>
+  <pubDate>Mon, 31 Jan 2022 17:14:06 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">58 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Commit your Composer-managed files to version control</title>
+  <link>https://joachim-n.github.io//blog/commit-your-composer-managed-files-version-control</link>
+  <description><![CDATA[
+<span>Commit your Composer-managed files to version control</span>
+
+<span><span>joachim</span></span>
+
+<span>Tue, 04/20/2021 - 08:46
+</span>
+]]></description>
+  <pubDate>Tue, 20 Apr 2021 08:46:49 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">57 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>A better way to work on Drupal core</title>
+  <link>https://joachim-n.github.io//blog/better-way-work-drupal-core</link>
+  <description><![CDATA[
+<span>A better way to work on Drupal core</span>
+
+<span><span>joachim</span></span>
+
+<span>Fri, 04/16/2021 - 13:32
+</span>
+]]></description>
+  <pubDate>Fri, 16 Apr 2021 13:32:26 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">56 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Different ways to make entity bundles</title>
+  <link>https://joachim-n.github.io//blog/different-ways-make-entity-bundles</link>
+  <description><![CDATA[
+<span>Different ways to make entity bundles</span>
+
+<span><span>joachim</span></span>
+
+<span>Tue, 10/27/2020 - 11:52
+</span>
+]]></description>
+  <pubDate>Tue, 27 Oct 2020 11:52:24 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">55 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Using lazy builders with Twig templates</title>
+  <link>https://joachim-n.github.io//blog/using-lazy-builders-twig-templates</link>
+  <description><![CDATA[
+<span>Using lazy builders with Twig templates</span>
+
+<span><span>joachim</span></span>
+
+<span>Thu, 06/04/2020 - 14:04
+</span>
+]]></description>
+  <pubDate>Thu, 04 Jun 2020 14:04:12 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">54 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Base fields versus config fields, and how to handle the latter in tests</title>
+  <link>https://joachim-n.github.io//blog/base-fields-versus-config-fields-and-how-handle-latter-tests</link>
+  <description><![CDATA[
+<span>Base fields versus config fields, and how to handle the latter in tests</span>
+
+<span><span>joachim</span></span>
+
+<span>Thu, 03/19/2020 - 14:07
+</span>
+]]></description>
+  <pubDate>Thu, 19 Mar 2020 14:07:39 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">53 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Debugging and Logging AJAX requests tests in Docksal</title>
+  <link>https://joachim-n.github.io//blog/debugging-and-logging-ajax-requests-tests-docksal</link>
+  <description><![CDATA[
+<span>Debugging and Logging AJAX requests tests in Docksal</span>
+
+<span><span>joachim</span></span>
+
+<span>Wed, 11/06/2019 - 14:30
+</span>
+]]></description>
+  <pubDate>Wed, 06 Nov 2019 14:30:07 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">52 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Multi-site search using Feeds and SearchAPI</title>
+  <link>https://joachim-n.github.io//blog/multi-site-search-using-feeds-and-searchapi</link>
+  <description><![CDATA[
+<span>Multi-site search using Feeds and SearchAPI</span>
+
+<span><span>joachim</span></span>
+
+<span>Wed, 10/30/2019 - 13:08
+</span>
+]]></description>
+  <pubDate>Wed, 30 Oct 2019 13:08:43 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">51 at https://joachim-n.github.io</guid>
+    </item>
+<item>
+  <title>Controlling multiple sites with Drush 9</title>
+  <link>https://joachim-n.github.io//blog/controlling-multiple-sites-drush-9</link>
+  <description><![CDATA[
+<span>Controlling multiple sites with Drush 9</span>
+
+<span><span>joachim</span></span>
+
+<span>Sat, 03/16/2019 - 20:44
+</span>
+]]></description>
+  <pubDate>Sat, 16 Mar 2019 20:44:15 +0000</pubDate>
+    <dc:creator>joachim</dc:creator>
+    <guid isPermaLink="false">50 at https://joachim-n.github.io</guid>
+    </item>
+
+  </channel>
+</rss>
